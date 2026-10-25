@@ -1,0 +1,45 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ⚠️ להחליף לאימייל של המנהל (אותו אימייל כמו ב-ADMIN_EMAILS בקובץ index.html)
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email.lower() in ['danny.b.d.20@gmail.com'];
+    }
+    function signedIn() { return request.auth != null; }
+    function approved() {
+      return signedIn()
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.status == 'approved';
+    }
+
+    // לקוחות: כל אחד יוצר את עצמו במצב "ממתין", רק המנהל מאשר
+    match /users/{uid} {
+      allow read: if isAdmin() || (signedIn() && request.auth.uid == uid);
+      allow create: if signedIn() && request.auth.uid == uid
+        && (request.resource.data.status == 'pending' || isAdmin());
+      allow update, delete: if isAdmin();
+    }
+
+    // מוצרים: רק לקוח מאושר רואה, רק המנהל עורך
+    match /products/{id} {
+      allow read: if isAdmin() || approved();
+      allow write: if isAdmin();
+    }
+
+    // הגדרות החנות (שם, לוגו, וואטסאפ): כולם רואים, רק המנהל עורך
+    match /settings/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // הזמנות: לקוח מאושר יוצר ורואה רק את שלו, המנהל רואה ומעדכן הכל
+    match /orders/{id} {
+      allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
+      allow create: if approved()
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.status == 'new';
+      allow update, delete: if isAdmin();
+    }
+  }
+}

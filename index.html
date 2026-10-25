@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>החנות של אפריים בן דוד</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Secular+One&display=swap">
+<style>
+/* Layout: colored header band, chip rail of colored categories, 2-col product tiles on phone, hang-tag prices */
+:root{
+  --bg:#F3F5FC; --card:#FFFFFF; --ink:#1B1A33; --muted:#5F6183; --line:#E1E3F0;
+  --pink:#E8336E; --pink-ink:#FFFFFF; --yellow:#FFC93C; --yellow-ink:#3A2700;
+  --teal:#0FA89A; --orange:#FF7A1A; --sky:#2F7BEB; --grape:#7A3FE0; --green:#1FA855;
+  --soft:#FDE6EE; --danger:#D1323A;
+  --c0:#FFE3EC; --c1:#FFF1C7; --c2:#D4F5F0; --c3:#FFE6D3; --c4:#DDE9FD; --c5:#ECE2FC;
+  --display:"Secular One","Assistant",system-ui,sans-serif;
+  --body:"Assistant",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --r:16px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#13132A; --card:#1E1E3C; --ink:#F1F0FF; --muted:#A6A7CC; --line:#2F2F55;
+  --pink:#FF5C8F; --yellow:#FFD15C; --teal:#2CD3C2; --orange:#FF9447; --sky:#5C9BFF; --grape:#A275FF; --green:#36C774;
+  --soft:#3A1E33; --danger:#FF6B70;
+  --c0:#3A1E33; --c1:#3A3220; --c2:#173836; --c3:#3B2718; --c4:#1C2C4A; --c5:#2C2148; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13132A; --card:#1E1E3C; --ink:#F1F0FF; --muted:#A6A7CC; --line:#2F2F55;
+  --pink:#FF5C8F; --yellow:#FFD15C; --teal:#2CD3C2; --orange:#FF9447; --sky:#5C9BFF; --grape:#A275FF; --green:#36C774;
+  --soft:#3A1E33; --danger:#FF6B70;
+  --c0:#3A1E33; --c1:#3A3220; --c2:#173836; --c3:#3B2718; --c4:#1C2C4A; --c5:#2C2148; color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--body);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--pink)}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;line-height:1.2}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+
+/* demo strip */
+.demo{background:var(--yellow);color:var(--yellow-ink);font-size:14px}
+.demo .wrap{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-block:8px}
+.demo b{margin-inline-end:auto}
+.demo button{border:0;background:rgba(0,0,0,.1);border-radius:99px;padding:4px 12px;cursor:pointer;font-weight:700;color:var(--yellow-ink)}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--pink);color:var(--pink-ink);box-shadow:0 2px 0 rgba(0,0,0,.06)}
+.top .wrap{display:flex;align-items:center;gap:10px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;margin-inline-end:auto;min-width:0}
+.brand h1{font-size:clamp(17px,4.6vw,22px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.logo{width:40px;height:40px;border-radius:12px;background:#fff;object-fit:contain;flex:none}
+.logo.ph{display:grid;place-items:center;color:var(--pink);font:24px var(--display)}
+.hbtn{border:0;background:rgba(255,255,255,.2);color:#fff;border-radius:99px;padding:7px 14px;font-weight:700;cursor:pointer;white-space:nowrap}
+.hbtn:hover{background:rgba(255,255,255,.3)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:11px 18px;font-weight:800;cursor:pointer;text-decoration:none;background:var(--pink);color:#fff;transition:transform .1s}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.55;cursor:default}
+.btn.full{width:100%}
+.btn.soft{background:var(--soft);color:var(--pink)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+.btn.wa{background:var(--green)}
+.btn.teal{background:var(--teal)}
+.btn.sky{background:var(--sky)}
+.btn.orange{background:var(--orange)}
+.btn.grape{background:var(--grape)}
+.btn.danger{background:var(--danger)}
+.btn.sm{padding:7px 12px;font-size:14px;border-radius:10px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+/* forms */
+label.f{display:grid;gap:5px;font-weight:700;font-size:14px}
+input.i,select.i,textarea.i{width:100%;border:2px solid var(--line);background:var(--card);border-radius:12px;padding:11px 13px;font-weight:400;font-size:16px}
+input.i:focus,select.i:focus,textarea.i:focus{border-color:var(--sky);outline:none}
+textarea.i{min-height:76px;resize:vertical}
+.err{background:var(--soft);color:var(--danger);border-radius:12px;padding:10px 14px;font-weight:700}
+
+/* auth */
+.auth{min-height:100vh;display:grid;place-items:center;padding-block:32px;
+  background:
+   radial-gradient(circle at 12% 18%,var(--c1) 0 120px,transparent 121px),
+   radial-gradient(circle at 88% 12%,var(--c2) 0 90px,transparent 91px),
+   radial-gradient(circle at 80% 88%,var(--c4) 0 140px,transparent 141px),
+   radial-gradient(circle at 10% 90%,var(--c0) 0 100px,transparent 101px),var(--bg)}
+.auth-card{width:100%;max-width:420px;background:var(--card);border-radius:24px;padding:28px 22px;display:grid;gap:16px;box-shadow:0 20px 50px -20px rgba(40,20,90,.25)}
+.auth-head{display:grid;justify-items:center;gap:8px;text-align:center}
+.auth-head .logo{width:64px;height:64px;border-radius:18px;background:var(--soft)}
+.auth-head .logo.ph{font-size:36px}
+.auth-head h1{font-size:28px;color:var(--pink)}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--bg);border-radius:12px;padding:4px}
+.seg button{border:0;background:transparent;border-radius:9px;padding:9px;font-weight:800;cursor:pointer;color:var(--muted)}
+.seg button.on{background:var(--card);color:var(--pink);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+.link{background:none;border:0;color:var(--sky);font-weight:700;cursor:pointer;padding:0}
+form.stack{display:grid;gap:12px}
+
+/* center message */
+.center{min-height:70vh;display:grid;place-items:center;text-align:center;padding-block:40px}
+.center .box{display:grid;gap:14px;justify-items:center;max-width:400px}
+.bubble{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font-size:40px}
+
+/* shop */
+.hello{padding-block:18px 6px;display:grid;gap:2px}
+.hello h2{font-size:26px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-block:10px 14px;scrollbar-width:none}
+.chip{flex:none;border:0;border-radius:99px;padding:8px 16px;font-weight:800;cursor:pointer;background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+.chip.on{color:#fff;box-shadow:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;padding-bottom:120px}
+@media (max-width:420px){.grid{grid-template-columns:1fr 1fr;gap:10px}}
+.pc{background:var(--card);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 0 0 2px transparent;transition:box-shadow .15s}
+.pc.on{box-shadow:0 0 0 3px var(--pink)}
+.ph{position:relative;aspect-ratio:1;max-width:100%;display:grid;place-items:center}
+.ph img{width:100%;height:100%;object-fit:cover}
+.noimg{font:48px var(--display);color:var(--ink);opacity:.5}
+.tag{position:absolute;top:10px;right:0;background:var(--yellow);color:var(--yellow-ink);font-weight:800;font-size:15px;padding:6px 10px 6px 18px;clip-path:polygon(12px 0,100% 0,100% 100%,12px 100%,0 50%);font-variant-numeric:tabular-nums;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.tag::before{content:"";position:absolute;left:9px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:var(--card)}
+.badge-cat{position:absolute;bottom:8px;left:8px;font-size:12px;font-weight:800;color:#fff;padding:2px 9px;border-radius:99px}
+.pb{padding:10px 12px 4px;display:grid;gap:2px;flex:1;min-width:0}
+.pb h3{font-size:17px}
+.pb p{margin:0;font-size:13px;color:var(--muted);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.pq{padding:8px 12px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.qb{width:38px;height:38px;border-radius:50%;border:0;background:var(--pink);color:#fff;font-size:22px;font-weight:800;cursor:pointer;line-height:1}
+.qb.minus{background:var(--soft);color:var(--pink)}
+.qn{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+.empty{background:var(--card);border-radius:var(--r);padding:36px 20px;text-align:center;display:grid;gap:8px;justify-items:center;grid-column:1/-1}
+
+/* bottom bar */
+.bar{position:fixed;bottom:0;left:0;right:0;z-index:25;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));padding-top:12px;background:linear-gradient(transparent,var(--bg) 30%)}
+.bar .wrap{display:flex}
+.bar .btn{flex:1;justify-content:space-between;padding:15px 20px;font-size:17px;border-radius:16px;box-shadow:0 10px 26px -8px var(--pink)}
+.count{background:#fff;color:var(--pink);border-radius:99px;min-width:28px;height:28px;display:inline-grid;place-items:center;padding:0 8px;font-variant-numeric:tabular-nums}
+
+/* sheet */
+.scrim{position:fixed;inset:0;z-index:40;background:rgba(20,10,40,.45);display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--card);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:24px 24px 0 0;padding:20px max(18px,env(safe-area-inset-left,0px)) calc(20px + env(safe-area-inset-bottom,0px));display:grid;gap:14px}
+@media (min-width:700px){.scrim{align-items:center}.sheet{border-radius:24px}}
+.sheet-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.sheet-h h2{font-size:24px}
+.x{border:0;background:var(--bg);width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer}
+.line{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding-block:8px;border-bottom:2px dashed var(--line)}
+.line img,.line .th{width:52px;height:52px;border-radius:12px;object-fit:cover;display:grid;place-items:center;font:22px var(--display)}
+.line .nm{min-width:0}
+.line .nm b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mini{display:flex;align-items:center;gap:8px}
+.mini .qb{width:30px;height:30px;font-size:18px}
+.total{display:flex;justify-content:space-between;align-items:baseline;font-size:20px;font-weight:800}
+.total .big{font:30px var(--display);color:var(--pink)}
+
+/* admin */
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-block:14px;scrollbar-width:none}
+.tab{flex:none;border:0;border-radius:14px;padding:10px 16px;font-weight:800;cursor:pointer;background:var(--card);color:var(--ink);display:flex;gap:8px;align-items:center}
+.tab.on{color:#fff}
+.tab .n{background:rgba(0,0,0,.12);border-radius:99px;padding:0 8px;font-size:13px;font-variant-numeric:tabular-nums}
+.tab:not(.on) .n{background:var(--bg)}
+.sec-h{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding-block:4px 14px}
+.sec-h h2{font-size:24px}
+.cubes{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;padding-bottom:40px}
+.cube{border:0;text-align:right;background:var(--card);border-radius:var(--r);padding:16px;display:grid;gap:8px;cursor:pointer;position:relative;overflow:hidden}
+.cube::before{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:var(--cc,var(--sky))}
+.cube:hover{transform:translateY(-2px)}
+.cube-top,.cube-bot{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cube-top b{font-size:18px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cube-bot b{font:22px var(--display)}
+.av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;font:20px var(--display);flex:none}
+.pill{font-size:12px;font-weight:800;border-radius:99px;padding:3px 10px;white-space:nowrap}
+.pill.new{background:var(--c3);color:var(--orange)}
+.pill.priced{background:var(--c2);color:var(--teal)}
+.pill.pending{background:var(--c1);color:#A06A00}
+.pill.approved{background:var(--c2);color:var(--teal)}
+.pill.rejected{background:var(--c0);color:var(--danger)}
+.panel{background:var(--card);border-radius:var(--r);padding:18px;display:grid;gap:14px}
+.detail{display:grid;gap:14px;grid-template-columns:1.4fr 1fr;align-items:start;padding-bottom:40px}
+@media (max-width:760px){.detail{grid-template-columns:1fr}}
+.who{display:flex;gap:12px;align-items:center}
+.who .av{width:52px;height:52px;font-size:26px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:15px}
+.kv span:nth-child(odd){color:var(--muted)}
+.sel{user-select:all}
+.tbl-wrap{overflow-x:auto}
+table.t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table.t th{text-align:right;font-size:13px;color:var(--muted);font-weight:700;padding:8px 6px;border-bottom:2px solid var(--line)}
+table.t td{padding:10px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.t td.n{white-space:nowrap}
+.tp{display:flex;gap:10px;align-items:center}
+.tp img,.tp .th{width:40px;height:40px;border-radius:10px;object-fit:cover;flex:none;display:grid;place-items:center;font:18px var(--display)}
+.final{border-radius:14px;padding:14px;background:var(--c2);display:flex;justify-content:space-between;align-items:baseline}
+.final b{font:30px var(--display);color:var(--teal)}
+.dl{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.plist{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;padding-bottom:40px}
+@media (max-width:420px){.plist{grid-template-columns:1fr 1fr;gap:10px}}
+.pa{padding:8px 12px 12px;display:flex;gap:6px}
+.pa .btn{flex:1}
+.imgpick{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:center}
+.imgpick .prev{width:96px;height:96px;border-radius:16px;background:var(--bg);display:grid;place-items:center;overflow:hidden;color:var(--muted);font-size:13px;text-align:center}
+.imgpick .prev img{width:100%;height:100%;object-fit:cover}
+.filebtn{position:relative;overflow:hidden}
+.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.ulist{display:grid;gap:10px;padding-bottom:30px}
+.urow{background:var(--card);border-radius:var(--r);padding:14px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.urow .info{flex:1;min-width:180px;display:grid}
+.confirm{background:var(--soft);border-radius:12px;padding:12px;display:grid;gap:10px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:14px;font-weight:700;z-index:60;max-width:calc(100% - 32px);text-align:center}
+.myo{display:grid;gap:12px;padding-bottom:40px}
+.ocard{background:var(--card);border-radius:var(--r);padding:16px;display:grid;gap:10px}
+.oitems{font-size:14px;color:var(--muted)}
+.note{background:var(--c1);color:var(--ink);border-radius:12px;padding:12px 14px;font-size:15px}
+.spin{width:36px;height:36px;border-radius:50%;border:4px solid var(--soft);border-top-color:var(--pink);animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* PDF sheet (rendered off screen) */
+#pdfHost{position:fixed;left:-10000px;top:0;width:794px;pointer-events:none}
+.pdf{width:794px;background:#fff;color:#1B1A33;font-family:var(--body);direction:rtl}
+.pdf-band{background:#E8336E;color:#fff;padding:30px 40px;display:flex;align-items:center;gap:18px}
+.pdf-band img{width:78px;height:78px;border-radius:16px;background:#fff;object-fit:contain;padding:4px}
+.pdf-band .lp{width:78px;height:78px;border-radius:16px;background:#fff;color:#E8336E;display:grid;place-items:center;font:40px var(--display)}
+.pdf-band h1{font:34px var(--display);color:#fff;margin:0}
+.pdf-band .sub{opacity:.9;font-size:16px}
+.pdf-stripe{height:10px;background:linear-gradient(90deg,#FFC93C 0 25%,#0FA89A 25% 50%,#2F7BEB 50% 75%,#FF7A1A 75%)}
+.pdf-body{padding:28px 40px 36px}
+.pdf-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px}
+.pdf-box{background:#F3F5FC;border-radius:14px;padding:14px 16px;font-size:15px;line-height:1.7}
+.pdf-box b{display:block;font:18px var(--display);color:#7A3FE0;margin-bottom:2px}
+.pdf table{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
+.pdf th{background:#1B1A33;color:#fff;padding:10px;text-align:right;font-weight:700}
+.pdf th:first-child{border-radius:0 10px 10px 0}.pdf th:last-child{border-radius:10px 0 0 10px}
+.pdf td{padding:10px;border-bottom:1px solid #E1E3F0;vertical-align:middle}
+.pdf tr{page-break-inside:avoid}
+.pdf .pimg{width:54px;height:54px;border-radius:10px;object-fit:cover;display:block}
+.pdf .pimg.ph{background:#FFE3EC;color:#E8336E;display:grid;place-items:center;font:24px var(--display)}
+.pdf-sum{margin-top:20px;margin-right:auto;width:330px;display:grid;gap:6px;font-size:16px}
+.pdf-sum div{display:flex;justify-content:space-between}
+.pdf-sum .grand{background:#0FA89A;color:#fff;border-radius:14px;padding:14px 16px;font:24px var(--display);margin-top:6px}
+.pdf-note{margin-top:20px;background:#FFF1C7;border-radius:14px;padding:14px 16px;font-size:15px}
+.pdf-foot{margin-top:28px;text-align:center;color:#5F6183;font-size:13px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="pdfHost" aria-hidden="true"></div>
+<script>
+/* ============================================================
+   הגדרות — זה החלק היחיד שצריך לערוך
+   ============================================================ */
+
+// 1) הדבק כאן את פרטי Firebase שלך (Project settings → Your apps → Config).
+//    כל עוד זה null האתר רץ במצב הדגמה (הנתונים נשמרים רק בדפדפן).
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyD5h73ZKLfpPnRmq2iPtZctNx0aBzF02K8",
+  authDomain: "efi-ben-david.firebaseapp.com",
+  projectId: "efi-ben-david",
+  storageBucket: "efi-ben-david.firebasestorage.app",
+  messagingSenderId: "721588019888",
+  appId: "1:721588019888:web:9cd9605874d47525b39175"
+};
+/* דוגמה:
+const FIREBASE_CONFIG = {
+  apiKey: "AIza...",
+  authDomain: "my-store.firebaseapp.com",
+  projectId: "my-store",
+  storageBucket: "my-store.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abc123"
+};
+*/
+
+// 2) האימייל של המנהל (אותו אימייל צריך להופיע גם בקובץ firestore.rules)
+const ADMIN_EMAILS = ["danny.b.d.20@gmail.com"];
+
+/* ============================================================ */
+
+const DEMO_ADMIN = "admin@demo.co.il";
+const DEFAULT_SETTINGS = { storeName: "החנות של אפריים בן דוד", whatsapp: "", logo: "" };
+const CAT_COLORS = ["var(--pink)","var(--teal)","var(--orange)","var(--sky)","var(--grape)","var(--green)"];
+const CAT_TINTS = ["var(--c0)","var(--c2)","var(--c3)","var(--c4)","var(--c5)","var(--c1)"];
+const STATUS = { new: "חדשה", priced: "נשלח מחיר" };
+const USTATUS = { pending: "ממתין לאישור", approved: "מאושר", rejected: "נדחה" };
+
+const $app = document.getElementById("app");
+let api = null;
+const S = {
+  ready:false, mode:"demo", fatal:"", profile:null,
+  products:[], users:[], orders:[], myOrders:[], settings:{...DEFAULT_SETTINGS},
+  cart:{}, f:{}, view:"shop", tab:"orders", cat:"הכל", ofilter:"new",
+  openOrder:null, sheet:null, editProduct:null, confirm:null, sent:null,
+  authTab:"login", err:"", busy:false, toast:""
+};
+
+/* ---------- helpers ---------- */
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const r2 = n => Math.round((+n || 0) * 100) / 100;
+const money = n => "₪" + r2(n).toLocaleString("he-IL", { maximumFractionDigits: 2 });
+const fv = (k, d = "") => (k in S.f ? S.f[k] : d);
+const shortId = id => String(id || "").slice(-5).toUpperCase();
+const fmtDate = t => t ? new Date(t).toLocaleString("he-IL", { day:"numeric", month:"numeric", year:"2-digit", hour:"2-digit", minute:"2-digit" }) : "";
+const isAdminEmail = e => [...ADMIN_EMAILS, ...(S.mode === "demo" ? [DEMO_ADMIN] : [])].map(x => x.toLowerCase()).includes(String(e || "").trim().toLowerCase());
+const intlPhone = p => { let d = String(p || "").replace(/\D/g, ""); if (d.startsWith("0")) d = "972" + d.slice(1); return d; };
+const waLink = (phone, text) => `https://wa.me/${intlPhone(phone)}?text=${encodeURIComponent(text)}`;
+const cats = () => [...new Set(S.products.map(p => (p.cat || "").trim()).filter(Boolean))];
+const catIdx = c => { const i = cats().indexOf(c); return i < 0 ? 0 : i % CAT_COLORS.length; };
+const hashIdx = s => { let h = 0; for (const ch of String(s)) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return h % CAT_COLORS.length; };
+const initial = s => esc((String(s || "?").trim()[0]) || "?");
+const itemsCount = o => (o.items || []).reduce((s, i) => s + (+i.qty || 0), 0);
+const orderTotal = o => o.status === "priced" ? o.finalPrice : o.subtotal;
+
+function thumb(p, cls = "th") {
+  if (p && p.image) return `<img src="${esc(p.image)}" alt="">`;
+  const i = p && p.cat ? catIdx(p.cat) : hashIdx(p ? p.name : "");
+  return `<span class="${cls}" style="background:${CAT_TINTS[i]};color:${CAT_COLORS[i]}">${initial(p && p.name)}</span>`;
+}
+function logoEl(cls = "logo") {
+  const l = S.settings.logo;
+  return l ? `<img class="${cls}" src="${esc(l)}" alt="">` : `<span class="${cls} ph">${initial(S.settings.storeName)}</span>`;
+}
+function toast(msg) { S.toast = msg; render(true); clearTimeout(toast.t); toast.t = setTimeout(() => { S.toast = ""; render(true); }, 2800); }
+function errMsg(e) {
+  const c = (e && (e.code || "")) + "";
+  const map = {
+    "auth/invalid-credential":"אימייל או סיסמה שגויים", "auth/wrong-password":"אימייל או סיסמה שגויים", "auth/user-not-found":"אימייל או סיסמה שגויים",
+    "auth/email-already-in-use":"האימייל הזה כבר רשום. נסו להתחבר.", "auth/weak-password":"הסיסמה צריכה לפחות 6 תווים",
+    "auth/invalid-email":"כתובת האימייל לא תקינה", "auth/too-many-requests":"יותר מדי ניסיונות. נסו שוב בעוד כמה דקות.",
+    "auth/network-request-failed":"אין חיבור לאינטרנט", "permission-denied":"אין הרשאה לפעולה הזו. בדקו את כללי האבטחה ב-Firebase."
+  };
+  return map[c] || (e && e.message) || "משהו השתבש, נסו שוב";
+}
+function compress(file, max = 640, type = "image/jpeg") {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const s = Math.min(1, max / Math.max(img.width, img.height));
+        const c = document.createElement("canvas");
+        c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+        const x = c.getContext("2d");
+        if (type === "image/jpeg") { x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height); }
+        x.drawImage(img, 0, 0, c.width, c.height);
+        res(c.toDataURL(type, 0.75));
+      };
+      img.onerror = () => rej(new Error("הקובץ הזה אינו תמונה"));
+      img.src = r.result;
+    };
+    r.onerror = () => rej(new Error("לא הצלחתי לקרוא את הקובץ"));
+    r.readAsDataURL(file);
+  });
+}
+const scripts = {};
+function loadScript(src) {
+  return scripts[src] || (scripts[src] = new Promise((res, rej) => {
+    const s = document.createElement("script"); s.src = src; s.onload = res;
+    s.onerror = () => { delete scripts[src]; rej(new Error("לא הצלחתי לטעון את רכיב ההורדה")); };
+    document.head.appendChild(s);
+  }));
+}
+
+/* ---------- demo backend (browser only) ---------- */
+function svgTile(emoji, bg) {
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="${bg}"/><circle cx="100" cy="104" r="62" fill="#fff" opacity=".55"/><text x="100" y="128" font-size="72" text-anchor="middle">${emoji}</text></svg>`);
+}
+function demoSeed() {
+  const t = Date.now();
+  return {
+    session: null,
+    settings: { storeName: "המאפייה של דני (דוגמה)", whatsapp: "0500000000", logo: "" },
+    users: {
+      admin1: { name: "מנהל החנות", email: DEMO_ADMIN, phone: "0500000000", password: "demo123", status: "approved", createdAt: t - 9e7 },
+      cust1:  { name: "יוסי כהן", email: "yossi@demo.co.il", phone: "0521234567", password: "demo123", status: "approved", createdAt: t - 8e7 },
+      cust2:  { name: "מיכל לוי", email: "michal@demo.co.il", phone: "0547654321", password: "demo123", status: "pending", createdAt: t - 3e6 }
+    },
+    products: {
+      p1: { name: "חלה מתוקה", price: 18, cat: "לחמים", desc: "חלה קלועה בעבודת יד", image: svgTile("🍞", "#FFE3EC"), createdAt: t - 7e7 },
+      p2: { name: "לחם מחמצת", price: 26, cat: "לחמים", desc: "התפחה של 24 שעות", image: svgTile("🥖", "#FFF1C7"), createdAt: t - 7e7 + 1 },
+      p3: { name: "קרואסון חמאה", price: 9, cat: "מאפים", desc: "", image: svgTile("🥐", "#FFE6D3"), createdAt: t - 7e7 + 2 },
+      p4: { name: "עוגת שמרים שוקולד", price: 42, cat: "עוגות", desc: "מספיקה ל-8 אנשים", image: svgTile("🍫", "#ECE2FC"), createdAt: t - 7e7 + 3 },
+      p5: { name: "עוגיות חמאה 500 גר'", price: 35, cat: "עוגות", desc: "", image: svgTile("🍪", "#D4F5F0"), createdAt: t - 7e7 + 4 },
+      p6: { name: "בורקס גבינה (6 יח')", price: 30, cat: "מאפים", desc: "", image: svgTile("🥟", "#DDE9FD"), createdAt: t - 7e7 + 5 }
+    },
+    orders: {
+      o1: { uid: "cust1", name: "יוסי כהן", email: "yossi@demo.co.il", phone: "0521234567", status: "new", note: "אפשר לאסוף ביום שישי בבוקר?",
+            items: [{ id:"p1", name:"חלה מתוקה", price:18, qty:2 }, { id:"p4", name:"עוגת שמרים שוקולד", price:42, qty:1 }, { id:"p3", name:"קרואסון חמאה", price:9, qty:4 }],
+            subtotal: 114, createdAt: t - 36e5 }
+    }
+  };
+}
+function demoBackend() {
+  const KEY = "mechiron-demo-v1";
+  let mem;
+  try { mem = JSON.parse(localStorage.getItem(KEY)); } catch (e) { mem = null; }
+  if (!mem || !mem.users) mem = demoSeed();
+  const subs = new Set();
+  const emit = () => { try { localStorage.setItem(KEY, JSON.stringify(mem)); } catch (e) {} subs.forEach(f => f()); };
+  const sub = fn => { subs.add(fn); setTimeout(fn, 0); return () => subs.delete(fn); };
+  const nid = () => Math.random().toString(36).slice(2, 8) + Date.now().toString(36);
+  const list = o => Object.entries(o).map(([id, v]) => ({ id, ...v }));
+  const findUser = email => Object.entries(mem.users).find(([, u]) => u.email === String(email).trim().toLowerCase());
+  let authCb = null;
+  const fireAuth = () => { if (!authCb) return; const u = mem.users[mem.session]; authCb(u ? { uid: mem.session, name: u.name, email: u.email, phone: u.phone, status: isAdminEmail(u.email) ? "approved" : u.status, isAdmin: isAdminEmail(u.email) } : null); };
+  subs.add(fireAuth);
+  return {
+    onAuth(cb) { authCb = cb; setTimeout(fireAuth, 0); },
+    async signUp({ name, email, phone, password }) {
+      email = email.trim().toLowerCase();
+      if (findUser(email)) throw new Error("האימייל הזה כבר רשום. נסו להתחבר.");
+      if (password.length < 6) throw new Error("הסיסמה צריכה לפחות 6 תווים");
+      const id = nid();
+      mem.users[id] = { name, email, phone, password, status: isAdminEmail(email) ? "approved" : "pending", createdAt: Date.now() };
+      mem.session = id; emit();
+    },
+    async signIn(email, password) { const e = findUser(email); if (!e || e[1].password !== password) throw new Error("אימייל או סיסמה שגויים"); mem.session = e[0]; emit(); },
+    async signOut() { mem.session = null; emit(); },
+    async reset() { throw new Error("במצב הדגמה לא נשלחים מיילים"); },
+    loginAs(email) { const e = findUser(email); if (e) { mem.session = e[0]; emit(); } },
+    resetAll() { mem = demoSeed(); emit(); },
+    watchProducts: cb => sub(() => cb(list(mem.products).sort((a, b) => a.createdAt - b.createdAt))),
+    async saveProduct(p) { const { id, ...d } = p; const k = id || nid(); mem.products[k] = { ...(mem.products[k] || { createdAt: Date.now() }), ...d }; emit(); },
+    async deleteProduct(id) { delete mem.products[id]; emit(); },
+    watchUsers: cb => sub(() => cb(list(mem.users).map(({ password, ...u }) => u))),
+    async setUserStatus(id, status) { mem.users[id].status = status; emit(); },
+    watchSettings: cb => sub(() => cb({ ...mem.settings })),
+    async saveSettings(s) { mem.settings = { ...mem.settings, ...s }; emit(); },
+    async createOrder(o) { const id = nid(); mem.orders[id] = { ...o, createdAt: Date.now() }; emit(); return id; },
+    watchOrders: cb => sub(() => cb(list(mem.orders))),
+    watchMyOrders: (uid, cb) => sub(() => cb(list(mem.orders).filter(o => o.uid === uid))),
+    async updateOrder(id, p) { Object.assign(mem.orders[id], p); emit(); },
+    async deleteOrder(id) { delete mem.orders[id]; emit(); }
+  };
+}
+
+/* ---------- Firebase backend ---------- */
+async function firebaseBackend(cfg) {
+  const base = "https://www.gstatic.com/firebasejs/10.12.2/";
+  const [appM, authM, fs] = await Promise.all(["firebase-app.js", "firebase-auth.js", "firebase-firestore.js"].map(f => import(base + f)));
+  const app = appM.initializeApp(cfg), auth = authM.getAuth(app), db = fs.getFirestore(app);
+  const col = n => fs.collection(db, n), doc = (n, id) => fs.doc(db, n, id);
+  const snapList = (q, cb) => fs.onSnapshot(q, s => cb(s.docs.map(d => ({ id: d.id, ...d.data() }))), e => { console.warn(e); cb([]); });
+  let profUnsub = null;
+  return {
+    onAuth(cb) {
+      authM.onAuthStateChanged(auth, u => {
+        if (profUnsub) { profUnsub(); profUnsub = null; }
+        if (!u) return cb(null);
+        const admin = isAdminEmail(u.email);
+        profUnsub = fs.onSnapshot(doc("users", u.uid), s => {
+          const d = s.data();
+          if (!d && admin) fs.setDoc(doc("users", u.uid), { name: "מנהל החנות", email: u.email.toLowerCase(), phone: "", status: "approved", createdAt: Date.now() }).catch(console.warn);
+          cb({ uid: u.uid, email: u.email, name: d?.name || "", phone: d?.phone || "", status: admin ? "approved" : (d?.status || "pending"), isAdmin: admin });
+        }, e => { console.warn(e); cb({ uid: u.uid, email: u.email, name: "", phone: "", status: admin ? "approved" : "pending", isAdmin: admin }); });
+      });
+    },
+    async signUp({ name, email, phone, password }) {
+      const c = await authM.createUserWithEmailAndPassword(auth, email.trim(), password);
+      await fs.setDoc(doc("users", c.user.uid), { name, email: email.trim().toLowerCase(), phone, status: isAdminEmail(email) ? "approved" : "pending", createdAt: Date.now() });
+    },
+    signIn: (e, p) => authM.signInWithEmailAndPassword(auth, e.trim(), p),
+    signOut: () => authM.signOut(auth),
+    reset: e => authM.sendPasswordResetEmail(auth, e.trim()),
+    watchProducts: cb => snapList(col("products"), l => cb(l.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0)))),
+    async saveProduct(p) { const { id, ...d } = p; if (id) await fs.setDoc(doc("products", id), d, { merge: true }); else await fs.addDoc(col("products"), { ...d, createdAt: Date.now() }); },
+    deleteProduct: id => fs.deleteDoc(doc("products", id)),
+    watchUsers: cb => snapList(col("users"), cb),
+    setUserStatus: (id, status) => fs.updateDoc(doc("users", id), { status }),
+    watchSettings: cb => fs.onSnapshot(doc("settings", "store"), s => cb(s.data() || {}), () => cb({})),
+    saveSettings: s => fs.setDoc(doc("settings", "store"), s, { merge: true }),
+    createOrder: async o => (await fs.addDoc(col("orders"), { ...o, createdAt: Date.now() })).id,
+    watchOrders: cb => snapList(col("orders"), cb),
+    watchMyOrders: (uid, cb) => snapList(fs.query(col("orders"), fs.where("uid", "==", uid)), cb),
+    updateOrder: (id, p) => fs.updateDoc(doc("orders", id), p),
+    deleteOrder: id => fs.deleteDoc(doc("orders", id))
+  };
+}
+
+/* ---------- data subscriptions ---------- */
+let unsubs = [], subKey = "";
+function onProfile(p) {
+  S.profile = p; S.ready = true;
+  const key = p ? `${p.uid}|${p.isAdmin}|${p.status}` : "";
+  if (key !== subKey) {
+    subKey = key; unsubs.forEach(u => u && u()); unsubs = [];
+    S.products = []; S.users = []; S.orders = []; S.myOrders = [];
+    if (!p) { S.cart = {}; S.view = "shop"; S.openOrder = null; S.sheet = null; S.tab = "orders"; }
+    else if (p.isAdmin) {
+      unsubs.push(api.watchProducts(l => { S.products = l; render(); }), api.watchUsers(l => { S.users = l; render(); }), api.watchOrders(l => { S.orders = l.sort((a, b) => b.createdAt - a.createdAt); render(); }));
+    } else if (p.status === "approved") {
+      unsubs.push(api.watchProducts(l => { S.products = l; render(); }), api.watchMyOrders(p.uid, l => { S.myOrders = l.sort((a, b) => b.createdAt - a.createdAt); render(); }));
+    }
+  }
+  render(true);
+}
+
+/* ---------- render ---------- */
+let deferred = false;
+function render(force) {
+  const a = document.activeElement;
+  if (!force && a && $app.contains(a) && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && a.type !== "file") { deferred = true; return; }
+  deferred = false;
+  const y = window.scrollY;
+  $app.innerHTML = view();
+  window.scrollTo(0, y);
+  document.title = S.settings.storeName ? `${S.settings.storeName} · מחירון` : "מחירון הזמנות";
+}
+$app.addEventListener("focusout", () => setTimeout(() => { if (deferred) render(); }, 0));
+
+function view() {
+  if (S.fatal) return `<div class="center wrap"><div class="box"><div class="bubble" style="background:var(--c0)">⚠️</div><h2>החיבור נכשל</h2><p class="muted">${esc(S.fatal)}</p></div></div>`;
+  if (!S.ready) return `<div class="center"><div class="spin"></div></div>`;
+  let html = demoBar();
+  const p = S.profile;
+  if (!p) html += authView();
+  else if (p.isAdmin) html += adminView();
+  else if (p.status === "rejected") html += msgView("🚫", "var(--c0)", "החשבון לא אושר", "פנו למנהל החנות לפרטים נוספים.");
+  else if (p.status !== "approved") html += msgView("⏳", "var(--c1)", "ממתינים לאישור המנהל", `שלום ${esc(p.name || "")}, ההרשמה התקבלה. ברגע שהמנהל יאשר את החשבון, המחירון ייפתח כאן אוטומטית.`);
+  else if (S.view === "sent") html += sentView();
+  else if (S.view === "mine") html += myOrdersView();
+  else html += shopView();
+  if (S.toast) html += `<div class="toast" role="status">${esc(S.toast)}</div>`;
+  return html;
+}
+
+function demoBar() {
+  if (S.mode !== "demo") return "";
+  return `<div class="demo"><div class="wrap"><b>מצב הדגמה · הנתונים נשמרים רק בדפדפן הזה</b>
+    <button data-a="demoAs" data-id="${DEMO_ADMIN}">כניסה כמנהל</button>
+    <button data-a="demoAs" data-id="yossi@demo.co.il">כניסה כלקוח</button>
+    <button data-a="demoAs" data-id="michal@demo.co.il">לקוח ממתין</button>
+    <button data-a="demoReset">איפוס</button></div></div>`;
+}
+function header(extra) {
+  return `<header class="top"><div class="wrap"><div class="brand">${logoEl()}<h1>${esc(S.settings.storeName)}</h1></div>${extra}</div></header>`;
+}
+function msgView(icon, bg, title, text) {
+  return header(`<button class="hbtn" data-a="logout">יציאה</button>`) +
+    `<div class="center wrap"><div class="box"><div class="bubble" style="background:${bg}">${icon}</div><h2>${title}</h2><p class="muted">${text}</p></div></div>`;
+}
+
+/* auth */
+function authView() {
+  const reg = S.authTab === "register";
+  return `<main class="auth wrap"><div class="auth-card">
+    <div class="auth-head">${logoEl()}<h1>${esc(S.settings.storeName)}</h1><p class="muted" style="margin:0">${reg ? "פותחים חשבון ומחכים לאישור המנהל" : "כניסה למחירון ולהזמנות"}</p></div>
+    <div class="seg"><button class="${reg ? "" : "on"}" data-a="authTab" data-id="login">כניסה</button><button class="${reg ? "on" : ""}" data-a="authTab" data-id="register">הרשמה</button></div>
+    ${S.err ? `<div class="err" role="alert">${esc(S.err)}</div>` : ""}
+    ${reg ? `<form class="stack" data-submit="register">
+        <label class="f">שם מלא<input class="i" id="rName" data-m="r_name" value="${esc(fv("r_name"))}" required autocomplete="name"></label>
+        <label class="f">אימייל<input class="i" id="rEmail" type="email" data-m="r_email" value="${esc(fv("r_email"))}" required autocomplete="email" dir="ltr"></label>
+        <label class="f">טלפון<input class="i" id="rPhone" type="tel" data-m="r_phone" value="${esc(fv("r_phone"))}" required autocomplete="tel" dir="ltr" placeholder="050-0000000"></label>
+        <label class="f">סיסמה (לפחות 6 תווים)<input class="i" id="rPass" type="password" data-m="r_pass" value="${esc(fv("r_pass"))}" required minlength="6" autocomplete="new-password" dir="ltr"></label>
+        <button class="btn full" ${S.busy ? "disabled" : ""}>${S.busy ? "נרשם..." : "הרשמה"}</button>
+      </form>`
+    : `<form class="stack" data-submit="login">
+        <label class="f">אימייל<input class="i" id="lEmail" type="email" data-m="l_email" value="${esc(fv("l_email"))}" required autocomplete="email" dir="ltr"></label>
+        <label class="f">סיסמה<input class="i" id="lPass" type="password" data-m="l_pass" value="${esc(fv("l_pass"))}" required autocomplete="current-password" dir="ltr"></label>
+        <button class="btn full" ${S.busy ? "disabled" : ""}>${S.busy ? "מתחבר..." : "כניסה"}</button>
+        <button type="button" class="link" data-a="forgot">שכחתי סיסמה</button>
+      </form>`}
+  </div></main>`;
+}
+
+/* customer: shop */
+function cartItems() {
+  return S.products.filter(p => S.cart[p.id] > 0).map(p => ({ id: p.id, name: p.name, price: +p.price || 0, qty: S.cart[p.id], image: p.image, cat: p.cat }));
+}
+function shopView() {
+  const c = cats(), sel = c.includes(S.cat) ? S.cat : "הכל";
+  const list = sel === "הכל" ? S.products : S.products.filter(p => (p.cat || "").trim() === sel);
+  const items = cartItems(), n = items.reduce((s, i) => s + i.qty, 0), sum = items.reduce((s, i) => s + i.qty * i.price, 0);
+  let h = header(`<button class="hbtn" data-a="mine">ההזמנות שלי</button><button class="hbtn" data-a="logout">יציאה</button>`);
+  h += `<main class="wrap"><div class="hello"><h2>שלום ${esc(S.profile.name || "")} 👋</h2><span class="muted">בחרו מוצרים וכמויות, ובסוף שלחו את ההזמנה</span></div>`;
+  if (c.length > 1) {
+    h += `<div class="chips"><button class="chip ${sel === "הכל" ? "on" : ""}" style="${sel === "הכל" ? "background:var(--ink);color:var(--bg)" : ""}" data-a="cat" data-id="הכל">הכל</button>` +
+      c.map((x, i) => `<button class="chip ${sel === x ? "on" : ""}" style="${sel === x ? `background:${CAT_COLORS[i % 6]}` : `color:${CAT_COLORS[i % 6]}`}" data-a="cat" data-id="${esc(x)}">${esc(x)}</button>`).join("") + `</div>`;
+  }
+  h += `<div class="grid">${list.length ? list.map(productCard).join("") : `<div class="empty"><div class="bubble" style="background:var(--c4)">🛒</div><h3>עדיין אין מוצרים במחירון</h3><span class="muted">המוצרים יופיעו כאן ברגע שהמנהל יוסיף אותם</span></div>`}</div></main>`;
+  if (n) h += `<div class="bar"><div class="wrap"><button class="btn" data-a="openCart"><span class="row"><span class="count">${n}</span> סיכום ושליחה</span><span class="num">${money(sum)}</span></button></div></div>`;
+  if (S.sheet === "cart") h += cartSheet(items, sum);
+  return h;
+}
+function productCard(p) {
+  const q = S.cart[p.id] || 0, i = p.cat ? catIdx(p.cat) : hashIdx(p.name);
+  return `<article class="pc${q ? " on" : ""}">
+    <div class="ph" style="background:${CAT_TINTS[i]}">${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">` : `<span class="noimg" style="color:${CAT_COLORS[i]}">${initial(p.name)}</span>`}
+      <span class="tag">${money(p.price)}</span>${p.cat ? `<span class="badge-cat" style="background:${CAT_COLORS[i]}">${esc(p.cat)}</span>` : ""}</div>
+    <div class="pb"><h3>${esc(p.name)}</h3>${p.desc ? `<p>${esc(p.desc)}</p>` : ""}</div>
+    <div class="pq">${q
+      ? `<button class="qb minus" data-a="dec" data-id="${p.id}" aria-label="פחות">−</button><span class="qn">${q}</span><button class="qb" data-a="inc" data-id="${p.id}" aria-label="עוד">+</button>`
+      : `<button class="btn soft full" data-a="inc" data-id="${p.id}">הוספה</button>`}</div>
+  </article>`;
+}
+function cartSheet(items, sum) {
+  return `<div class="scrim" data-a="closeSheet"><div class="sheet" data-stop="1" role="dialog" aria-label="סיכום הזמנה">
+    <div class="sheet-h"><h2>סיכום ההזמנה</h2><button class="x" data-a="closeSheet" aria-label="סגירה">×</button></div>
+    <div>${items.map(i => `<div class="line">${thumb(i)}<div class="nm"><b>${esc(i.name)}</b><span class="muted num">${money(i.price)} ליחידה</span></div>
+      <div class="mini"><button class="qb minus" data-a="dec" data-id="${i.id}" aria-label="פחות">−</button><span class="qn num">${i.qty}</span><button class="qb" data-a="inc" data-id="${i.id}" aria-label="עוד">+</button></div></div>`).join("")}</div>
+    <label class="f">הערה למנהל (לא חובה)<textarea class="i" id="cNote" data-m="c_note" placeholder="למשל: מועד איסוף, בקשות מיוחדות">${esc(fv("c_note"))}</textarea></label>
+    <div class="total"><span>סה"כ לפי המחירון</span><span class="big num">${money(sum)}</span></div>
+    <p class="muted" style="margin:0;font-size:14px">המחיר הסופי ייקבע על ידי המנהל ויופיע אצלך ב"ההזמנות שלי".</p>
+    <button class="btn wa full" data-a="sendOrder" ${S.busy ? "disabled" : ""}>${S.busy ? "שולח..." : "שליחת ההזמנה בוואטסאפ"}</button>
+  </div></div>`;
+}
+function sentView() {
+  const s = S.sent || {};
+  return header(`<button class="hbtn" data-a="logout">יציאה</button>`) + `<div class="center wrap"><div class="box">
+    <div class="bubble" style="background:var(--c2)">✅</div><h2>ההזמנה #${esc(shortId(s.id))} נשמרה</h2>
+    <p class="muted">המנהל כבר רואה אותה. ${s.url ? "כדי לשלוח גם בוואטסאפ, לחצו על הכפתור:" : ""}</p>
+    ${s.url ? `<a class="btn wa full" href="${esc(s.url)}" target="_blank" rel="noopener">פתיחת וואטסאפ עם ההזמנה</a>` : ""}
+    <div class="row" style="justify-content:center"><button class="btn ghost" data-a="toShop">חזרה למחירון</button><button class="btn soft" data-a="mine">ההזמנות שלי</button></div>
+  </div></div>`;
+}
+function myOrdersView() {
+  let h = header(`<button class="hbtn" data-a="toShop">למחירון</button><button class="hbtn" data-a="logout">יציאה</button>`);
+  h += `<main class="wrap"><div class="hello"><h2>ההזמנות שלי</h2></div><div class="myo">`;
+  if (!S.myOrders.length) h += `<div class="empty"><div class="bubble" style="background:var(--c1)">📦</div><h3>עוד לא שלחת הזמנות</h3><button class="btn" data-a="toShop">למחירון</button></div>`;
+  h += S.myOrders.map(o => `<article class="ocard">
+    <div class="cube-top"><b>הזמנה #${esc(shortId(o.id))}</b><span class="pill ${o.status}">${o.status === "priced" ? "המחיר אושר" : "ממתין למחיר סופי"}</span></div>
+    <span class="muted">${fmtDate(o.createdAt)} · ${itemsCount(o)} פריטים</span>
+    <div class="oitems">${(o.items || []).map(i => `${esc(i.name)} × ${i.qty}`).join(" · ")}</div>
+    ${o.status === "priced" ? `<div class="final"><span>${o.discountPct > 0 ? `<s class="muted num">${money(o.subtotal)}</s> · הנחה ${r2(o.discountPct)}%` : "מחיר סופי"}</span><b class="num">${money(o.finalPrice)}</b></div>
+      ${o.adminNote ? `<div class="note">${esc(o.adminNote)}</div>` : ""}`
+      : `<div class="cube-bot"><span class="muted">לפי המחירון</span><b class="num">${money(o.subtotal)}</b></div>`}
+  </article>`).join("");
+  return h + `</div></main>`;
+}
+
+/* admin */
+function adminView() {
+  const newN = S.orders.filter(o => o.status === "new").length, pendN = S.users.filter(u => u.status === "pending" && !isAdminEmail(u.email)).length;
+  const tabs = [["orders", "הזמנות", newN, "var(--pink)"], ["products", "מוצרים", S.products.length, "var(--teal)"], ["customers", "לקוחות", pendN, "var(--orange)"], ["settings", "הגדרות", "", "var(--grape)"]];
+  let h = header(`<button class="hbtn" data-a="logout">יציאה</button>`);
+  h += `<main class="wrap"><nav class="tabs">${tabs.map(([k, l, n, c]) => `<button class="tab ${S.tab === k ? "on" : ""}" style="${S.tab === k ? `background:${c}` : `color:${c}`}" data-a="tab" data-id="${k}">${l}${n !== "" && n ? `<span class="n">${n}</span>` : ""}</button>`).join("")}</nav>`;
+  if (S.tab === "orders") h += S.openOrder ? orderDetail() : ordersList();
+  else if (S.tab === "products") h += productsAdmin();
+  else if (S.tab === "customers") h += customersAdmin();
+  else h += settingsAdmin();
+  h += `</main>`;
+  if (S.sheet === "product") h += productSheet();
+  return h;
+}
+function ordersList() {
+  const f = S.ofilter, list = S.orders.filter(o => f === "all" || o.status === f);
+  const chips = [["new", "חדשות", "var(--orange)"], ["priced", "נשלח מחיר", "var(--teal)"], ["all", "הכל", "var(--ink)"]];
+  return `<div class="sec-h"><h2>הזמנות</h2><div class="row">
+      ${chips.map(([k, l, c]) => `<button class="chip ${f === k ? "on" : ""}" style="${f === k ? `background:${c};color:var(--bg)` : `color:${c}`}" data-a="ofilter" data-id="${k}">${l}</button>`).join("")}
+      ${S.orders.length ? `<button class="btn sm teal" data-a="xlsAll">ייצוא הכל לאקסל</button>` : ""}</div></div>
+    <div class="cubes">${list.length ? list.map(o => { const i = hashIdx(o.uid || o.name);
+      return `<button class="cube" style="--cc:${CAT_COLORS[i]}" data-a="openOrder" data-id="${o.id}">
+        <span class="cube-top"><span class="row" style="gap:10px;min-width:0;flex-wrap:nowrap"><span class="av" style="background:${CAT_COLORS[i]}">${initial(o.name)}</span><b>${esc(o.name)}</b></span><span class="pill ${o.status}">${STATUS[o.status] || o.status}</span></span>
+        <span class="muted">#${esc(shortId(o.id))} · ${fmtDate(o.createdAt)}</span>
+        <span class="cube-bot"><span>${itemsCount(o)} פריטים</span><b class="num">${money(orderTotal(o))}</b></span></button>`; }).join("")
+      : `<div class="empty"><div class="bubble" style="background:var(--c3)">📭</div><h3>${f === "new" ? "אין הזמנות חדשות" : "אין הזמנות"}</h3><span class="muted">כשלקוח ישלח הזמנה היא תופיע כאן</span></div>`}</div>`;
+}
+function calcPrice(o) {
+  const mode = fv("pr_mode", "pct"), raw = parseFloat(fv("pr_val"));
+  if (isNaN(raw)) return { mode, final: r2(o.subtotal), pct: 0 };
+  if (mode === "pct") { const pct = Math.min(100, Math.max(0, raw)); return { mode, pct: r2(pct), final: r2(o.subtotal * (1 - pct / 100)) }; }
+  const fin = Math.max(0, raw); return { mode, final: r2(fin), pct: o.subtotal ? r2((1 - fin / o.subtotal) * 100) : 0 };
+}
+function customerMsg(o) {
+  const lines = [`שלום ${o.name},`, `ההזמנה שלך #${shortId(o.id)} ב${S.settings.storeName} אושרה.`, "",
+    ...(o.items || []).map(i => `• ${i.name} × ${i.qty}`), "",
+    `לפי המחירון: ${money(o.subtotal)}`];
+  if (o.discountPct > 0) lines.push(`הנחה: ${r2(o.discountPct)}%`);
+  lines.push(`לתשלום: ${money(o.finalPrice)}`);
+  if (o.adminNote) lines.push("", o.adminNote);
+  lines.push("", "תודה!");
+  return lines.join("\n");
+}
+function orderDetail() {
+  const o = S.orders.find(x => x.id === S.openOrder);
+  if (!o) return `<div class="empty"><h3>ההזמנה לא נמצאה</h3><button class="btn" data-a="closeOrder">חזרה</button></div>`;
+  const c = calcPrice(o), i = hashIdx(o.uid || o.name), mode = fv("pr_mode", "pct");
+  const prodMap = Object.fromEntries(S.products.map(p => [p.id, p]));
+  return `<div class="sec-h"><button class="btn sm ghost" data-a="closeOrder">→ כל ההזמנות</button><span class="pill ${o.status}">${STATUS[o.status]}</span></div>
+  <div class="detail">
+    <section class="panel">
+      <div class="who"><span class="av" style="background:${CAT_COLORS[i]}">${initial(o.name)}</span><div><h2 style="font-size:24px">${esc(o.name)}</h2><span class="muted">הזמנה #${esc(shortId(o.id))} · ${fmtDate(o.createdAt)}</span></div></div>
+      <div class="kv"><span>טלפון</span><span class="sel num" dir="ltr" style="text-align:right">${esc(o.phone)}</span><span>אימייל</span><span class="sel" dir="ltr" style="text-align:right">${esc(o.email)}</span></div>
+      ${o.note ? `<div class="note"><b>הערת הלקוח:</b> ${esc(o.note)}</div>` : ""}
+      <div class="tbl-wrap"><table class="t"><thead><tr><th>מוצר</th><th>מחיר</th><th>כמות</th><th>סה"כ</th></tr></thead><tbody>
+        ${(o.items || []).map(it => `<tr><td><div class="tp">${thumb(prodMap[it.id] || it)}<b>${esc(it.name)}</b></div></td><td class="n">${money(it.price)}</td><td class="n">${it.qty}</td><td class="n"><b>${money(it.price * it.qty)}</b></td></tr>`).join("")}
+      </tbody></table></div>
+      <div class="total"><span>סה"כ לפי המחירון</span><span class="num">${money(o.subtotal)}</span></div>
+    </section>
+    <section class="panel">
+      <h2 style="font-size:22px">מחיר סופי ללקוח</h2>
+      <div class="seg"><button class="${mode === "pct" ? "on" : ""}" data-a="prMode" data-id="pct">הנחה באחוזים</button><button class="${mode === "final" ? "on" : ""}" data-a="prMode" data-id="final">מחיר סופי</button></div>
+      <label class="f">${mode === "pct" ? "אחוז הנחה" : "המחיר הסופי בשקלים"}<input class="i num" id="prVal" type="number" inputmode="decimal" min="0" step="any" data-m="pr_val" value="${esc(fv("pr_val"))}" placeholder="${mode === "pct" ? "למשל 10" : esc(r2(o.subtotal))}"></label>
+      <div class="final"><span id="prPct">${c.pct > 0 ? `הנחה ${c.pct}%` : c.pct < 0 ? `תוספת ${-c.pct}%` : "ללא הנחה"}</span><b class="num" id="prOut">${money(c.final)}</b></div>
+      <label class="f">הודעה ללקוח (לא חובה)<textarea class="i" id="prNote" data-m="pr_note" placeholder="למשל: מוכן לאיסוף ביום שישי ב-9:00">${esc(fv("pr_note"))}</textarea></label>
+      <button class="btn full" data-a="savePrice" ${S.busy ? "disabled" : ""}>${o.status === "priced" ? "עדכון המחיר ללקוח" : "אישור ושליחה ללקוח"}</button>
+      ${o.status === "priced" ? `<a class="btn wa full" href="${esc(waLink(o.phone, customerMsg(o)))}" target="_blank" rel="noopener">שליחת המחיר ללקוח בוואטסאפ</a>` : ""}
+      <h3 style="font-size:18px;margin-top:6px">הורדת ההזמנה</h3>
+      <div class="dl"><button class="btn sky" data-a="pdf" data-id="${o.id}">PDF מעוצב</button><button class="btn teal" data-a="xls" data-id="${o.id}">אקסל</button></div>
+      ${S.confirm === "delOrder" ? `<div class="confirm"><b>למחוק את ההזמנה לצמיתות?</b><div class="row"><button class="btn sm danger" data-a="delOrderYes">מחיקה</button><button class="btn sm ghost" data-a="noConfirm">ביטול</button></div></div>`
+        : `<button class="link" style="color:var(--danger)" data-a="ask" data-id="delOrder">מחיקת ההזמנה</button>`}
+    </section>
+  </div>`;
+}
+function productsAdmin() {
+  return `<div class="sec-h"><h2>מוצרים</h2><button class="btn teal" data-a="newProduct">+ מוצר חדש</button></div>
+  <div class="plist">${S.products.length ? S.products.map(p => { const i = p.cat ? catIdx(p.cat) : hashIdx(p.name);
+    return `<article class="pc"><div class="ph" style="background:${CAT_TINTS[i]}">${p.image ? `<img src="${esc(p.image)}" alt="" loading="lazy">` : `<span class="noimg" style="color:${CAT_COLORS[i]}">${initial(p.name)}</span>`}<span class="tag">${money(p.price)}</span>${p.cat ? `<span class="badge-cat" style="background:${CAT_COLORS[i]}">${esc(p.cat)}</span>` : ""}</div>
+      <div class="pb"><h3>${esc(p.name)}</h3>${p.desc ? `<p>${esc(p.desc)}</p>` : ""}</div>
+      <div class="pa"><button class="btn sm soft" data-a="editProduct" data-id="${p.id}">עריכה</button></div></article>`; }).join("")
+    : `<div class="empty"><div class="bubble" style="background:var(--c2)">🧺</div><h3>אין עדיין מוצרים</h3><span class="muted">הוסיפו את המוצר הראשון עם תמונה ומחיר</span><button class="btn teal" data-a="newProduct">+ מוצר חדש</button></div>`}</div>`;
+}
+function productSheet() {
+  const isNew = S.editProduct === "new", img = fv("p_image");
+  return `<div class="scrim" data-a="closeSheet"><form class="sheet" data-stop="1" data-submit="saveProduct" role="dialog" aria-label="מוצר">
+    <div class="sheet-h"><h2>${isNew ? "מוצר חדש" : "עריכת מוצר"}</h2><button type="button" class="x" data-a="closeSheet" aria-label="סגירה">×</button></div>
+    <div class="imgpick"><div class="prev">${img ? `<img src="${esc(img)}" alt="">` : "אין תמונה"}</div>
+      <div class="row"><span class="btn sm sky filebtn">${img ? "החלפת תמונה" : "בחירת תמונה"}<input type="file" id="pImg" accept="image/*"></span>${img ? `<button type="button" class="btn sm ghost" data-a="clearImg">הסרה</button>` : ""}</div></div>
+    <label class="f">שם המוצר<input class="i" id="pName" data-m="p_name" value="${esc(fv("p_name"))}" required></label>
+    <label class="f">מחיר בשקלים<input class="i num" id="pPrice" type="number" inputmode="decimal" min="0" step="any" data-m="p_price" value="${esc(fv("p_price"))}" required></label>
+    <label class="f">קטגוריה (לא חובה)<input class="i" id="pCat" data-m="p_cat" value="${esc(fv("p_cat"))}" list="catList" placeholder="למשל: עוגות"><datalist id="catList">${cats().map(c => `<option value="${esc(c)}">`).join("")}</datalist></label>
+    <label class="f">תיאור קצר (לא חובה)<input class="i" id="pDesc" data-m="p_desc" value="${esc(fv("p_desc"))}"></label>
+    <button class="btn teal full" ${S.busy ? "disabled" : ""}>${S.busy ? "שומר..." : "שמירה"}</button>
+    ${!isNew ? (S.confirm === "delProduct" ? `<div class="confirm"><b>למחוק את המוצר מהמחירון?</b><div class="row"><button type="button" class="btn sm danger" data-a="delProductYes">מחיקה</button><button type="button" class="btn sm ghost" data-a="noConfirm">ביטול</button></div></div>`
+      : `<button type="button" class="link" style="color:var(--danger)" data-a="ask" data-id="delProduct">מחיקת המוצר</button>`) : ""}
+  </form></div>`;
+}
+function customersAdmin() {
+  const us = S.users.filter(u => !isAdminEmail(u.email)).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+  const groups = [["pending", "ממתינים לאישור"], ["approved", "לקוחות מאושרים"], ["rejected", "נדחו"]];
+  let h = `<div class="sec-h"><h2>לקוחות</h2></div>`;
+  if (!us.length) return h + `<div class="empty"><div class="bubble" style="background:var(--c3)">👥</div><h3>עדיין אין לקוחות רשומים</h3><span class="muted">שלחו ללקוחות את הקישור לאתר. אחרי ההרשמה הם יופיעו כאן לאישור.</span></div>`;
+  for (const [st, title] of groups) {
+    const g = us.filter(u => (u.status || "pending") === st); if (!g.length) continue;
+    h += `<h3 style="font-size:18px;margin:6px 0 10px">${title} <span class="muted num">(${g.length})</span></h3><div class="ulist">` + g.map(u => { const i = hashIdx(u.id || u.name);
+      return `<div class="urow"><span class="av" style="background:${CAT_COLORS[i]}">${initial(u.name)}</span>
+        <div class="info"><b>${esc(u.name)}</b><span class="muted sel" dir="ltr" style="text-align:right">${esc(u.phone)} · ${esc(u.email)}</span></div>
+        <div class="row">${st !== "approved" ? `<button class="btn sm teal" data-a="approve" data-id="${u.id}">אישור</button>` : ""}${st !== "rejected" ? `<button class="btn sm ghost" data-a="reject" data-id="${u.id}">${st === "approved" ? "חסימה" : "דחייה"}</button>` : ""}</div></div>`; }).join("") + `</div>`;
+  }
+  return h;
+}
+function settingsAdmin() {
+  const logo = fv("s_logo", S.settings.logo), link = location.href.split("#")[0].split("?")[0];
+  return `<div class="sec-h"><h2>הגדרות</h2></div><form class="panel" style="max-width:560px;margin-bottom:40px" data-submit="saveSettings">
+    <div class="imgpick"><div class="prev">${logo ? `<img src="${esc(logo)}" alt="" style="object-fit:contain">` : "אין לוגו"}</div>
+      <div style="display:grid;gap:8px"><b>לוגו החנות</b><span class="muted" style="font-size:14px">מופיע בכותרת ובקובצי ה-PDF</span>
+      <div class="row"><span class="btn sm grape filebtn">${logo ? "החלפה" : "העלאת לוגו"}<input type="file" id="sLogo" accept="image/*"></span>${logo ? `<button type="button" class="btn sm ghost" data-a="clearLogo">הסרה</button>` : ""}</div></div></div>
+    <label class="f">שם החנות<input class="i" id="sStore" data-m="s_store" value="${esc(fv("s_store", S.settings.storeName))}" required></label>
+    <label class="f">מספר הוואטסאפ שאליו יגיעו ההזמנות<input class="i num" id="sWa" type="tel" dir="ltr" data-m="s_wa" value="${esc(fv("s_wa", S.settings.whatsapp))}" placeholder="050-0000000"></label>
+    <button class="btn grape full" ${S.busy ? "disabled" : ""}>שמירת ההגדרות</button>
+    ${S.mode === "live" ? `<div style="display:grid;gap:6px;margin-top:6px"><b>הקישור לשליחה ללקוחות</b><div class="row"><span class="sel" dir="ltr" style="background:var(--bg);padding:8px 12px;border-radius:10px;word-break:break-all;flex:1;min-width:0">${esc(link)}</span><button type="button" class="btn sm sky" data-a="copyLink">העתקה</button></div></div>` : ""}
+  </form>`;
+}
+
+/* ---------- exports ---------- */
+const XLSX_SRC = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";
+const PDF_SRC = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+const fileSafe = s => String(s || "").replace(/[\\/:*?"<>|]+/g, "").trim() || "הזמנה";
+
+async function exportXls(orders, filename) {
+  await loadScript(XLSX_SRC);
+  const wb = XLSX.utils.book_new();
+  if (orders.length === 1) {
+    const o = orders[0];
+    const rows = [
+      [S.settings.storeName], [],
+      ["הזמנה", "#" + shortId(o.id)], ["תאריך", fmtDate(o.createdAt)], ["לקוח", o.name], ["טלפון", o.phone], ["אימייל", o.email],
+      ...(o.note ? [["הערת לקוח", o.note]] : []), [],
+      ["מוצר", "מחיר ליחידה", "כמות", "סה\"כ"],
+      ...(o.items || []).map(i => [i.name, +i.price, +i.qty, r2(i.price * i.qty)]), [],
+      ["", "", "סה\"כ לפי המחירון", r2(o.subtotal)]
+    ];
+    if (o.status === "priced") { rows.push(["", "", "הנחה %", r2(o.discountPct || 0)], ["", "", "לתשלום", r2(o.finalPrice)]); }
+    const ws = XLSX.utils.aoa_to_sheet(rows);
+    ws["!cols"] = [{ wch: 30 }, { wch: 14 }, { wch: 18 }, { wch: 14 }];
+    XLSX.utils.book_append_sheet(wb, ws, "הזמנה");
+  } else {
+    const sum = [["מספר", "תאריך", "לקוח", "טלפון", "פריטים", "לפי מחירון", "הנחה %", "לתשלום", "סטטוס", "הערה"],
+      ...orders.map(o => ["#" + shortId(o.id), fmtDate(o.createdAt), o.name, o.phone, itemsCount(o), r2(o.subtotal), o.status === "priced" ? r2(o.discountPct || 0) : "", o.status === "priced" ? r2(o.finalPrice) : "", STATUS[o.status] || o.status, o.note || ""])];
+    const ws = XLSX.utils.aoa_to_sheet(sum);
+    ws["!cols"] = [{ wch: 9 }, { wch: 16 }, { wch: 20 }, { wch: 14 }, { wch: 8 }, { wch: 12 }, { wch: 8 }, { wch: 12 }, { wch: 12 }, { wch: 30 }];
+    XLSX.utils.book_append_sheet(wb, ws, "הזמנות");
+    const lines = [["מספר", "לקוח", "מוצר", "מחיר ליחידה", "כמות", "סה\"כ"]];
+    orders.forEach(o => (o.items || []).forEach(i => lines.push(["#" + shortId(o.id), o.name, i.name, +i.price, +i.qty, r2(i.price * i.qty)])));
+    const ws2 = XLSX.utils.aoa_to_sheet(lines);
+    ws2["!cols"] = [{ wch: 9 }, { wch: 20 }, { wch: 30 }, { wch: 12 }, { wch: 8 }, { wch: 12 }];
+    XLSX.utils.book_append_sheet(wb, ws2, "פירוט מוצרים");
+  }
+  wb.Workbook = { Views: [{ RTL: true }] };
+  XLSX.writeFile(wb, filename);
+}
+function pdfHtml(o) {
+  const prodMap = Object.fromEntries(S.products.map(p => [p.id, p]));
+  const logo = S.settings.logo ? `<img src="${esc(S.settings.logo)}" alt="">` : `<span class="lp">${initial(S.settings.storeName)}</span>`;
+  const priced = o.status === "priced";
+  return `<div class="pdf">
+    <div class="pdf-band">${logo}<div><h1>${esc(S.settings.storeName)}</h1><div class="sub">${priced ? "הצעת מחיר / סיכום הזמנה" : "סיכום הזמנה"} · #${esc(shortId(o.id))}</div></div></div>
+    <div class="pdf-stripe"></div>
+    <div class="pdf-body">
+      <div class="pdf-meta">
+        <div class="pdf-box"><b>פרטי הלקוח</b>${esc(o.name)}<br><span dir="ltr">${esc(o.phone)}</span><br><span dir="ltr">${esc(o.email)}</span></div>
+        <div class="pdf-box"><b>פרטי ההזמנה</b>מספר: #${esc(shortId(o.id))}<br>תאריך: ${fmtDate(o.createdAt)}<br>פריטים: ${itemsCount(o)}</div>
+      </div>
+      <table><thead><tr><th style="width:70px"></th><th>מוצר</th><th>מחיר ליחידה</th><th>כמות</th><th>סה"כ</th></tr></thead><tbody>
+        ${(o.items || []).map(i => { const p = prodMap[i.id];
+          return `<tr><td>${p && p.image ? `<img class="pimg" src="${esc(p.image)}" alt="">` : `<span class="pimg ph">${initial(i.name)}</span>`}</td><td><b>${esc(i.name)}</b></td><td>${money(i.price)}</td><td>${i.qty}</td><td><b>${money(i.price * i.qty)}</b></td></tr>`; }).join("")}
+      </tbody></table>
+      <div class="pdf-sum">
+        <div><span>סה"כ לפי המחירון</span><span>${money(o.subtotal)}</span></div>
+        ${priced && o.discountPct > 0 ? `<div><span>הנחה (${r2(o.discountPct)}%)</span><span>−${money(o.subtotal - o.finalPrice)}</span></div>` : ""}
+        <div class="grand"><span>${priced ? "לתשלום" : "סה\"כ"}</span><span>${money(priced ? o.finalPrice : o.subtotal)}</span></div>
+      </div>
+      ${o.note ? `<div class="pdf-note"><b>הערת הלקוח:</b> ${esc(o.note)}</div>` : ""}
+      ${priced && o.adminNote ? `<div class="pdf-note" style="background:#D4F5F0"><b>הערה מהחנות:</b> ${esc(o.adminNote)}</div>` : ""}
+      <div class="pdf-foot">תודה שהזמנתם מ${esc(S.settings.storeName)} · הופק ב-${new Date().toLocaleDateString("he-IL")}</div>
+    </div></div>`;
+}
+async function exportPdf(o) {
+  await loadScript(PDF_SRC);
+  const host = document.getElementById("pdfHost");
+  host.innerHTML = pdfHtml(o);
+  try {
+    await Promise.all([...host.querySelectorAll("img")].map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
+    if (document.fonts && document.fonts.ready) await document.fonts.ready;
+    await html2pdf().set({
+      margin: 0, filename: `הזמנה ${shortId(o.id)} - ${fileSafe(o.name)}.pdf`,
+      image: { type: "jpeg", quality: 0.95 }, html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
+      jsPDF: { unit: "px", format: [794, 1123], hotfixes: ["px_scaling"] }, pagebreak: { mode: ["css", "legacy"], avoid: "tr" }
+    }).from(host.firstElementChild).save();
+  } finally { host.innerHTML = ""; }
+}
+
+/* ---------- actions ---------- */
+const findOrder = id => S.orders.find(o => o.id === id);
+function openOrderInit(o) {
+  S.f.pr_mode = o.priceMode || "pct";
+  S.f.pr_val = o.status === "priced" ? String(o.priceMode === "final" ? o.finalPrice : (o.discountPct || 0)) : "";
+  S.f.pr_note = o.adminNote || "";
+  S.confirm = null;
+}
+async function run(fn, okMsg) {
+  S.busy = true; S.err = ""; render(true);
+  try { await fn(); if (okMsg) toast(okMsg); }
+  catch (e) { console.warn(e); S.err = errMsg(e); if (S.profile) toast(errMsg(e)); }
+  S.busy = false; render(true);
+}
+const ACT = {
+  demoAs: email => { S.err = ""; api.loginAs(email); },
+  demoReset: () => { S.cart = {}; S.f = {}; S.openOrder = null; S.sheet = null; api.resetAll(); },
+  authTab: t => { S.authTab = t; S.err = ""; render(true); },
+  login: () => run(() => api.signIn(fv("l_email"), fv("l_pass"))).then(() => { S.f.l_pass = ""; }),
+  register: () => {
+    const name = fv("r_name").trim(), phone = fv("r_phone").trim();
+    if (phone.replace(/\D/g, "").length < 9) { S.err = "מספר הטלפון לא תקין"; return render(true); }
+    run(() => api.signUp({ name, email: fv("r_email"), phone, password: fv("r_pass") }));
+  },
+  forgot: () => { if (!fv("l_email")) { S.err = "כתבו קודם את האימייל, ואז לחצו על \"שכחתי סיסמה\""; return render(true); } run(() => api.reset(fv("l_email")), "נשלח מייל לאיפוס הסיסמה"); },
+  logout: () => { S.f = {}; api.signOut(); },
+  inc: id => { S.cart[id] = (S.cart[id] || 0) + 1; render(true); },
+  dec: id => { S.cart[id] = Math.max(0, (S.cart[id] || 0) - 1); if (!S.cart[id]) delete S.cart[id]; if (!cartItems().length) S.sheet = null; render(true); },
+  cat: c => { S.cat = c; render(true); },
+  openCart: () => { S.sheet = "cart"; render(true); },
+  closeSheet: () => { S.sheet = null; S.confirm = null; render(true); },
+  mine: () => { S.view = "mine"; S.sheet = null; render(true); window.scrollTo(0, 0); },
+  toShop: () => { S.view = "shop"; render(true); window.scrollTo(0, 0); },
+  sendOrder: () => {
+    const items = cartItems(); if (!items.length) return;
+    const p = S.profile, subtotal = r2(items.reduce((s, i) => s + i.qty * i.price, 0)), note = fv("c_note").trim();
+    run(async () => {
+      const id = await api.createOrder({ uid: p.uid, name: p.name, email: p.email, phone: p.phone, items: items.map(({ id, name, price, qty }) => ({ id, name, price, qty })), subtotal, note, status: "new" });
+      const text = [`הזמנה חדשה #${shortId(id)}`, `לקוח: ${p.name}`, `טלפון: ${p.phone}`, "", ...items.map(i => `• ${i.name} × ${i.qty} = ${money(i.price * i.qty)}`), "", `סה"כ לפי המחירון: ${money(subtotal)}`, ...(note ? ["", `הערה: ${note}`] : [])].join("\n");
+      const url = S.settings.whatsapp ? waLink(S.settings.whatsapp, text) : "";
+      S.sent = { id, url }; S.cart = {}; S.f.c_note = ""; S.sheet = null; S.view = "sent";
+      if (url) { try { window.open(url, "_blank", "noopener"); } catch (e) {} }
+    });
+  },
+  tab: t => { S.tab = t; S.openOrder = null; S.confirm = null; render(true); },
+  ofilter: f => { S.ofilter = f; render(true); },
+  openOrder: id => { const o = findOrder(id); if (!o) return; openOrderInit(o); S.openOrder = id; render(true); window.scrollTo(0, 0); },
+  closeOrder: () => { S.openOrder = null; S.confirm = null; render(true); },
+  prMode: m => { S.f.pr_mode = m; S.f.pr_val = ""; render(true); },
+  savePrice: () => {
+    const o = findOrder(S.openOrder); if (!o) return;
+    const c = calcPrice(o);
+    run(() => api.updateOrder(o.id, { status: "priced", finalPrice: c.final, discountPct: c.pct, priceMode: c.mode, adminNote: fv("pr_note").trim(), pricedAt: Date.now() }), "המחיר נשמר. הלקוח כבר רואה אותו ב\"ההזמנות שלי\"");
+  },
+  ask: what => { S.confirm = what; render(true); },
+  noConfirm: () => { S.confirm = null; render(true); },
+  delOrderYes: () => { const id = S.openOrder; S.openOrder = null; S.confirm = null; run(() => api.deleteOrder(id), "ההזמנה נמחקה"); },
+  pdf: id => { const o = findOrder(id); if (o) run(() => exportPdf(o), "קובץ ה-PDF ירד"); },
+  xls: id => { const o = findOrder(id); if (o) run(() => exportXls([o], `הזמנה ${shortId(o.id)} - ${fileSafe(o.name)}.xlsx`), "קובץ האקסל ירד"); },
+  xlsAll: () => { const l = S.orders.filter(o => S.ofilter === "all" || o.status === S.ofilter); run(() => exportXls(l.length ? l : S.orders, `הזמנות ${new Date().toLocaleDateString("he-IL").replace(/\./g, "-")}.xlsx`), "קובץ האקסל ירד"); },
+  newProduct: () => { S.editProduct = "new"; Object.assign(S.f, { p_name: "", p_price: "", p_cat: "", p_desc: "", p_image: "" }); S.confirm = null; S.sheet = "product"; render(true); },
+  editProduct: id => { const p = S.products.find(x => x.id === id); if (!p) return; S.editProduct = id; Object.assign(S.f, { p_name: p.name || "", p_price: String(p.price ?? ""), p_cat: p.cat || "", p_desc: p.desc || "", p_image: p.image || "" }); S.confirm = null; S.sheet = "product"; render(true); },
+  clearImg: () => { S.f.p_image = ""; render(true); },
+  saveProduct: () => {
+    const name = fv("p_name").trim(), price = parseFloat(fv("p_price"));
+    if (!name || isNaN(price) || price < 0) return toast("צריך שם ומחיר תקין");
+    const data = { name, price: r2(price), cat: fv("p_cat").trim(), desc: fv("p_desc").trim(), image: fv("p_image") };
+    if (S.editProduct !== "new") data.id = S.editProduct;
+    run(async () => { await api.saveProduct(data); S.sheet = null; }, "המוצר נשמר");
+  },
+  delProductYes: () => { const id = S.editProduct; S.sheet = null; S.confirm = null; run(() => api.deleteProduct(id), "המוצר נמחק"); },
+  approve: id => run(() => api.setUserStatus(id, "approved"), "הלקוח אושר"),
+  reject: id => run(() => api.setUserStatus(id, "rejected")),
+  clearLogo: () => { S.f.s_logo = ""; render(true); },
+  saveSettings: () => run(() => api.saveSettings({ storeName: fv("s_store", S.settings.storeName).trim() || "החנות של אפריים בן דוד", whatsapp: fv("s_wa", S.settings.whatsapp).trim(), logo: fv("s_logo", S.settings.logo) }), "ההגדרות נשמרו"),
+  copyLink: () => { const l = location.href.split("#")[0].split("?")[0]; try { navigator.clipboard.writeText(l).then(() => toast("הקישור הועתק"), () => toast("סמנו את הקישור והעתיקו")); } catch (e) { toast("סמנו את הקישור והעתיקו"); } }
+};
+
+$app.addEventListener("click", e => {
+  const b = e.target.closest("[data-a]");
+  if (!b) return;
+  if (b.classList.contains("scrim") && e.target.closest("[data-stop]")) return;
+  e.preventDefault();
+  ACT[b.dataset.a] && ACT[b.dataset.a](b.dataset.id, b, e);
+});
+$app.addEventListener("submit", e => { e.preventDefault(); const k = e.target.dataset.submit; ACT[k] && ACT[k](); });
+$app.addEventListener("input", e => {
+  const k = e.target.dataset.m; if (!k) return;
+  S.f[k] = e.target.value;
+  if (k === "pr_val") {
+    const o = findOrder(S.openOrder); if (!o) return; const c = calcPrice(o);
+    const out = document.getElementById("prOut"), pct = document.getElementById("prPct");
+    if (out) out.textContent = money(c.final);
+    if (pct) pct.textContent = c.pct > 0 ? `הנחה ${c.pct}%` : c.pct < 0 ? `תוספת ${-c.pct}%` : "ללא הנחה";
+  }
+});
+$app.addEventListener("change", async e => {
+  const t = e.target;
+  if ((t.id === "pImg" || t.id === "sLogo") && t.files && t.files[0]) {
+    try {
+      if (t.id === "pImg") S.f.p_image = await compress(t.files[0], 640, "image/jpeg");
+      else S.f.s_logo = await compress(t.files[0], 320, "image/png");
+    } catch (err) { toast(err.message); }
+    render(true);
+  }
+});
+// links inside the app (WhatsApp) must still work: the click handler only intercepts [data-a]
+
+/* ---------- boot ---------- */
+(async () => {
+  try {
+    if (FIREBASE_CONFIG) { S.mode = "live"; api = await firebaseBackend(FIREBASE_CONFIG); }
+    else { S.mode = "demo"; api = demoBackend(); }
+    api.watchSettings(s => { S.settings = { ...DEFAULT_SETTINGS, ...s }; render(); });
+    api.onAuth(onProfile);
+  } catch (e) { console.error(e); S.fatal = "לא הצלחתי להתחבר ל-Firebase. בדקו את פרטי FIREBASE_CONFIG. (" + (e.message || e) + ")"; S.ready = true; render(true); }
+})();
+</script>
+</body>
+</html>
