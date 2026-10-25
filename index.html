@@ -363,6 +363,18 @@ function svgTile(emoji, bg) {
   return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="${bg}"/><circle cx="100" cy="104" r="62" fill="#fff" opacity=".55"/><text x="100" y="128" font-size="72" text-anchor="middle">${emoji}</text></svg>`);
 }
+const SAMPLE_FOOD = [
+  ["חומוס ביתי 500 גר'", 22, "סלטים", "עם טחינה גולמית ושמן זית", "🥣", "#F2EFE9"],
+  ["סלט ירקות קצוץ", 18, "סלטים", "מלפפון, עגבנייה ובצל סגול", "🥗", "#EAF2EF"],
+  ["פלאפל (12 כדורים)", 25, "מנות חמות", "מטוגן טרי, עם צ'יפס בצד", "🧆", "#F3EEEA"],
+  ["שניצל עוף", 42, "מנות חמות", "חזה עוף בציפוי פירורי לחם", "🍗", "#F3EEEA"],
+  ["שקשוקה", 38, "מנות חמות", "שתי ביצים ברוטב עגבניות", "🍳", "#EEF2F6"],
+  ["פיתה טרייה (5 יח')", 10, "מאפים", "", "🫓", "#F2EFE9"],
+  ["בורקס תפוחי אדמה (6 יח')", 30, "מאפים", "", "🥟", "#ECEFF6"],
+  ["עוגת שוקולד", 55, "קינוחים", "מספיקה ל-10 אנשים", "🍰", "#F1EDF4"],
+  ["מלבי", 14, "קינוחים", "עם סירופ ורדים ובוטנים", "🍮", "#F1EDF4"],
+  ["לימונדה טבעית 1 ליטר", 16, "שתייה", "", "🍋", "#EAF2EF"]
+];
 function demoSeed() {
   const t = Date.now();
   return {
@@ -702,7 +714,12 @@ function orderDetail() {
   </div>`;
 }
 function productsAdmin() {
-  return `<div class="sec-h"><h2>מוצרים</h2><button class="btn teal" data-a="newProduct">+ מוצר חדש</button></div>
+  const nSample = S.products.filter(p => p.sample).length;
+  return `<div class="sec-h"><h2>מוצרים</h2><div class="row">
+    ${nSample ? (S.confirm === "delSamples" ? `<span class="confirm" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:6px 10px"><b>למחוק ${nSample} מוצרי דוגמה?</b><button class="btn sm danger" data-a="delSamplesYes">מחיקה</button><button class="btn sm ghost" data-a="noConfirm">ביטול</button></span>`
+      : `<button class="btn ghost" data-a="ask" data-id="delSamples">מחיקת מוצרי הדוגמה (${nSample})</button>`)
+      : `<button class="btn ghost" data-a="addSamples" ${S.busy ? "disabled" : ""}>הוספת מוצרי דוגמה</button>`}
+    <button class="btn teal" data-a="newProduct">+ מוצר חדש</button></div></div>
   <div class="plist">${S.products.length ? S.products.map(p => { const i = p.cat ? catIdx(p.cat) : hashIdx(p.name);
     return `<article class="pc"><div class="ph" style="background:${CAT_TINTS[i]}">${p.image ? `<img src="${esc(p.image)}" alt="" loading="lazy">` : `<span class="noimg" style="color:${CAT_COLORS[i]}">${initial(p.name)}</span>`}<span class="tag">${money(p.price)}</span>${p.cat ? `<span class="badge-cat" style="background:${CAT_COLORS[i]}">${esc(p.cat)}</span>` : ""}</div>
       <div class="pb"><h3>${esc(p.name)}</h3>${p.desc ? `<p>${esc(p.desc)}</p>` : ""}</div>
@@ -911,6 +928,13 @@ const ACT = {
   pdf: id => { const o = findOrder(id); if (o) run(() => exportPdf(o), "קובץ ה-PDF ירד"); },
   xls: id => { const o = findOrder(id); if (o) run(() => exportXls([o], `הזמנה ${shortId(o.id)} - ${fileSafe(o.name)}.xlsx`), "קובץ האקסל ירד"); },
   xlsAll: () => { const l = S.orders.filter(o => S.ofilter === "all" || o.status === S.ofilter); run(() => exportXls(l.length ? l : S.orders, `הזמנות ${new Date().toLocaleDateString("he-IL").replace(/\./g, "-")}.xlsx`), "קובץ האקסל ירד"); },
+  addSamples: () => run(async () => {
+    const t = Date.now();
+    for (const [k, [name, price, cat, desc, emoji, bg]] of SAMPLE_FOOD.entries())
+      await api.saveProduct({ id: "sample_" + (k + 1), name, price, cat, desc, image: svgTile(emoji, bg), sample: true, createdAt: t + k });
+  }, `נוספו ${SAMPLE_FOOD.length} מוצרי דוגמה`),
+  delSamplesYes: () => { const ids = S.products.filter(p => p.sample).map(p => p.id); S.confirm = null;
+    run(async () => { for (const id of ids) await api.deleteProduct(id); }, "מוצרי הדוגמה נמחקו"); },
   newProduct: () => { S.editProduct = "new"; Object.assign(S.f, { p_name: "", p_price: "", p_cat: "", p_desc: "", p_image: "" }); S.confirm = null; S.sheet = "product"; render(true); },
   editProduct: id => { const p = S.products.find(x => x.id === id); if (!p) return; S.editProduct = id; Object.assign(S.f, { p_name: p.name || "", p_price: String(p.price ?? ""), p_cat: p.cat || "", p_desc: p.desc || "", p_image: p.image || "" }); S.confirm = null; S.sheet = "product"; render(true); },
   clearImg: () => { S.f.p_image = ""; render(true); },
