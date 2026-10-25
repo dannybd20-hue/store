@@ -267,7 +267,7 @@ const ADMIN_EMAILS = ["danny.b.d.20@gmail.com"];
 /* ============================================================ */
 
 const DEMO_ADMIN = "admin@demo.co.il";
-const DEFAULT_SETTINGS = { storeName: "החנות של אפריים בן דוד", whatsapp: "", logo: "" };
+const DEFAULT_SETTINGS = { storeName: "החנות של אפריים בן דוד", whatsapp: "", logo: "", lastBackup: 0 };
 const CAT_COLORS = ["var(--k0)","var(--k2)","var(--k1)","var(--k4)","var(--k3)","var(--k5)"];
 const CAT_TINTS = ["var(--t0)","var(--t2)","var(--t1)","var(--t4)","var(--t3)","var(--t5)"];
 const ICONS = { clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>', block:'<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>', bag:'<path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 016 0v2"/>', inbox:'<path d="M4 13l2.5-8h11L20 13v6H4z"/><path d="M4 13h5l1 2h4l1-2h5"/>', users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-4 3.2-6 6.5-6s6 2 6.5 6"/><path d="M16 4.6a3.5 3.5 0 010 6.8M18 14.2c2 .6 3.3 2.6 3.5 5.8"/>', alert:'<path d="M12 3.5l9.5 16.5h-19z"/><path d="M12 10v4.5M12 17.5v.5"/>', box:'<path d="M3 7.5l9-4 9 4-9 4z"/><path d="M3 7.5v9l9 4 9-4v-9M12 11.5v9"/>' };
@@ -626,6 +626,7 @@ function adminView() {
   const tabs = [["orders", "הזמנות", newN, "var(--pink)"], ["products", "מוצרים", S.products.length, "var(--teal)"], ["customers", "לקוחות", pendN, "var(--orange)"], ["settings", "הגדרות", "", "var(--grape)"]];
   let h = header(`<button class="hbtn" data-a="logout">יציאה</button>`);
   h += `<main class="wrap"><nav class="tabs">${tabs.map(([k, l, n, c]) => `<button class="tab ${S.tab === k ? "on" : ""}" data-a="tab" data-id="${k}">${l}${n !== "" && n ? `<span class="n">${n}</span>` : ""}</button>`).join("")}</nav>`;
+  if (backupDue() && S.tab !== "settings" && (S.products.length || S.orders.length)) h += `<div class="note" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between"><span>${S.settings.lastBackup ? `עברו יותר מ-${BACKUP_DAYS} ימים מהגיבוי האחרון.` : "עדיין לא הורדת גיבוי של החנות."}</span><button class="btn sm" data-a="backup">הורדת גיבוי עכשיו</button></div>`;
   if (S.tab === "orders") h += S.openOrder ? orderDetail() : ordersList();
   else if (S.tab === "products") h += productsAdmin();
   else if (S.tab === "customers") h += customersAdmin();
@@ -741,7 +742,29 @@ function settingsAdmin() {
     <label class="f">מספר הוואטסאפ שאליו יגיעו ההזמנות<input class="i num" id="sWa" type="tel" dir="ltr" data-m="s_wa" value="${esc(fv("s_wa", S.settings.whatsapp))}" placeholder="050-0000000"></label>
     <button class="btn grape full" ${S.busy ? "disabled" : ""}>שמירת ההגדרות</button>
     ${S.mode === "live" ? `<div style="display:grid;gap:6px;margin-top:6px"><b>הקישור לשליחה ללקוחות</b><div class="row"><span class="sel" dir="ltr" style="background:var(--bg);padding:8px 12px;border-radius:10px;word-break:break-all;flex:1;min-width:0">${esc(link)}</span><button type="button" class="btn sm sky" data-a="copyLink">העתקה</button></div></div>` : ""}
-  </form>`;
+  </form>${backupPanel()}`;
+}
+const BACKUP_DAYS = 7;
+const backupDue = () => !S.settings.lastBackup || Date.now() - S.settings.lastBackup > BACKUP_DAYS * 864e5;
+function backupPanel() {
+  const r = S.restore;
+  return `<div class="sec-h"><h2>גיבוי</h2></div><section class="panel" style="max-width:560px;margin-bottom:40px">
+    <p class="muted" style="margin:0">קובץ גיבוי אחד שכולל את כל המוצרים (עם התמונות), הלקוחות, ההזמנות וההגדרות. שמרו אותו בטלפון, במייל או ב-Google Drive.</p>
+    <div class="kv"><span>גיבוי אחרון</span><span class="num">${S.settings.lastBackup ? fmtDate(S.settings.lastBackup) : "עדיין לא בוצע"}</span></div>
+    <button class="btn full" data-a="backup" ${S.busy ? "disabled" : ""}>הורדת גיבוי מלא</button>
+    <div style="border-top:1px solid var(--line);padding-top:14px;display:grid;gap:10px">
+      <b>שחזור מקובץ גיבוי</b>
+      <span class="muted" style="font-size:14px">מחזיר את המוצרים וההגדרות מהקובץ. מוצרים שקיימים כבר יעודכנו לפי הקובץ, ושום דבר לא נמחק.</span>
+      ${r ? `<div class="confirm" style="background:var(--accent-soft);border-color:var(--line2)"><b>בקובץ מ-${esc(fmtDate(r.exportedAt))}: ${r.products.length} מוצרים${r.settings ? " והגדרות החנות" : ""}. לשחזר?</b>
+          <div class="row"><button class="btn sm" data-a="restoreYes">שחזור</button><button class="btn sm ghost" data-a="restoreNo">ביטול</button></div></div>`
+        : `<span class="btn ghost filebtn" style="justify-self:start">בחירת קובץ גיבוי<input type="file" id="restoreFile" accept=".json,application/json"></span>`}
+    </div></section>`;
+}
+function downloadBlob(blob, name) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
 }
 
 /* ---------- exports ---------- */
@@ -897,6 +920,18 @@ const ACT = {
   reject: id => run(() => api.setUserStatus(id, "rejected")),
   clearLogo: () => { S.f.s_logo = ""; render(true); },
   saveSettings: () => run(() => api.saveSettings({ storeName: fv("s_store", S.settings.storeName).trim() || "החנות של אפריים בן דוד", whatsapp: fv("s_wa", S.settings.whatsapp).trim(), logo: fv("s_logo", S.settings.logo) }), "ההגדרות נשמרו"),
+  backup: () => run(async () => {
+    const data = { app: "mechiron", version: 1, exportedAt: Date.now(), settings: S.settings, products: S.products, users: S.users, orders: S.orders };
+    const d = new Date(), name = `גיבוי ${fileSafe(S.settings.storeName)} ${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}.json`;
+    downloadBlob(new Blob([JSON.stringify(data, null, 1)], { type: "application/json" }), name);
+    await api.saveSettings({ lastBackup: Date.now() });
+  }, "קובץ הגיבוי ירד"),
+  restoreNo: () => { S.restore = null; render(true); },
+  restoreYes: () => { const r = S.restore; if (!r) return; S.restore = null;
+    run(async () => {
+      for (const p of r.products) { const { id, ...d } = p; if (id && d.name != null) await api.saveProduct({ id, ...d }); }
+      if (r.settings) { const { lastBackup, ...st } = r.settings; await api.saveSettings(st); }
+    }, `שוחזרו ${r.products.length} מוצרים`); },
   copyLink: () => { const l = location.href.split("#")[0].split("?")[0]; try { navigator.clipboard.writeText(l).then(() => toast("הקישור הועתק"), () => toast("סמנו את הקישור והעתיקו")); } catch (e) { toast("סמנו את הקישור והעתיקו"); } }
 };
 
@@ -920,6 +955,14 @@ $app.addEventListener("input", e => {
 });
 $app.addEventListener("change", async e => {
   const t = e.target;
+  if (t.id === "restoreFile" && t.files && t.files[0]) {
+    try {
+      const j = JSON.parse(await t.files[0].text());
+      if (!j || j.app !== "mechiron" || !Array.isArray(j.products)) throw new Error("זה לא קובץ גיבוי של המחירון");
+      S.restore = { exportedAt: j.exportedAt, products: j.products, settings: j.settings || null };
+    } catch (err) { toast(err instanceof SyntaxError ? "הקובץ פגום ולא ניתן לקרוא אותו" : err.message); }
+    return render(true);
+  }
   if ((t.id === "pImg" || t.id === "sLogo") && t.files && t.files[0]) {
     try {
       if (t.id === "pImg") S.f.p_image = await compress(t.files[0], 640, "image/jpeg");
