@@ -455,6 +455,7 @@ function demoBackend() {
     async deleteProduct(id) { delete mem.products[id]; emit(); },
     watchUsers: cb => sub(() => cb(list(mem.users).map(({ password, ...u }) => u))),
     async setUserStatus(id, status) { mem.users[id].status = status; emit(); },
+    async updateUser(id, p) { Object.assign(mem.users[id], p); emit(); },
     watchSettings: cb => sub(() => cb({ ...mem.settings })),
     async saveSettings(s) { mem.settings = { ...mem.settings, ...s }; emit(); },
     async createOrder(o) { const id = nid(); mem.orders[id] = { ...o, createdAt: Date.now() }; emit(); return id; },
@@ -498,6 +499,7 @@ async function firebaseBackend(cfg) {
     deleteProduct: id => fs.deleteDoc(doc("products", id)),
     watchUsers: cb => snapList(col("users"), cb),
     setUserStatus: (id, status) => fs.updateDoc(doc("users", id), { status }),
+    updateUser: (id, p) => fs.updateDoc(doc("users", id), p),
     watchSettings: cb => fs.onSnapshot(doc("settings", "store"), s => cb(s.data() || {}), () => cb({})),
     saveSettings: s => fs.setDoc(doc("settings", "store"), s, { merge: true }),
     createOrder: async o => (await fs.addDoc(col("orders"), { ...o, createdAt: Date.now() })).id,
@@ -680,6 +682,7 @@ function adminView() {
   else h += settingsAdmin();
   h += `</main>`;
   if (S.sheet === "product") h += productSheet();
+  if (S.sheet === "customer") h += customerSheet();
   return h;
 }
 function ordersList() {
@@ -779,10 +782,26 @@ function customersAdmin() {
     const g = us.filter(u => (u.status || "pending") === st); if (!g.length) continue;
     h += `<h3 style="font-size:18px;margin:6px 0 10px">${title} <span class="muted num">(${g.length})</span></h3><div class="ulist">` + g.map(u => { const i = hashIdx(u.id || u.name);
       return `<div class="urow"><span class="av" style="background:${CAT_COLORS[i]}">${initial(u.name)}</span>
-        <div class="info"><b>${esc(u.name)}</b><span class="muted sel" dir="ltr" style="text-align:right">${esc(u.phone)} · ${esc(u.email)}</span></div>
-        <div class="row">${st !== "approved" ? `<button class="btn sm teal" data-a="approve" data-id="${u.id}">אישור</button>` : ""}${st !== "rejected" ? `<button class="btn sm ghost" data-a="reject" data-id="${u.id}">${st === "approved" ? "חסימה" : "דחייה"}</button>` : ""}</div></div>`; }).join("") + `</div>`;
+        <div class="info"><b>${esc(u.name)}</b><span class="muted sel" dir="ltr" style="text-align:right">${esc(u.phone)} · ${esc(u.email)}</span>${u.adminNote ? `<span class="muted" style="font-size:13px">${esc(u.adminNote)}</span>` : ""}</div>
+        <div class="row"><button class="btn sm ghost" data-a="editUser" data-id="${u.id}">עריכה</button>${st !== "approved" ? `<button class="btn sm teal" data-a="approve" data-id="${u.id}">אישור</button>` : ""}${st !== "rejected" ? `<button class="btn sm ghost" data-a="reject" data-id="${u.id}">${st === "approved" ? "חסימה" : "דחייה"}</button>` : ""}</div></div>`; }).join("") + `</div>`;
   }
   return h;
+}
+function customerSheet() {
+  const u = S.users.find(x => x.id === S.editUser);
+  if (!u) return "";
+  const n = S.orders.filter(o => o.uid === u.id).length, st = fv("u_status", u.status || "pending");
+  return `<div class="scrim" data-a="closeSheet"><form class="sheet" data-stop="1" data-submit="saveUser" role="dialog" aria-label="עריכת לקוח">
+    <div class="sheet-h"><h2>עריכת לקוח</h2><button type="button" class="x" data-a="closeSheet" aria-label="סגירה">×</button></div>
+    <label class="f">שם מלא<input class="i" id="uName" data-m="u_name" value="${esc(fv("u_name"))}" required></label>
+    <label class="f">טלפון<input class="i num" id="uPhone" type="tel" dir="ltr" data-m="u_phone" value="${esc(fv("u_phone"))}" required></label>
+    <div class="f" style="display:grid;gap:6px"><b style="font-size:14px">אימייל להתחברות</b><span class="sel" dir="ltr" style="text-align:right;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px">${esc(u.email)}</span><span class="muted" style="font-size:13px">אי אפשר לשנות מכאן את האימייל שאיתו הלקוח מתחבר.</span></div>
+    <div style="display:grid;gap:6px"><b style="font-size:14px">סטטוס</b><div class="seg" style="grid-template-columns:repeat(3,1fr)">
+      ${[["approved","מאושר"],["pending","ממתין"],["rejected","חסום"]].map(([k,l]) => `<button type="button" class="${st === k ? "on" : ""}" data-a="uStatus" data-id="${k}">${l}</button>`).join("")}</div></div>
+    <label class="f">הערה פנימית (לא מוצגת ללקוח באתר)<textarea class="i" id="uNote" data-m="u_note" placeholder="למשל: לקוח קבוע, מעדיף איסוף בשישי">${esc(fv("u_note"))}</textarea></label>
+    ${n ? `<span class="muted" style="font-size:14px">שינוי השם והטלפון יעודכן גם ב-${n} ההזמנות של הלקוח.</span>` : ""}
+    <button class="btn full" ${S.busy ? "disabled" : ""}>${S.busy ? "שומר..." : "שמירה"}</button>
+  </form></div>`;
 }
 function settingsAdmin() {
   const logo = fv("s_logo", S.settings.logo), link = location.href.split("#")[0].split("?")[0];
@@ -978,6 +997,21 @@ const ACT = {
     run(async () => { await api.saveProduct(data); S.sheet = null; }, "המוצר נשמר");
   },
   delProductYes: () => { const id = S.editProduct; S.sheet = null; S.confirm = null; run(() => api.deleteProduct(id), "המוצר נמחק"); },
+  editUser: id => { const u = S.users.find(x => x.id === id); if (!u) return;
+    S.editUser = id; Object.assign(S.f, { u_name: u.name || "", u_phone: u.phone || "", u_note: u.adminNote || "", u_status: u.status || "pending" });
+    S.sheet = "customer"; render(true); },
+  uStatus: st => { S.f.u_status = st; render(true); },
+  saveUser: () => {
+    const id = S.editUser, name = fv("u_name").trim(), phone = fv("u_phone").trim();
+    if (!name) return toast("צריך שם");
+    if (phone.replace(/\D/g, "").length < 9) return toast("מספר הטלפון לא תקין");
+    const u = S.users.find(x => x.id === id), mine = S.orders.filter(o => o.uid === id);
+    run(async () => {
+      await api.updateUser(id, { name, phone, adminNote: fv("u_note").trim(), status: fv("u_status", "pending") });
+      if (u && (u.name !== name || u.phone !== phone)) for (const o of mine) await api.updateOrder(o.id, { name, phone });
+      S.sheet = null;
+    }, "פרטי הלקוח נשמרו");
+  },
   approve: id => run(() => api.setUserStatus(id, "approved"), "הלקוח אושר"),
   reject: id => run(() => api.setUserStatus(id, "rejected")),
   clearLogo: () => { S.f.s_logo = ""; render(true); },
