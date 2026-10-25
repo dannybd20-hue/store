@@ -5,7 +5,7 @@ service cloud.firestore {
     // ⚠️ להחליף לאימייל של המנהל (אותו אימייל כמו ב-ADMIN_EMAILS בקובץ index.html)
     function isAdmin() {
       return request.auth != null
-        && request.auth.token.email.lower() in ['danny.b.d.20@gmail.com'];
+        && request.auth.token.email.lower() in ['danny.b.d.20@gmail.com', 'efraim2010@gmail.com'];
     }
     function signedIn() { return request.auth != null; }
     function approved() {
