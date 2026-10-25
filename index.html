@@ -616,9 +616,9 @@ function shopView() {
 function productCard(p) {
   const q = S.cart[p.id] || 0, i = p.cat ? catIdx(p.cat) : hashIdx(p.name);
   return `<article class="pc${q ? " on" : ""}${S.bump === p.id ? " bump" : ""}">
-    <div class="ph tap" data-a="inc" data-id="${p.id}" role="button" aria-label="הוספת ${esc(p.name)}" style="background:${CAT_TINTS[i]}">${q ? `<span class="qbadge">${q}</span>` : ""}${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">` : `<span class="noimg" style="color:${CAT_COLORS[i]}">${initial(p.name)}</span>`}
+    <div class="ph tap" data-a="tapAdd" data-id="${p.id}" role="button" aria-label="הוספת ${esc(p.name)}" style="background:${CAT_TINTS[i]}">${q ? `<span class="qbadge">${q}</span>` : ""}${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">` : `<span class="noimg" style="color:${CAT_COLORS[i]}">${initial(p.name)}</span>`}
       <span class="tag">${money(p.price)}</span>${p.cat ? `<span class="badge-cat" style="background:${CAT_COLORS[i]}">${esc(p.cat)}</span>` : ""}</div>
-    <div class="pb tap" data-a="inc" data-id="${p.id}">
+    <div class="pb tap" data-a="tapAdd" data-id="${p.id}">
 <h3>${esc(p.name)}</h3>${p.desc ? `<p>${esc(p.desc)}</p>` : ""}</div>
     <div class="pq">${q
       ? `<button class="qb minus" data-a="dec" data-id="${p.id}" aria-label="פחות">−</button><span class="qn">${q}</span><button class="qb" data-a="inc" data-id="${p.id}" aria-label="עוד">+</button>`
@@ -923,6 +923,7 @@ const ACT = {
   },
   forgot: () => { if (!fv("l_email")) { S.err = "כתבו קודם את האימייל, ואז לחצו על \"שכחתי סיסמה\""; return render(true); } run(() => api.reset(fv("l_email")), "נשלח מייל לאיפוס הסיסמה"); },
   logout: () => { S.f = {}; api.signOut(); },
+  tapAdd: id => { if (!S.cart[id]) ACT.inc(id); },
   inc: id => { S.cart[id] = (S.cart[id] || 0) + 1; S.bump = S.sheet ? null : id; render(true); S.bump = null; },
   dec: id => { S.cart[id] = Math.max(0, (S.cart[id] || 0) - 1); if (!S.cart[id]) delete S.cart[id]; if (!cartItems().length) S.sheet = null; render(true); },
   cat: c => { S.cat = c; render(true); },
