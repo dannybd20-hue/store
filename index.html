@@ -1,1083 +1,540 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>החנות של אפריים בן דוד</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<title>אלוף בגמרא</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#10263A">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="החנות">
+<meta name="apple-mobile-web-app-title" content="אלוף בגמרא">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@500;700;800&family=Frank+Ruhl+Libre:wght@700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Frank+Ruhl+Libre:wght@700;900&display=swap">
 <style>
-/* Layout: dark petrol masthead, quiet neutral canvas, product tiles with a crisp price label; one emerald accent for actions */
-:root{
-  --bg:#F4F5F7; --card:#FFFFFF; --ink:#111827; --muted:#667085; --line:#E4E7EC; --line2:#D0D5DD;
-  --brand:#10263A; --brand-ink:#FFFFFF; --accent:#0B7A63; --accent-ink:#FFFFFF; --accent-soft:#E7F4F0;
-  --gold:#B8893A; --wa:#1F9D55; --danger:#C2362F; --warn:#B4690E; --info:#2F5D8A;
-  --t0:#EEF2F6; --t1:#F2EFE9; --t2:#EAF2EF; --t3:#F3EEEA; --t4:#ECEFF6; --t5:#F1EDF4;
-  --k0:#2F5D8A; --k1:#8A6A2F; --k2:#0B7A63; --k3:#9A5B3B; --k4:#4B5B8C; --k5:#6E4E86;
-  --display:"Heebo","Assistant",system-ui,sans-serif;
-  --serif:"Frank Ruhl Libre","Times New Roman",serif;
-  --body:"Assistant","Heebo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
-  --r:10px;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0E141B; --card:#161E27; --ink:#E9EDF2; --muted:#98A2B3; --line:#243040; --line2:#33414F;
-  --brand:#0A1A28; --accent:#2BB592; --accent-ink:#04211A; --accent-soft:#12302A;
-  --gold:#D6A955; --wa:#2DBE6C; --danger:#F06A60; --warn:#E39B3E; --info:#7FA8D4;
-  --t0:#1B2531; --t1:#24211C; --t2:#17262A; --t3:#26201D; --t4:#1C2232; --t5:#221D2A;
-  --k0:#7FA8D4; --k1:#D6B36F; --k2:#2BB592; --k3:#D9906B; --k4:#93A3D6; --k5:#B597CF; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0E141B; --card:#161E27; --ink:#E9EDF2; --muted:#98A2B3; --line:#243040; --line2:#33414F;
-  --brand:#0A1A28; --accent:#2BB592; --accent-ink:#04211A; --accent-soft:#12302A;
-  --gold:#D6A955; --wa:#2DBE6C; --danger:#F06A60; --warn:#E39B3E; --info:#7FA8D4;
-  --t0:#1B2531; --t1:#24211C; --t2:#17262A; --t3:#26201D; --t4:#1C2232; --t5:#221D2A;
-  --k0:#7FA8D4; --k1:#D6B36F; --k2:#2BB592; --k3:#D9906B; --k4:#93A3D6; --k5:#B597CF; color-scheme:dark}
-
+:root{--bg:#F4F1EA;--card:#FFFFFF;--ink:#1A1A1A;--muted:#6B6558;--line:#E2DCCD;--brand:#10263A;--gold:#B8893A;--ok:#1E8A4C;--ok-bg:#E3F4EA;--bad:#C2362F;--bad-bg:#FBE7E5;--warn:#D08A10;--serif:"Frank Ruhl Libre",serif;--body:"Assistant",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#0E141B;--card:#161E27;--ink:#E9EDF2;--muted:#98A2B3;--line:#2A3646;--brand:#0A1A28;--gold:#D6A955;--ok:#3CCB7A;--ok-bg:#12301F;--bad:#F06A60;--bad-bg:#3A1A18;--warn:#E8A73A}}
 *{box-sizing:border-box}
-html,body{min-height:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--body);-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--brand)}
-button,input,select,textarea{font:inherit;color:inherit}
-h1,h2,h3{font-family:var(--display);font-weight:700;margin:0;text-wrap:balance;line-height:1.25;letter-spacing:-.01em}
-.num{font-variant-numeric:tabular-nums}
-.muted{color:var(--muted)}
-.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.5 var(--body);padding-top:env(safe-area-inset-top,0);padding-bottom:env(safe-area-inset-bottom,0);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+header{background:var(--brand);color:#fff;padding:14px max(16px,env(safe-area-inset-left,0));display:flex;align-items:center;justify-content:space-between;gap:10px}
+header h1{margin:0;font:900 22px/1 var(--serif);letter-spacing:0}
+header .sc{font-weight:700;font-variant-numeric:tabular-nums;background:rgba(255,255,255,.12);border-radius:8px;padding:4px 12px}
+main{max-width:560px;margin:0 auto;padding:20px max(16px,env(safe-area-inset-left,0)) 40px}
+.hero{text-align:center;padding:28px 0 8px}
+.hero .t{font:900 44px/1.1 var(--serif);color:var(--brand)}
+@media (prefers-color-scheme:dark){.hero .t{color:var(--gold)}}
+.hero .s{color:var(--muted);margin:8px 0 24px}
+.lbl{font-size:15px;color:var(--muted);margin-bottom:8px;text-align:center}
+.lvls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.lv{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;font-weight:600;text-align:right;display:flex;gap:10px;align-items:center}
+.lv b{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--bg);font-weight:700;flex:none}
+.lv.on{border:2px solid var(--gold)}
+.lv.on b{background:var(--gold);color:#fff}
+.lv:last-child{grid-column:1/-1}
+.big{display:block;width:100%;background:var(--gold);color:#fff;border:0;border-radius:14px;padding:16px;font:700 20px var(--body)}
+.big:active{transform:scale(.98)}
+.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:15px;margin-bottom:10px}
+.meta b{color:var(--ink)}
+.track{height:10px;background:var(--line);border-radius:5px;overflow:hidden}
+.bar{height:100%;width:100%;background:var(--ok);transition:width 1s linear,background .3s}
+.clock{text-align:center;font-weight:700;font-size:18px;margin:8px 0 14px;font-variant-numeric:tabular-nums}
+.clock.hot{color:var(--bad)}
+.qbox{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 16px;text-align:center;margin-bottom:16px}
+.qbox .p{color:var(--muted);font-size:15px;margin-bottom:6px}
+.qbox .w{font:900 40px/1.2 var(--serif)}
+.opts{display:grid;gap:12px}
+.opt{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:64px;padding:14px 18px;font-size:19px;font-weight:600;border-radius:14px;border:1px solid var(--line);background:var(--card);text-align:right}
+.opt .ic{width:30px;height:30px;flex:none}
+.opt.ok{background:var(--ok-bg);border:2px solid var(--ok);color:var(--ok)}
+.opt.bad{background:var(--bad-bg);border:2px solid var(--bad);color:var(--bad)}
+.msg{text-align:center;min-height:28px;margin-top:14px;font-weight:700;font-size:18px}
+.done{text-align:center;padding:36px 0}
+.done .tr{font-size:64px}
+.done h2{font:900 30px/1.2 var(--serif);margin:10px 0 6px}
+.done p{color:var(--muted);margin:0 0 24px;font-size:18px}
+@keyframes pop{0%{transform:scale(.3)}70%{transform:scale(1.3)}100%{transform:scale(1)}}.pop{animation:pop .3s}
+@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}.shake{animation:shake .25s 2}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(30,138,76,.0)}50%{box-shadow:0 0 0 6px rgba(30,138,76,.35),0 0 22px 4px rgba(30,138,76,.55)}}
+.opt.glow{animation:glow 1s ease-in-out 3;position:relative;z-index:1}
+[hidden]{display:none!important}
 
-.demo{background:var(--t1);color:var(--ink);font-size:13px;border-bottom:1px solid var(--line)}
-.demo .wrap{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding-block:7px}
-.demo b{margin-inline-end:auto;font-weight:600;color:var(--k1)}
-.demo button{border:1px solid var(--line2);background:var(--card);border-radius:6px;padding:3px 10px;cursor:pointer;font-weight:600}
+.field{display:grid;gap:6px;margin-bottom:14px;text-align:right}
+.field span{font-size:15px;color:var(--muted);font-weight:600}
+.field input{width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:12px 14px;font:600 18px var(--body)}
+.field input:focus{outline:none;border-color:var(--gold)}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.seg button{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 8px;font-weight:700;display:grid;gap:2px}
+.seg button small{font-weight:400;color:var(--muted);font-size:13px}
+.seg button.on{border:2px solid var(--gold)}
+.err{color:var(--bad);font-weight:600;font-size:15px;min-height:22px;text-align:center;margin-bottom:8px}
+.duel{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.pl{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;text-align:center;opacity:.55;transition:opacity .2s}
+.pl.on{opacity:1;border:2px solid var(--gold)}
+.pl .n{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl .p{font:900 26px var(--serif);font-variant-numeric:tabular-nums}
+.pl .c{font-size:13px;color:var(--muted)}
+.turn{text-align:center;padding:48px 0}
+.turn .who{font:900 36px/1.2 var(--serif);color:var(--gold);margin:8px 0 24px}
+.rank{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 16px;margin:0 0 22px;text-align:right}
+.rank div{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:18px}
+.rank div:last-child{border:0}
+.ghost{display:block;width:100%;margin-top:10px;background:transparent;border:1px solid var(--line);border-radius:14px;padding:14px;font-weight:700}
 
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--brand);color:var(--brand-ink)}
-.top .wrap{display:flex;align-items:center;gap:8px;padding-block:12px}
-.brand{display:flex;align-items:center;gap:12px;margin-inline-end:auto;min-width:0}
-.brand h1{font:700 clamp(17px,4.4vw,21px)/1.2 var(--serif);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:0}
-.logo{width:38px;height:38px;border-radius:8px;background:#fff;object-fit:contain;flex:none}
-.logo.ph{display:grid;place-items:center;color:var(--brand);font:700 20px var(--serif);background:#fff}
-.hbtn{border:1px solid rgba(255,255,255,.22);background:transparent;color:#fff;border-radius:8px;padding:6px 12px;font-weight:600;font-size:14px;cursor:pointer;white-space:nowrap}
-.hbtn:hover{background:rgba(255,255,255,.08)}
-
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:8px;padding:10px 16px;font-weight:700;font-size:15px;cursor:pointer;text-decoration:none;background:var(--accent);color:var(--accent-ink);transition:background .15s,box-shadow .15s}
-.btn:hover{filter:brightness(1.05)}
-.btn[disabled]{opacity:.55;cursor:default}
-.btn.full{width:100%}
-.btn.soft{background:var(--card);color:var(--ink);border-color:var(--line2)}
-.btn.soft:hover{border-color:var(--ink)}
-.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line2)}
-.btn.wa{background:var(--wa);color:#fff}
-.btn.teal,.btn.grape,.btn.orange{background:var(--accent);color:var(--accent-ink)}
-.btn.sky{background:var(--ink);color:var(--bg)}
-.btn.danger{background:var(--danger);color:#fff}
-.btn.sm{padding:6px 12px;font-size:14px}
-.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-
-label.f{display:grid;gap:6px;font-weight:600;font-size:14px;color:var(--ink)}
-input.i,select.i,textarea.i{width:100%;border:1px solid var(--line2);background:var(--card);border-radius:8px;padding:10px 12px;font-weight:400;font-size:16px;transition:border-color .15s,box-shadow .15s}
-input.i:focus,select.i:focus,textarea.i:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);outline:none}
-textarea.i{min-height:76px;resize:vertical}
-.err{background:color-mix(in srgb,var(--danger) 10%,var(--card));color:var(--danger);border:1px solid color-mix(in srgb,var(--danger) 30%,transparent);border-radius:8px;padding:10px 12px;font-weight:600;font-size:14px}
-
-.auth{min-height:100vh;display:grid;place-items:center;padding-block:40px;background:linear-gradient(var(--brand) 0 230px,var(--bg) 230px)}
-.auth-card{width:100%;max-width:400px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px 24px;display:grid;gap:16px;box-shadow:0 24px 48px -24px rgba(16,38,58,.35)}
-.auth-head{display:grid;justify-items:center;gap:6px;text-align:center}
-.auth-head .logo{width:60px;height:60px;border-radius:12px;border:1px solid var(--line)}
-.auth-head .logo.ph{font-size:30px;color:var(--brand)}
-.auth-head h1{font:700 26px/1.2 var(--serif);color:var(--ink)}
-.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:3px}
-.seg button{border:0;background:transparent;border-radius:6px;padding:8px;font-weight:600;cursor:pointer;color:var(--muted)}
-.seg button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(16,24,40,.12)}
-.link{background:none;border:0;color:var(--info);font-weight:600;cursor:pointer;padding:0;font-size:14px}
-form.stack{display:grid;gap:14px}
-
-.center{min-height:70vh;display:grid;place-items:center;text-align:center;padding-block:40px}
-.center .box{display:grid;gap:12px;justify-items:center;max-width:420px}
-.bubble{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
-
-.hello{padding-block:22px 4px;display:grid;gap:2px}
-.hello h2{font-size:24px}
-.chips{display:flex;gap:6px;overflow-x:auto;padding-block:12px 16px;scrollbar-width:none}
-.chip{flex:none;border:1px solid var(--line2);border-radius:99px;padding:6px 14px;font-weight:600;font-size:14px;cursor:pointer;background:var(--card);color:var(--ink)}
-.chip.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
-.catbar{display:flex;align-items:center;gap:14px;padding-block:12px 16px}
-.catbtn{display:flex;align-items:center;gap:8px;border:1px solid var(--line2);background:var(--card);border-radius:10px;padding:10px 14px;cursor:pointer;min-width:0;flex:1;max-width:340px;text-align:right}
-.catbtn b{font-weight:700;margin-inline-end:auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.catbtn span{font-size:14px}
-.catlist{display:grid;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.catopt{display:flex;justify-content:space-between;align-items:center;gap:10px;border:0;border-bottom:1px solid var(--line);background:var(--card);padding:14px 16px;font-weight:600;font-size:16px;cursor:pointer;text-align:right}
-.catopt:last-child{border-bottom:0}
-.catopt.on{background:var(--accent-soft);color:var(--accent)}
-.catopt.on .muted{color:var(--accent)}
-.grid,.plist{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;padding-bottom:120px}
-.plist{padding-bottom:40px}
-.pc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s,box-shadow .15s}
-.pc:hover{box-shadow:0 6px 18px -10px rgba(16,24,40,.25)}
-.pc.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
-.pc .tap{cursor:pointer;-webkit-tap-highlight-color:transparent}
-.pc .tap:active{opacity:.85}
-.qbadge{position:absolute;z-index:2;top:6px;right:6px;min-width:24px;height:24px;padding:0 6px;border-radius:99px;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:13px;display:grid;place-items:center;font-variant-numeric:tabular-nums}
-@keyframes pop{0%{transform:scale(1)}40%{transform:scale(.96)}100%{transform:scale(1)}}
-.pc.bump{animation:pop .22s ease-out}
-.ph{position:relative;aspect-ratio:1;max-width:100%;display:grid;place-items:center;border-bottom:1px solid var(--line)}
-.ph{overflow:hidden}
-.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.noimg{font:700 40px var(--serif);opacity:.55}
-.tag{position:absolute;z-index:1;bottom:8px;right:8px;background:var(--card);color:var(--ink);font-weight:800;font-size:15px;padding:3px 9px;border-radius:6px;font-variant-numeric:tabular-nums;box-shadow:0 1px 3px rgba(16,24,40,.18)}
-.badge-cat{position:absolute;z-index:1;top:8px;left:8px;font-size:11px;font-weight:700;letter-spacing:.03em;color:#fff;padding:2px 8px;border-radius:4px}
-.pb{padding:12px 12px 2px;display:grid;gap:2px;flex:1;min-width:0}
-.pb h3{font-size:16px;font-weight:600}
-.pb p{margin:0;font-size:13px;color:var(--muted);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.pq{padding:10px 12px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.qb{width:34px;height:34px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-size:19px;font-weight:700;cursor:pointer;line-height:1}
-.qb.minus{background:var(--card);color:var(--ink);border-color:var(--line2)}
-.qn{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
-.empty{background:var(--card);border:1px dashed var(--line2);border-radius:var(--r);padding:40px 20px;text-align:center;display:grid;gap:8px;justify-items:center;grid-column:1/-1}
-.empty h3{font-size:18px}
-
-.bar{position:fixed;bottom:0;left:0;right:0;z-index:25;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));padding-top:12px;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
-.bar .wrap{display:flex}
-.bar .btn{flex:1;justify-content:space-between;padding:13px 18px;font-size:16px;border-radius:10px}
-.count{background:rgba(255,255,255,.2);border-radius:6px;min-width:26px;height:26px;display:inline-grid;place-items:center;padding:0 7px;font-variant-numeric:tabular-nums}
-
-.scrim{position:fixed;inset:0;z-index:40;background:rgba(10,20,30,.5);display:flex;align-items:flex-end;justify-content:center}
-.sheet{background:var(--card);width:100%;max-width:540px;max-height:92vh;overflow:auto;border-radius:16px 16px 0 0;padding:20px max(18px,env(safe-area-inset-left,0px)) calc(20px + env(safe-area-inset-bottom,0px));display:grid;gap:14px}
-@media (min-width:700px){.scrim{align-items:center}.sheet{border-radius:14px}}
-.sheet-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-.sheet-h h2{font-size:20px}
-.x{border:1px solid var(--line);background:var(--card);width:34px;height:34px;border-radius:8px;font-size:18px;cursor:pointer;color:var(--muted)}
-.line{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center;padding-block:10px;border-bottom:1px solid var(--line)}
-.line img,.line .th{width:48px;height:48px;border-radius:8px;object-fit:cover;display:grid;place-items:center;font:700 20px var(--serif)}
-.line .nm{min-width:0}
-.line .nm b{display:block;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.mini{display:flex;align-items:center;gap:8px}
-.mini .qb{width:28px;height:28px;font-size:16px}
-.total{display:flex;justify-content:space-between;align-items:baseline;font-size:17px;font-weight:700}
-.total .big{font:800 26px var(--display)}
-
-.tabs{display:flex;gap:4px;overflow-x:auto;margin-top:12px;border-bottom:1px solid var(--line);scrollbar-width:none}
-.tab{flex:none;border:0;border-bottom:2px solid transparent;background:transparent;padding:12px 14px;font-weight:600;cursor:pointer;color:var(--muted);display:flex;gap:8px;align-items:center;margin-bottom:-1px}
-.tab.on{color:var(--ink);border-bottom-color:var(--accent)}
-.tab .n{background:var(--accent);color:var(--accent-ink);border-radius:99px;padding:0 7px;font-size:12px;line-height:18px;font-variant-numeric:tabular-nums}
-.sec-h{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding-block:20px 14px}
-.sec-h h2{font-size:22px}
-.sec-h .chip{padding:5px 12px}
-.cubes{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;padding-bottom:40px}
-.cube{border:1px solid var(--line);text-align:right;background:var(--card);border-radius:var(--r);padding:16px;display:grid;gap:10px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
-.cube:hover{border-color:var(--line2);box-shadow:0 6px 18px -10px rgba(16,24,40,.25)}
-.cube-top,.cube-bot{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.cube-top b{font-size:16px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cube-bot{padding-top:10px;border-top:1px solid var(--line)}
-.cube-bot b{font:800 20px var(--display)}
-.av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:#fff;font:700 16px var(--display);flex:none}
-.pill{font-size:12px;font-weight:700;border-radius:99px;padding:2px 9px;white-space:nowrap;border:1px solid}
-.pill.new{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 35%,transparent);background:color-mix(in srgb,var(--warn) 8%,var(--card))}
-.pill.priced,.pill.approved{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 35%,transparent);background:var(--accent-soft)}
-.pill.pending{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 35%,transparent);background:color-mix(in srgb,var(--warn) 8%,var(--card))}
-.pill.rejected{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 35%,transparent);background:color-mix(in srgb,var(--danger) 8%,var(--card))}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:14px}
-.panel h2{font-size:18px}
-.detail{display:grid;gap:16px;grid-template-columns:1.5fr 1fr;align-items:start;padding-bottom:40px}
-@media (max-width:760px){.detail{grid-template-columns:1fr}}
-.who{display:flex;gap:12px;align-items:center}
-.who .av{width:46px;height:46px;font-size:20px}
-.who h2{font-size:20px!important}
-.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;font-size:15px}
-.kv span:nth-child(odd){color:var(--muted)}
-.sel{user-select:all}
-.tbl-wrap{overflow-x:auto}
-table.t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:15px}
-table.t th{text-align:right;font-size:12px;letter-spacing:.04em;color:var(--muted);font-weight:600;padding:8px 6px;border-bottom:1px solid var(--line2);background:var(--bg)}
-table.t td{padding:10px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
-table.t td.n{white-space:nowrap}
-.tp{display:flex;gap:10px;align-items:center}
-.tp b{font-weight:600}
-.tp img,.tp .th{width:38px;height:38px;border-radius:6px;object-fit:cover;flex:none;display:grid;place-items:center;font:700 16px var(--serif)}
-.final{border-radius:8px;padding:14px 16px;background:var(--accent-soft);display:flex;justify-content:space-between;align-items:baseline;border:1px solid color-mix(in srgb,var(--accent) 25%,transparent)}
-.final b{font:800 26px var(--display);color:var(--accent)}
-.dl{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.pa{padding:8px 12px 12px;display:flex;gap:6px}
-.pa .btn{flex:1}
-.imgpick{display:grid;grid-template-columns:88px 1fr;gap:14px;align-items:center}
-.imgpick .prev{width:88px;height:88px;border-radius:10px;background:var(--bg);border:1px dashed var(--line2);display:grid;place-items:center;overflow:hidden;color:var(--muted);font-size:13px;text-align:center}
-.imgpick .prev img{width:100%;height:100%;object-fit:cover}
-.filebtn{position:relative;overflow:hidden}
-.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer}
-.ulist{display:grid;border:1px solid var(--line);border-radius:var(--r);background:var(--card);margin-bottom:24px;overflow:hidden}
-.urow{padding:14px 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;border-bottom:1px solid var(--line)}
-.urow:last-child{border-bottom:0}
-.urow .info{flex:1;min-width:180px;display:grid}
-.urow .info b{font-weight:600}
-.confirm{background:color-mix(in srgb,var(--danger) 7%,var(--card));border:1px solid color-mix(in srgb,var(--danger) 25%,transparent);border-radius:8px;padding:12px;display:grid;gap:10px}
-.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;z-index:60;max-width:calc(100% - 32px);text-align:center;box-shadow:0 10px 30px -10px rgba(0,0,0,.4)}
-.myo{display:grid;gap:12px;padding-bottom:40px}
-.ocard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:10px}
-.oitems{font-size:14px;color:var(--muted)}
-.note{background:var(--t1);color:var(--ink);border-radius:8px;padding:11px 13px;font-size:15px;border:1px solid var(--line)}
-.spin{width:32px;height:32px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--accent);animation:sp 1s linear infinite}
-@keyframes sp{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-
-/* compact tiles on phones */
-@media (max-width:560px){.grid,.plist{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-  .pb{padding:8px 8px 0}.pb h3{font-size:14px;line-height:1.3}.pb p{display:none}
-  .pq{padding:6px 8px 8px}.pq .btn{padding:5px 6px;font-size:13px}
-  .qb{width:28px;height:28px;font-size:16px;border-radius:7px}.qn{font-size:15px}
-  .tag{font-size:13px;padding:2px 6px;bottom:6px;right:6px}.badge-cat{display:none}.noimg{font-size:30px}
-  .pa{padding:6px 8px 8px}}
-@media (max-width:340px){.grid,.plist{grid-template-columns:1fr 1fr}}
-
-/* PDF sheet (rendered off screen, fixed light palette for print) */
-#pdfHost{position:fixed;left:-10000px;top:0;width:794px;pointer-events:none}
-.pdf{width:794px;background:#fff;color:#111827;font-family:var(--body);direction:rtl}
-.pdf-band{background:#10263A;color:#fff;padding:32px 44px;display:flex;align-items:center;gap:18px}
-.pdf-band img{width:72px;height:72px;border-radius:10px;background:#fff;object-fit:contain;padding:4px}
-.pdf-band .lp{width:72px;height:72px;border-radius:10px;background:#fff;color:#10263A;display:grid;place-items:center;font:700 34px var(--serif)}
-.pdf-band h1{font:700 30px/1.2 var(--serif);color:#fff;margin:0}
-.pdf-band .sub{color:#C9D3DD;font-size:15px;margin-top:4px}
-.pdf-stripe{height:4px;background:#B8893A}
-.pdf-body{padding:30px 44px 36px}
-.pdf-meta{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
-.pdf-box{border:1px solid #E4E7EC;border-radius:8px;padding:14px 16px;font-size:14px;line-height:1.75}
-.pdf-box b{display:block;font:700 12px var(--display);letter-spacing:.06em;color:#667085;margin-bottom:4px}
-.pdf table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
-.pdf th{background:#F4F5F7;color:#475467;padding:10px;text-align:right;font-weight:700;font-size:12px;border-bottom:1px solid #D0D5DD}
-.pdf td{padding:10px;border-bottom:1px solid #E4E7EC;vertical-align:middle}
-.pdf tr{page-break-inside:avoid}
-.pdf .pimg{width:50px;height:50px;border-radius:6px;object-fit:cover;display:block}
-.pdf .pimg.ph{background:#EEF2F6;color:#2F5D8A;display:grid;place-items:center;font:700 22px var(--serif)}
-.pdf-sum{margin-top:22px;margin-right:auto;width:320px;display:grid;gap:8px;font-size:15px}
-.pdf-sum div{display:flex;justify-content:space-between}
-.pdf-sum .grand{border-top:2px solid #10263A;padding-top:12px;margin-top:4px;font:800 22px var(--display);color:#10263A}
-.pdf-note{margin-top:20px;border:1px solid #E4E7EC;background:#FAFAF8;border-radius:8px;padding:12px 16px;font-size:14px}
-.pdf-foot{margin-top:32px;padding-top:14px;border-top:1px solid #E4E7EC;text-align:center;color:#667085;font-size:12px}
+.lb{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin-bottom:16px}
+.lb h3{margin:0 0 6px;font:700 15px var(--body);color:var(--muted);display:flex;justify-content:space-between}
+.lb ol{list-style:none;margin:0;padding:0}
+.lb li{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--line);font-size:16px}
+.lb li:first-child{border-top:0}
+.lb .md{font-size:20px;width:26px;text-align:center}
+.lb .nm{flex:1;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb .pt{font-weight:700;font-variant-numeric:tabular-nums}
+.lb li.me{color:var(--gold)}
+.lb .empty{color:var(--muted);font-size:15px;padding:4px 0}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0));transform:translateX(-50%);background:var(--brand);color:#fff;border-radius:12px;padding:12px 18px;font-weight:700;z-index:50;box-shadow:0 10px 30px -10px rgba(0,0,0,.4);white-space:nowrap}
+.wrap2>div{max-width:560px;margin:0 auto;width:100%}
+@media (min-width:900px){.wrap2>div{max-width:none}.opts{grid-template-columns:1fr 1fr;gap:16px}.opt{min-height:120px;font-size:26px;padding:20px 24px;border-radius:18px}.opt .ic{width:38px;height:38px}.qbox{padding:44px 20px}.qbox .w{font-size:56px}.clock{font-size:22px}}
+@media (min-width:900px){.wrap2{display:grid;grid-template-columns:280px minmax(0,820px);gap:24px;justify-content:center;max-width:none}.wrap2 .lb{position:sticky;top:20px;align-self:start;order:2}}
 </style>
 </head>
 <body>
-<div id="app"></div>
-<div id="pdfHost" aria-hidden="true"></div>
+<header><h1 style="display:flex;align-items:center;gap:10px"><img src="icon-192.png" alt="" width="34" height="34" style="border-radius:8px">אלוף בגמרא</h1><span class="sc" id="hdr"></span></header>
+<main class="wrap2" style="max-width:none">
+  <aside class="lb" id="lb"><h3><span>🏆 טבלת האלופים</span><span id="lbst"></span></h3><ol id="lbl"><li class="empty">טוען…</li></ol></aside>
+  <div>
+  <section id="start">
+    <div class="hero"><div class="t">אלוף בגמרא</div><div class="s">30 שניות לכל שאלה</div></div>
+    <div class="lbl">סוג משחק</div>
+    <div class="seg" id="modes">
+      <button data-m="solo" class="on">רגיל<small>שחקן אחד · 10 שאלות בשלב</small></button>
+      <button data-m="pp">פינג פונג<small>שני שחקנים · טעית? התור עובר</small></button>
+      <button data-m="mp" style="grid-column:1/-1">כל אחד בטלפון שלו<small>2–4 שחקנים · מי שעונה ראשון נכון מקבל את הנקודות</small></button>
+    </div>
+    <label class="field"><span id="n1l">השם שלך</span><input id="n1" maxlength="20" autocomplete="off" placeholder="משה"></label>
+    <label class="field" id="n2f" hidden><span>שחקן 2</span><input id="n2" maxlength="20" autocomplete="off" placeholder="יוסף"></label>
+    <div id="tgf" hidden>
+      <div class="lbl">מנצח מי שמגיע ראשון ל־</div>
+      <div class="seg" id="tg" style="grid-template-columns:1fr 1fr 1fr"><button data-t="5">5 נכונות</button><button data-t="10" class="on">10 נכונות</button><button data-t="15">15 נכונות</button></div>
+    </div>
+    <div id="mpf" hidden>
+      <div class="seg" id="mpm"><button data-x="host" class="on">פתח משחק חדש<small>תקבל קוד לשתף</small></button><button data-x="join">הצטרף למשחק<small>עם קוד מחבר</small></button></div>
+      <label class="field" id="codef" hidden><span>קוד המשחק</span><input id="code" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="1234" style="letter-spacing:.3em;text-align:center"></label>
+    </div>
+    <div id="lvlf"><div class="lbl">שלב</div>
+    <div class="lvls" id="lvls"></div></div>
+    <div class="err" id="err"></div>
+    <button class="big" id="go">התחל משחק</button>
+  </section>
+  <section id="lobby" class="turn" hidden>
+    <div class="lbl">קוד המשחק</div>
+    <div class="who" id="lcode" style="font-size:56px;letter-spacing:.15em;margin-bottom:6px"></div>
+    <div class="lbl" id="lhint"></div>
+    <div class="rank" id="lplayers" style="margin-top:16px"></div>
+    <div class="err" id="lerr"></div>
+    <button class="big" id="lstart" hidden>התחל משחק</button>
+    <button class="ghost" id="lleave">יציאה</button>
+  </section>
+  <section id="turn" class="turn" hidden>
+    <div class="lbl" id="turnWhy"></div>
+    <div>התור של</div>
+    <div class="who" id="turnWho"></div>
+    <button class="big" id="turnGo">אני מוכן</button>
+  </section>
+  <section id="play" hidden>
+    <div class="duel" id="duel" hidden>
+      <div class="pl" id="pl0"><div class="n"></div><div class="p">0</div><div class="c"></div></div>
+      <div class="pl" id="pl1"><div class="n"></div><div class="p">0</div><div class="c"></div></div>
+    </div>
+    <div class="meta"><span id="lvl"></span><span id="qn"></span></div>
+    <div class="track"><div class="bar" id="bar"></div></div>
+    <div class="clock" id="clock">30 שניות</div>
+    <div class="qbox"><div class="p">מה הפירוש של</div><div class="w" id="q"></div></div>
+    <div class="opts" id="opts"></div>
+    <div class="msg" id="msg"></div>
+    <div class="rank" id="mpb" hidden style="margin-top:14px"></div>
+  </section>
+  <section id="done" class="done" hidden>
+    <div class="tr">🏆</div>
+    <h2 id="dt"></h2>
+    <p id="ds"></p>
+    <div class="rank" id="rank" hidden></div>
+    <button class="big" id="next"></button>
+    <button class="ghost" id="home">חזרה למסך הראשי</button>
+  </section>
+  </div>
+</main>
+<div class="toast" id="toast" hidden></div>
 <script>
-/* ============================================================
-   הגדרות — זה החלק היחיד שצריך לערוך
-   ============================================================ */
+const R=`מאי|מה|1|ש
+היכי|איך|1|ש
+אמאי|למה|1|ש
+מאן|מי|1|ש
+היכא|איפה|1|ש
+מנא|מניין|1|ש
+הכא|כאן|1|ב
+התם|שם|1|ב
+השתא|עכשיו|1|ב
+טובא|הרבה|1|ב
+איכא|יש|1|ב
+ליכא|אין|1|ב
+נמי|גם|1|ב
+אי|אם|1|ב
+הכי|כך|1|ב
+אין|כן|1|ב
+לאו|לא|1|ב
+האי|זה|1|ב
+הני|אלה|1|ב
+חד|אחד|1|מ
+תרי|שניים|1|מ
+אנא|אני|1|ב
+אנת|אתה|1|ב
+אנן|אנחנו|1|ב
+איהו|הוא|1|ב
+אינהו|הם|1|ב
+אית|יש|1|ב
+לית|אין|1|ב
+מי|האם|1|ש
+תלתא|שלושה|2|מ
+יומא|יום|2|ע
+ליליא|לילה|2|ע
+מיא|מים|2|ע
+חמרא|יין|2|ע
+נהמא|לחם|2|ע
+ביתא|בית|2|ע
+ברא|בן|2|ע
+ברתא|בת|2|ע
+גברא|אדם, איש|2|ע
+איתתא|אישה|2|ע
+ארעא|ארץ, אדמה|2|ע
+שמיא|שמים|2|ע
+עלמא|עולם|2|ע
+מילתא|דבר, עניין|2|ע
+מידי|משהו, דבר כלשהו|2|ע
+זוזי|כסף, מעות|2|ע
+טעמא|סיבה, טעם|2|ע
+רבה|גדול|2|ת
+זוטא|קטן|2|ת
+טפי|יותר|2|ת
+פורתא|מעט|2|ת
+כולהו|כולם|2|ת
+אגרא|שכר|2|ע
+אורחא|דרך|2|ע
+אורתא|ערב|2|ע
+צפרא|בוקר|2|ע
+אתרא|מקום|2|ע
+דוכתא|מקום|2|ע
+מתא|עיר|2|ע
+שתא|שנה|2|ע
+זמנא|פעם|2|ע
+דביתהו|אשתו|2|ע
+איניש|אדם, איש|2|ע
+בי כנישתא|בית כנסת|2|ע
+בי מדרשא|בית מדרש|2|ע
+האידנא|עכשיו|2|ב
+אכתי|עדיין|2|ב
+מעיקרא|מתחילה|2|ב
+סגי|די, מספיק|2|ב
+דא|זו, זאת|2|ב
+אידך|האחר|2|ב
+תרוייהו|שניהם|2|מ
+אחרינא|אחר|2|ת
+בציר|פחות|2|ת
+נפיש|מרובה|2|ת
+שפיר|טוב, יפה|2|ת
+קמא|ראשון|2|ת
+בתרא|אחרון|2|ת
+דומיא|דומה|2|ת
+שרי|מותר|2|ת
+אזל|הלך|3|פ
+אתא|בא|3|פ
+יתיב|ישב|3|פ
+חזא|ראה|3|פ
+שקל|לקח|3|פ
+יהב|נתן|3|פ
+שדי|זרק|3|פ
+נפק|יצא|3|פ
+עייל|נכנס|3|פ
+הדר|חזר|3|פ
+בעי|רוצה, צריך|3|פ
+סבר|סובר, חושב|3|פ
+פליגי|חולקים|3|פ
+משתעי|מספר, מדבר|3|פ
+גמיר|מקובל מרבו|3|פ
+בתר|אחרי|3|י
+קמי|לפני|3|י
+גבי|אצל|3|י
+בהדי|עם|3|י
+מיניה|ממנו|3|י
+דידיה|שלו|3|י
+דידן|שלנו|3|י
+משום|בגלל|3|י
+כוותיה|כמותו|3|י
+אימא|אמור|3|פ
+למימר|לומר|3|פ
+הוה|היה|3|פ
+אשכח|מצא|3|פ
+איקלע|הזדמן|3|פ
+מטא|הגיע|3|פ
+מצי|יכול|3|פ
+עבד|עשה|3|פ
+על|נכנס|3|פ
+קם|עמד|3|פ
+צלי|התפלל|3|פ
+זבן|קנה|3|פ
+עסקינן|אנו עוסקים|3|פ
+אהדדי|זה על זה, זה את זה|3|י
+ביה|בו|3|י
+בהו|בהם|3|י
+עליה|עליו|3|י
+קמיה|לפניו|3|י
+נפשיה|עצמו|3|י
+תנן|שנינו (במשנה)|4|ג
+תניא|שנויה (בברייתא)|4|ג
+קשיא|קשה (קושיה)|4|ג
+פשיטא|פשוט|4|ג
+דילמא|שמא, אולי|4|ג
+ניחא|מובן, מיושב|4|ג
+תיובתא|הפרכה|4|ג
+תיקו|השאלה נשארת בלי הכרעה|4|ג
+אדרבה|להפך|4|ג
+מכדי|הרי|4|ג
+אטו|וכי|4|ג
+ותו|ועוד|4|ג
+אלמא|מכאן מוכח|4|ג
+בשלמא|נניח (מובן רק לגבי)|4|ג
+מיהו|אולם, מכל מקום|4|ג
+לעולם|באמת|4|ג
+לימא|נאמר|4|ג
+אוקמא|העמידה (במקרה מסוים)|4|ג
+רישא|תחילת המשנה|4|ג
+סיפא|סוף המשנה|4|ג
+מציעתא|אמצע המשנה|4|ג
+מתניתין|המשנה שלנו|4|ג
+ברייתא|משנה חיצונית|4|ג
+קרא|פסוק|4|ג
+סברא|היגיון|4|ג
+הלכתא|הלכה|4|ג
+עובדא|מעשה|4|ג
+שאני|שונה|4|ג
+רבנן|חכמים|4|ג
+מר|החכם (כינוי כבוד)|4|ג
+מהו|מה הדין|4|ג
+איני|האמנם?|4|ג
+איתימא|אם תאמר|4|ג
+איתמר|נאמר (בדברי אמוראים)|4|ג
+אליבא ד...|לפי שיטת|4|ג
+מיתיבי|משיבים (קושיה ממקור תנאי)|4|ג
+קתני|שונה (במשנה)|4|ג
+רחמנא|הקב"ה (התורה)|4|ג
+רמי|משליך (סתירה בין מקורות)|4|ג
+תו|עוד|4|ג
+תא שמע|בוא ושמע|5|ט
+שמע מינה|למד מכאן|5|ט
+מאי טעמא|מה הסיבה|5|ט
+מנא הני מילי|מניין הדברים האלה|5|ט
+למאי נפקא מינה|מה ההבדל למעשה|5|ט
+מאי בינייהו|מה ההבדל ביניהם|5|ט
+קא משמע לן|מלמד אותנו|5|ט
+הוה אמינא|הייתי חושב|5|ט
+איבעיא להו|נשאלה להם שאלה|5|ט
+מתקיף לה|מקשה עליה|5|ט
+קיימא לן|נפסק אצלנו|5|ט
+מהיכא תיתי|מניין לך|5|ט
+כולי האי|כל כך|5|ט
+לא קשיא|אין קושי|5|ט
+מאי איכא למימר|מה יש לומר|5|ט
+היכי דמי|איך מדובר (באיזה מקרה)|5|ט
+אמר מר|אמר החכם (ציטוט מלמעלה)|5|ט
+אי בעית אימא|אם תרצה אמור|5|ט
+אידי ואידי|זה וזה|5|ט
+איכא דאמרי|יש אומרים|5|ט
+איכא למימר|יש לומר|5|ט
+כולי עלמא|כל העולם (לכל הדעות)|5|ט
+נפקא מינה|יוצא ממנה (ההבדל)|5|ט
+סלקא דעתך|עולה על דעתך|5|ט
+צורבא מרבנן|תלמיד חכם|5|ט`;
+const W=R.split("\n").map(l=>{const[w,m,lv,t]=l.split("|");return{w,m,lv:+lv,t}});
+const NAMES=["","מילים בסיסיות","שמות ותארים","פעלים ויחס","מונחי הגמרא","ביטויים"];
+const PER=10,TIME=30;
+let mode="solo",level=1,target=10,qi=0,left=TIME,timer=null,lock=false,order=[],deck=[];
+let P=[],cur=0;
+const CHECK='<svg class="ic pop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>';
+const XMARK='<svg class="ic pop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+let ac;function A(){try{if(!ac)ac=new (window.AudioContext||window.webkitAudioContext)();if(ac.state==="suspended")ac.resume()}catch(e){}return ac}
+function tone(f,d,type="sine",v=.25,at=0){const c=A();if(!c)return;const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;const s=c.currentTime+at;g.gain.setValueAtTime(v,s);g.gain.exponentialRampToValueAtTime(.001,s+d);o.connect(g).connect(c.destination);o.start(s);o.stop(s+d)}
+const sTick=()=>tone(1500,.05,"square",.15),sSoft=()=>tone(900,.03,"square",.04);
+const sOk=()=>{tone(1318,.5,"sine",.3);tone(1760,.7,"sine",.25,.12)};
+const sBad=()=>{tone(180,.45,"sawtooth",.2);tone(140,.45,"sawtooth",.2,.05)};
+const sOver=()=>{tone(400,.25,"triangle",.3);tone(300,.25,"triangle",.3,.25);tone(200,.5,"triangle",.3,.5)};
+const sWin=()=>[1047,1319,1568,2093].forEach((f,i)=>tone(f,.35,"sine",.25,i*.13));
+const sSwap=()=>{tone(700,.12,"sine",.25);tone(500,.12,"sine",.25,.12)};
+const $=id=>document.getElementById(id);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const show=id=>["start","lobby","turn","play","done"].forEach(s=>$(s).hidden=s!==id);
+const store={get(k){try{return localStorage.getItem(k)||""}catch(e){return""}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+$("n1").value=store.get("ab_n1");$("n2").value=store.get("ab_n2");
+function seg(id,fn){const el=$(id);[...el.children].forEach(b=>b.onclick=()=>{[...el.children].forEach(x=>x.classList.toggle("on",x===b));fn(b)})}
+let mpx="host";
+function syncForm(){const pp=mode==="pp",mp=mode==="mp";$("n2f").hidden=!pp;$("tgf").hidden=!pp;$("mpf").hidden=!mp;$("codef").hidden=!(mp&&mpx==="join");$("lvlf").hidden=mp&&mpx==="join";$("n1l").textContent=pp?"שחקן 1":"השם שלך";$("go").textContent=mp?(mpx==="host"?"פתח משחק":"הצטרף"):"התחל משחק";$("err").textContent=""}
+seg("modes",b=>{mode=b.dataset.m;syncForm()});
+seg("mpm",b=>{mpx=b.dataset.x;syncForm()});
+seg("tg",b=>target=+b.dataset.t);
+const L=$("lvls");for(let i=1;i<=5;i++){const b=document.createElement("button");b.className="lv"+(i==1?" on":"");b.innerHTML="<b>"+i+"</b>"+NAMES[i];b.onclick=()=>{level=i;[...L.children].forEach((x,j)=>x.classList.toggle("on",j==i-1))};L.appendChild(b)}
+["n1","n2"].forEach(id=>$(id).oninput=()=>$("err").textContent="");
+function hdr(){$("hdr").textContent=mode==="solo"?P[0].name+" · "+P[0].score:mode==="pp"?"פינג פונג":"קוד "+MP.code}
+function renderDuel(){P.forEach((p,i)=>{const el=$("pl"+i);el.classList.toggle("on",i===cur);el.querySelector(".n").textContent=p.name;el.querySelector(".p").textContent=p.score;el.querySelector(".c").textContent=p.right+" / "+target+" נכונות"})}
+$("go").onclick=()=>{A();if(mode==="mp")return mpGo();const a=$("n1").value.trim(),b=$("n2").value.trim();
+ if(!a){$("err").textContent=mode==="pp"?"הכנס את השם של שחקן 1":"הכנס את השם שלך";$("n1").focus();return}
+ if(mode==="pp"&&!b){$("err").textContent="הכנס את השם של שחקן 2";$("n2").focus();return}
+ if(mode==="pp"&&a===b){$("err").textContent="תן לשחקנים שמות שונים";$("n2").focus();return}
+ store.set("ab_n1",a);if(b)store.set("ab_n2",b);
+ P=[{name:a,score:0,right:0}];if(mode==="pp")P.push({name:b,score:0,right:0});cur=0;LB.armed=true;P.forEach(p=>knownBest(p.name));lbRender();
+ $("duel").hidden=mode!=="pp";hdr();
+ if(mode==="solo")startLevel();else{deck=[];turnScreen("מתחילים!")}};
+function startLevel(){qi=0;order=shuf(W.filter(x=>x.lv===level)).slice(0,PER);show("play");$("lvl").textContent="שלב "+level+" · "+NAMES[level];ask(order[qi])}
+function drawCard(){if(!deck.length)deck=shuf(W.filter(x=>x.lv===level));return deck.pop()}
+function turnScreen(why){show("turn");$("turnWhy").textContent=why;$("turnWho").textContent=P[cur].name}
+$("turnGo").onclick=()=>{A();show("play");$("lvl").textContent="שלב "+level+" · "+NAMES[level];renderDuel();ask(drawCard())};
+let curItem;
+function distract(it){let pool=W.filter(x=>x.m!==it.m);if(level>=3){const same=pool.filter(x=>x.t===it.t);if(same.length>=3)pool=same}else{const near=pool.filter(x=>x.lv<=level+1);if(near.length>=3)pool=near}return shuf(pool).slice(0,3).map(x=>x.m)}
+function ask(it){curItem=it;lock=false;$("q").textContent=it.w;$("msg").textContent="";
+ $("qn").textContent=mode==="solo"?"שאלה "+(qi+1)+" מתוך "+order.length:"התור של "+P[cur].name;
+ const box=$("opts");box.innerHTML="";shuf([it.m,...distract(it)]).forEach(o=>{const b=document.createElement("button");b.className="opt";const s=document.createElement("span");s.textContent=o;b.appendChild(s);const m=document.createElement("span");m.className="mk";b.appendChild(m);b.onclick=()=>pick(b,o===it.m);box.appendChild(b)});
+ left=TIME;draw();clearInterval(timer);timer=setInterval(()=>{left--;draw();if(left<=5&&left>0)sTick();else if(left>5)sSoft();if(left<=0){clearInterval(timer);timeUp()}},1000)}
+function draw(){$("clock").textContent=left+" שניות";$("clock").classList.toggle("hot",left<=5);const b=$("bar");b.style.width=(left/TIME*100)+"%";b.style.background=left<=5?"var(--bad)":left<=10?"var(--warn)":"var(--ok)"}
+function mark(b,ok){b.classList.add(ok?"ok":"bad");b.querySelector(".mk").innerHTML=ok?CHECK:XMARK}
+function showRight(){[...$("opts").children].forEach(b=>{if(b.firstChild.textContent===curItem.m&&!b.classList.contains("ok")){mark(b,true);b.classList.add("glow")}})}
+function pick(b,ok){if(lock)return;lock=true;clearInterval(timer);const p=P[cur];
+ if(ok){sOk();mark(b,true);const pts=(10+left)*level;p.score+=pts;p.right++;report(p.name,p.score);$("msg").innerHTML="<span style='color:var(--ok)'>נכון! +"+pts+"</span>"}
+ else{sBad();mark(b,false);b.classList.add("shake");showRight();$("msg").innerHTML="<span style='color:var(--bad)'>טעות</span>"}
+ hdr();if(mode==="pp")renderDuel();setTimeout(()=>after(ok),1600)}
+function timeUp(){lock=true;sOver();showRight();$("msg").innerHTML="<span style='color:var(--bad)'>נגמר הזמן</span>";setTimeout(()=>after(false),1800)}
+function after(ok){
+ if(mode==="solo"){qi++;if(qi<order.length)return ask(order[qi]);return levelDone()}
+ if(P[cur].right>=target)return duelDone();
+ if(ok)return ask(drawCard());
+ const was=P[cur].name;cur=1-cur;sSwap();turnScreen(was+" טעה, הכדור עובר")}
+function levelDone(){show("done");sWin();$("rank").hidden=true;$("ds").textContent=P[0].name+", הניקוד שלך: "+P[0].score;
+ if(level<5){$("dt").textContent="עברת לשלב "+(level+1)+"!";$("next").textContent="המשך לשלב הבא"}else{$("dt").textContent=P[0].name+", אתה אלוף בגמרא!";$("next").textContent="שחק שוב"}}
+function duelDone(){show("done");sWin();const w=P[cur];$("dt").textContent=w.name+" ניצח!";$("ds").textContent="הגיע ראשון ל־"+target+" תשובות נכונות";
+ const r=$("rank");r.hidden=false;r.innerHTML="";[...P].sort((a,b)=>b.right-a.right||b.score-a.score).forEach(p=>{const d=document.createElement("div");const n=document.createElement("b");n.textContent=p.name;const s=document.createElement("span");s.textContent=p.right+" נכונות · "+p.score+" נק׳";d.append(n,s);r.appendChild(d)});
+ $("next").textContent="משחק חוזר"}
+$("next").onclick=async()=>{A();if(mode==="mp"){if(MP.host){MP.shown=-1;MP.rev=-1;MP.ans=[];level=MP.st.level||level;MP.deck=shuf(W.filter(x=>x.lv===level));const scores={};MP.players.forEach(p=>scores[p.key]={name:p.name,score:0});try{await MP.db.doc("games/"+MP.code).update({scores,status:"q",q:0,item:mpItem(0),winner:null})}catch(e){}}else{mpLeave();show("start")}return}if(mode==="pp"){P.forEach(p=>{p.score=0;p.right=0});cur=0;deck=[];hdr();turnScreen("משחק חוזר!");return}
+ if(level<5){level++;startLevel()}else{level=1;P[0].score=0;hdr();startLevel()}};
+$("home").onclick=()=>{clearInterval(timer);mpLeave();$("hdr").textContent="";[...L.children].forEach((x,j)=>x.classList.toggle("on",j==level-1));show("start")};
 
-// 1) הדבק כאן את פרטי Firebase שלך (Project settings → Your apps → Config).
-//    כל עוד זה null האתר רץ במצב הדגמה (הנתונים נשמרים רק בדפדפן).
-const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyD5h73ZKLfpPnRmq2iPtZctNx0aBzF02K8",
-  authDomain: "efi-ben-david.firebaseapp.com",
-  projectId: "efi-ben-david",
-  storageBucket: "efi-ben-david.firebasestorage.app",
-  messagingSenderId: "721588019888",
-  appId: "1:721588019888:web:9cd9605874d47525b39175"
-};
-/* דוגמה:
-const FIREBASE_CONFIG = {
-  apiKey: "AIza...",
-  authDomain: "my-store.firebaseapp.com",
-  projectId: "my-store",
-  storageBucket: "my-store.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abc123"
-};
-*/
 
-// 2) האימייל של המנהל (אותו אימייל צריך להופיע גם בקובץ firestore.rules)
-const ADMIN_EMAILS = ["danny.b.d.20@gmail.com", "efraim2010@gmail.com"];
+/* ---- backend: Claude db inside Claude, Firebase on the web ---- */
+// כדי לחבר טבלת אלופים משותפת ומשחק בכמה טלפונים: להדביק כאן את פרטי Firebase (ראו README)
+const FIREBASE_CONFIG = null;
+let _dbp=null;
+function loadJs(u){return new Promise((ok,no)=>{const e=document.createElement("script");e.src=u;e.onload=ok;e.onerror=no;document.head.appendChild(e)})}
+function getDb(){return _dbp||(_dbp=(async()=>{
+ try{if(window.claude){const d=await window.claude.use("db");if(d)return d}}catch(e){}
+ if(!FIREBASE_CONFIG)return null;
+ try{const b="https://www.gstatic.com/firebasejs/10.12.2/";await loadJs(b+"firebase-app-compat.js");await loadJs(b+"firebase-firestore-compat.js");firebase.initializeApp(FIREBASE_CONFIG);return firebase.firestore()}catch(e){return null}})())}
+/* ---- leaderboard ---- */
+const LB={db:null,top:[],best:{},q:{},busy:{},local:false};
+const key=n=>"n"+[...new TextEncoder().encode(n.trim())].map(b=>b.toString(16).padStart(2,"0")).join("");
+function lbLocalLoad(){try{return JSON.parse(localStorage.getItem("ab_lb")||"{}")}catch(e){return{}}}
+function lbLocalSave(m){try{localStorage.setItem("ab_lb",JSON.stringify(m))}catch(e){}}
+function lbRender(){const ol=$("lbl");ol.innerHTML="";const md=["🥇","🥈","🥉"];
+ if(!LB.top.length){const li=document.createElement("li");li.className="empty";li.textContent="עדיין אין שיאים. היה הראשון!";ol.appendChild(li);return}
+ const mine=new Set(P.map(p=>p.name));
+ LB.top.slice(0,3).forEach((e,i)=>{const li=document.createElement("li");if(mine.has(e.name))li.className="me";
+  const a=document.createElement("span");a.className="md";a.textContent=md[i];
+  const b=document.createElement("span");b.className="nm";b.textContent=e.name;
+  const c=document.createElement("span");c.className="pt";c.textContent=Number(e.best).toLocaleString("he-IL");
+  li.append(a,b,c);ol.appendChild(li)})}
+function setTop(list){const prev=LB.top.map(e=>e.name);LB.top=list.filter(e=>e&&typeof e.name==="string"&&typeof e.best==="number").sort((a,b)=>b.best-a.best).slice(0,3);lbRender();
+ P.forEach(p=>{const i=LB.top.findIndex(e=>e.name===p.name),j=prev.indexOf(p.name);if(i>=0&&(j<0||i<j)&&LB.armed)toast(p.name+" עלה למקום "+(i+1)+"!")})}
+function toast(t){const el=$("toast");el.textContent=t;el.hidden=false;clearTimeout(el._t);el._t=setTimeout(()=>el.hidden=true,2600)}
+function useLocal(){LB.local=true;$("lbst").textContent="במכשיר הזה";const m=lbLocalLoad();LB.best=Object.assign({},m);setTop(Object.entries(m).map(([name,best])=>({name,best})))}
+async function lbInit(){
+ const db=await getDb();
+ if(!db){useLocal();return}
+ LB.db=db;const t=setTimeout(()=>{if(!LB.got)$("lbst").textContent="לא מתעדכן"},10000);
+ db.collection("scores").orderBy("best","desc").limit(3).onSnapshot(s=>{LB.got=true;clearTimeout(t);$("lbst").textContent="";setTop(s.docs.map(d=>d.data()))},e=>{clearTimeout(t);useLocal()})}
+async function knownBest(name){if(name in LB.best)return LB.best[name];
+ if(LB.db&&!LB.local){try{const d=await LB.db.doc("scores/"+key(name)).get();LB.best[name]=d.exists&&typeof d.data().best==="number"?d.data().best:0}catch(e){LB.best[name]=0}}else LB.best[name]=LB.best[name]||0;return LB.best[name]}
+async function report(name,score){const b=await knownBest(name);if(score<=b)return;LB.best[name]=score;
+ if(LB.local||!LB.db){const m=lbLocalLoad();m[name]=score;lbLocalSave(m);setTop(Object.entries(m).map(([n,v])=>({name:n,best:v})));return}
+ LB.q[name]=score;if(LB.busy[name])return;LB.busy[name]=true;
+ while(LB.q[name]!=null){const v=LB.q[name];LB.q[name]=null;
+  try{await LB.db.doc("scores/"+key(name)).set({name,best:v,level,at:new Date().toISOString()})}
+  catch(e){if(e&&e.code==="invalid_argument"||e&&e.code==="revoked"){const m=lbLocalLoad();m[name]=Math.max(m[name]||0,v);lbLocalSave(m);useLocal();break}}}
+ LB.busy[name]=false}
+setTimeout(lbInit,0);
+/* ---- multiplayer (each on own phone) ---- */
+const MP={db:null,code:"",host:false,me:null,un:[],st:null,players:[],ans:[],shown:-1,rev:-1,ans_q:-1,timer:null,busy:false,hostT:null,deck:[]};
+const MPMAX=4,MPQ=10;
+function mpErr(e){const c=e&&e.code;return c==="invalid_argument"||c==="revoked"?"אין לך הרשאה לשחק במשחק משותף. בקש מבעל המשחק הרשאת Contributor.":"אין חיבור כרגע. נסה שוב."}
+async function mpDb(){if(!MP.db)MP.db=await getDb();return MP.db}
+async function mpGo(){const name=$("n1").value.trim();if(!name){$("err").textContent="הכנס את השם שלך";$("n1").focus();return}
+ store.set("ab_n1",name);const db=await mpDb();if(!db){$("err").textContent="המשחק המשותף עדיין לא מחובר באתר הזה.";return}
+ MP.me={name,key:key(name)};P=[{name,score:0,right:0}];$("go").disabled=true;
+ try{if(mpx==="host")await mpCreate();else await mpJoin($("code").value.trim())}catch(e){$("err").textContent=mpErr(e)}finally{$("go").disabled=false}}
+async function mpCreate(){let code,ref;for(let i=0;i<8;i++){code=String(1000+Math.floor(Math.random()*9000));ref=MP.db.doc("games/"+code);const d=await ref.get();if(!d.exists||d.data().status==="over"||Date.now()-Date.parse(d.data().created||0)>6*3600e3)break}
+ await ref.set({host:MP.me.name,level,status:"lobby",q:-1,total:MPQ,scores:{},created:new Date().toISOString()});
+ MP.code=code;MP.host=true;await mpJoinDoc();mpSub()}
+async function mpJoin(code){if(!/^\d{4}$/.test(code)){$("err").textContent="הקוד הוא 4 ספרות";return}
+ const d=await MP.db.doc("games/"+code).get();if(!d.exists||Date.now()-Date.parse(d.data().created||0)>6*3600e3){$("err").textContent="לא נמצא משחק עם הקוד הזה";return}
+ if(d.data().status!=="lobby"){$("err").textContent="המשחק הזה כבר התחיל";return}
+ const ps=await MP.db.collection("games/"+code+"/players").get();
+ if(ps.docs.some(x=>x.id===MP.me.key)){$("err").textContent="השם הזה כבר במשחק. בחר שם אחר.";return}
+ if(ps.size>=MPMAX){$("err").textContent="המשחק מלא ("+MPMAX+" שחקנים)";return}
+ MP.code=code;MP.host=false;level=d.data().level||1;await mpJoinDoc();mpSub()}
+async function mpJoinDoc(){await MP.db.doc("games/"+MP.code+"/players/"+MP.me.key).set({name:MP.me.name,at:new Date().toISOString()})}
+function mpSub(){hdr();show("lobby");$("lcode").textContent=MP.code;$("lerr").textContent="";
+ $("lhint").textContent=MP.host?"שלח לחברים את הקוד. הם בוחרים \"הצטרף למשחק\" ומקלידים אותו.":"ממתינים שהמארח יתחיל את המשחק…";$("lstart").hidden=!MP.host;
+ const g="games/"+MP.code;
+ MP.un.push(MP.db.doc(g).onSnapshot(d=>{if(d.exists)mpState(d.data())},()=>{$("lerr").textContent="החיבור למשחק נותק"}));
+ MP.un.push(MP.db.collection(g+"/players").onSnapshot(s=>{MP.players=s.docs.map(x=>({key:x.id,name:String(x.data().name||"")})).slice(0,MPMAX);mpLobby();if(MP.host)mpCheck()},()=>{}));
+ if(MP.host)MP.un.push(MP.db.collection(g+"/answers").onSnapshot(s=>{MP.ans=s.docs.map(x=>x.data());mpCheck()},()=>{}))}
+function mpLeave(){MP.un.forEach(f=>{try{f()}catch(e){}});MP.un=[];clearTimeout(MP.hostT);clearInterval(MP.timer);MP.st=null;MP.shown=-1;MP.rev=-1;$("mpb").hidden=true}
+$("lleave").onclick=()=>{mpLeave();show("start")};
+function mpLobby(){const el=$("lplayers");el.innerHTML="";MP.players.forEach(p=>{const d=document.createElement("div");const n=document.createElement("b");n.textContent=p.name;const t=document.createElement("span");t.textContent=(MP.st&&p.name===MP.st.host?"מארח":"")+(p.key===MP.me.key?" (אתה)":"");d.append(n,t);el.appendChild(d)});
+ if(MP.host)$("lerr").textContent=MP.players.length<2?"צריך לפחות 2 שחקנים כדי להתחיל":""}
+$("lstart").onclick=async()=>{A();if(MP.players.length<2){$("lerr").textContent="צריך לפחות 2 שחקנים כדי להתחיל";return}
+ MP.deck=shuf(W.filter(x=>x.lv===level));const scores={};MP.players.forEach(p=>scores[p.key]={name:p.name,score:0});
+ try{await MP.db.doc("games/"+MP.code).update({scores,status:"q",q:0,item:mpItem(0),winner:null})}catch(e){$("lerr").textContent=mpErr(e)}};
+function mpItem(q){const it=MP.deck[q%MP.deck.length];return{w:it.w,m:it.m,opts:shuf([it.m,...distract(it)])}}
+/* host: decide when a question ends */
+function mpCheck(){const s=MP.st;if(!MP.host||!s||s.status!=="q")return;const a=MP.ans.filter(x=>x.q===s.q);
+ if(a.length>=MP.players.length)mpResolve(s.q)}
+async function mpResolve(q){if(MP.busy||!MP.st||MP.st.q!==q||MP.st.status!=="q")return;MP.busy=true;clearTimeout(MP.hostT);
+ const a=MP.ans.filter(x=>x.q===q&&x.ok===true&&typeof x.ms==="number").sort((x,y)=>x.ms-y.ms);const scores=JSON.parse(JSON.stringify(MP.st.scores||{}));let winner=null;
+ if(a.length){const w=a[0],k=key(String(w.name));const pts=(10+Math.max(0,TIME-Math.ceil(w.ms/1000)))*level;if(!scores[k])scores[k]={name:w.name,score:0};scores[k].score+=pts;winner={name:String(w.name),pts,sec:Math.round(w.ms/100)/10}}
+ try{await MP.db.doc("games/"+MP.code).update({status:"reveal",winner,scores})}catch(e){}
+ setTimeout(async()=>{try{if(q+1<(MP.st.total||MPQ))await MP.db.doc("games/"+MP.code).update({status:"q",q:q+1,item:mpItem(q+1),winner:null});else{await MP.db.doc("games/"+MP.code).update({status:"over"});Object.values(scores).forEach(x=>report(x.name,x.score))}}catch(e){}MP.busy=false},4500)}
+/* everyone: render state */
+function mpBoard(s){const el=$("mpb");el.hidden=false;el.innerHTML="";Object.values(s.scores||{}).sort((a,b)=>b.score-a.score).forEach(x=>{const d=document.createElement("div");const n=document.createElement("b");n.textContent=String(x.name);const t=document.createElement("span");t.textContent=Number(x.score)+" נק׳";d.append(n,t);el.appendChild(d)})}
+function mpState(s){MP.st=s;level=s.level||level;
+ if(s.status==="lobby"){mpLobby();return}
+ if(s.status==="q"&&s.item&&s.q!==MP.shown){MP.shown=s.q;mpAsk(s)}
+ else if(s.status==="reveal"&&MP.rev!==s.q){MP.rev=s.q;mpReveal(s)}
+ else if(s.status==="over"){mpOver(s)}
+ if(MP.host&&s.status==="q"){clearTimeout(MP.hostT);const q=s.q;MP.hostT=setTimeout(()=>mpResolve(q),(TIME+2)*1000);mpCheck()}}
+let mpAnswered=false,mpT0=0;
+function mpAsk(s){show("play");$("duel").hidden=true;$("mpb").hidden=true;$("lvl").textContent="שלב "+level+" · "+NAMES[level];$("qn").textContent="שאלה "+(s.q+1)+" מתוך "+(s.total||MPQ);
+ $("q").textContent=s.item.w;$("msg").textContent="";mpAnswered=false;mpT0=performance.now();const box=$("opts");box.innerHTML="";
+ (s.item.opts||[]).forEach(o=>{const b=document.createElement("button");b.className="opt";const sp=document.createElement("span");sp.textContent=String(o);b.appendChild(sp);const m=document.createElement("span");m.className="mk";b.appendChild(m);b.onclick=()=>mpPick(b,o===s.item.m,o,s.q);box.appendChild(b)});
+ left=TIME;draw();clearInterval(MP.timer);MP.timer=setInterval(()=>{left--;draw();if(left<=5&&left>0)sTick();else if(left>5)sSoft();if(left<=0){clearInterval(MP.timer);if(!mpAnswered){mpAnswered=true;sOver();$("msg").innerHTML="<span style='color:var(--bad)'>נגמר הזמן</span>"}}},1000)}
+async function mpPick(b,ok,choice,q){if(mpAnswered)return;mpAnswered=true;const ms=Math.round(performance.now()-mpT0);
+ if(ok){sOk();mark(b,true);$("msg").innerHTML="<span style='color:var(--ok)'>נכון! בודקים מי היה הכי מהיר…</span>"}else{sBad();mark(b,false);b.classList.add("shake");curItem={m:MP.st.item.m};showRight();$("msg").innerHTML="<span style='color:var(--bad)'>טעות</span>"}
+ try{await MP.db.doc("games/"+MP.code+"/answers/"+q+"-"+MP.me.key).set({q,name:MP.me.name,choice:String(choice),ok,ms})}catch(e){$("msg").textContent=mpErr(e)}}
+function mpReveal(s){clearInterval(MP.timer);curItem={m:s.item.m};showRight();const w=s.winner,me=w&&w.name===MP.me.name;
+ if(w){if(me)sWin();$("msg").innerHTML="";const sp=document.createElement("span");sp.style.color=me?"var(--ok)":"var(--ink)";sp.textContent=me?"⚡ ענית ראשון! +"+w.pts:"⚡ "+w.name+" ענה ראשון ("+w.sec+" שנ׳) +"+w.pts;$("msg").appendChild(sp)}
+ else $("msg").innerHTML="<span style='color:var(--muted)'>אף אחד לא ענה נכון</span>";
+ P[0].score=((s.scores||{})[MP.me.key]||{}).score||0;mpBoard(s)}
+function mpOver(s){if(!$("done").hidden&&mode==="mp")return;clearInterval(MP.timer);show("done");sWin();const arr=Object.values(s.scores||{}).sort((a,b)=>b.score-a.score);
+ $("dt").textContent=arr.length?String(arr[0].name)+" ניצח!":"המשחק נגמר";$("ds").textContent="קוד משחק "+MP.code;
+ const r=$("rank");r.hidden=false;r.innerHTML="";arr.forEach((x,i)=>{const d=document.createElement("div");const n=document.createElement("b");n.textContent=["🥇 ","🥈 ","🥉 ",""][Math.min(i,3)]+String(x.name);const t=document.createElement("span");t.textContent=Number(x.score)+" נק׳";d.append(n,t);r.appendChild(d)});
+ $("next").textContent=MP.host?"משחק חדש עם אותם שחקנים":"חזרה למסך הראשי"}
 
-/* ============================================================ */
-
-const DEMO_ADMIN = "admin@demo.co.il";
-const DEFAULT_SETTINGS = { storeName: "החנות של אפריים בן דוד", whatsapp: "", logo: "", lastBackup: 0 };
-const CAT_COLORS = ["var(--k0)","var(--k2)","var(--k1)","var(--k4)","var(--k3)","var(--k5)"];
-const CAT_TINTS = ["var(--t0)","var(--t2)","var(--t1)","var(--t4)","var(--t3)","var(--t5)"];
-const ICONS = { clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>', block:'<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>', bag:'<path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 016 0v2"/>', inbox:'<path d="M4 13l2.5-8h11L20 13v6H4z"/><path d="M4 13h5l1 2h4l1-2h5"/>', users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-4 3.2-6 6.5-6s6 2 6.5 6"/><path d="M16 4.6a3.5 3.5 0 010 6.8M18 14.2c2 .6 3.3 2.6 3.5 5.8"/>', alert:'<path d="M12 3.5l9.5 16.5h-19z"/><path d="M12 10v4.5M12 17.5v.5"/>', box:'<path d="M3 7.5l9-4 9 4-9 4z"/><path d="M3 7.5v9l9 4 9-4v-9M12 11.5v9"/>' };
-const ico = n => `<div class="bubble"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]}</svg></div>`;
-const STATUS = { new: "חדשה", priced: "נשלח מחיר" };
-const USTATUS = { pending: "ממתין לאישור", approved: "מאושר", rejected: "נדחה" };
-
-const $app = document.getElementById("app");
-let api = null;
-const S = {
-  ready:false, mode:"demo", fatal:"", profile:null,
-  products:[], users:[], orders:[], myOrders:[], settings:{...DEFAULT_SETTINGS},
-  cart:{}, f:{}, view:"shop", tab:"orders", cat:"הכל", ofilter:"new",
-  openOrder:null, sheet:null, editProduct:null, confirm:null, sent:null,
-  authTab:"login", err:"", busy:false, toast:""
-};
-
-/* ---------- helpers ---------- */
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const r2 = n => Math.round((+n || 0) * 100) / 100;
-const money = n => "₪" + r2(n).toLocaleString("he-IL", { maximumFractionDigits: 2 });
-const fv = (k, d = "") => (k in S.f ? S.f[k] : d);
-const shortId = id => String(id || "").slice(-5).toUpperCase();
-const fmtDate = t => t ? new Date(t).toLocaleString("he-IL", { day:"numeric", month:"numeric", year:"2-digit", hour:"2-digit", minute:"2-digit" }) : "";
-const isAdminEmail = e => [...ADMIN_EMAILS, ...(S.mode === "demo" ? [DEMO_ADMIN] : [])].map(x => x.toLowerCase()).includes(String(e || "").trim().toLowerCase());
-const intlPhone = p => { let d = String(p || "").replace(/\D/g, ""); if (d.startsWith("0")) d = "972" + d.slice(1); return d; };
-const waLink = (phone, text) => `https://wa.me/${intlPhone(phone)}?text=${encodeURIComponent(text)}`;
-const cats = () => [...new Set(S.products.map(p => (p.cat || "").trim()).filter(Boolean))];
-const catIdx = c => { const i = cats().indexOf(c); return i < 0 ? 0 : i % CAT_COLORS.length; };
-const hashIdx = s => { let h = 0; for (const ch of String(s)) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return h % CAT_COLORS.length; };
-const initial = s => esc((String(s || "?").trim()[0]) || "?");
-const itemsCount = o => (o.items || []).reduce((s, i) => s + (+i.qty || 0), 0);
-const orderTotal = o => o.status === "priced" ? o.finalPrice : o.subtotal;
-
-function thumb(p, cls = "th") {
-  if (p && p.image) return `<img src="${esc(p.image)}" alt="">`;
-  const i = p && p.cat ? catIdx(p.cat) : hashIdx(p ? p.name : "");
-  return `<span class="${cls}" style="background:${CAT_TINTS[i]};color:${CAT_COLORS[i]}">${initial(p && p.name)}</span>`;
-}
-function logoEl(cls = "logo") {
-  const l = S.settings.logo;
-  return l ? `<img class="${cls}" src="${esc(l)}" alt="">` : `<span class="${cls} ph">${initial(S.settings.storeName)}</span>`;
-}
-function toast(msg) { S.toast = msg; render(true); clearTimeout(toast.t); toast.t = setTimeout(() => { S.toast = ""; render(true); }, 2800); }
-function errMsg(e) {
-  const c = (e && (e.code || "")) + "";
-  const map = {
-    "auth/invalid-credential":"אימייל או סיסמה שגויים", "auth/wrong-password":"אימייל או סיסמה שגויים", "auth/user-not-found":"אימייל או סיסמה שגויים",
-    "auth/email-already-in-use":"האימייל הזה כבר רשום. נסו להתחבר.", "auth/weak-password":"הסיסמה צריכה לפחות 6 תווים",
-    "auth/invalid-email":"כתובת האימייל לא תקינה", "auth/too-many-requests":"יותר מדי ניסיונות. נסו שוב בעוד כמה דקות.",
-    "auth/network-request-failed":"אין חיבור לאינטרנט", "permission-denied":"אין הרשאה לפעולה הזו. בדקו את כללי האבטחה ב-Firebase."
-  };
-  return map[c] || (e && e.message) || "משהו השתבש, נסו שוב";
-}
-function compress(file, max = 640, type = "image/jpeg") {
-  return new Promise((res, rej) => {
-    const r = new FileReader();
-    r.onload = () => {
-      const img = new Image();
-      img.onload = () => {
-        const s = Math.min(1, max / Math.max(img.width, img.height));
-        const c = document.createElement("canvas");
-        c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
-        const x = c.getContext("2d");
-        if (type === "image/jpeg") { x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height); }
-        x.drawImage(img, 0, 0, c.width, c.height);
-        res(c.toDataURL(type, 0.75));
-      };
-      img.onerror = () => rej(new Error("הקובץ הזה אינו תמונה"));
-      img.src = r.result;
-    };
-    r.onerror = () => rej(new Error("לא הצלחתי לקרוא את הקובץ"));
-    r.readAsDataURL(file);
-  });
-}
-const scripts = {};
-function loadScript(src) {
-  return scripts[src] || (scripts[src] = new Promise((res, rej) => {
-    const s = document.createElement("script"); s.src = src; s.onload = res;
-    s.onerror = () => { delete scripts[src]; rej(new Error("לא הצלחתי לטעון את רכיב ההורדה")); };
-    document.head.appendChild(s);
-  }));
-}
-
-/* ---------- demo backend (browser only) ---------- */
-function svgTile(emoji, bg) {
-  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="${bg}"/><circle cx="100" cy="104" r="62" fill="#fff" opacity=".55"/><text x="100" y="128" font-size="72" text-anchor="middle">${emoji}</text></svg>`);
-}
-const SAMPLE_FOOD = [
-  ["חומוס ביתי 500 גר'", 22, "סלטים", "עם טחינה גולמית ושמן זית", "🥣", "#F2EFE9"],
-  ["סלט ירקות קצוץ", 18, "סלטים", "מלפפון, עגבנייה ובצל סגול", "🥗", "#EAF2EF"],
-  ["פלאפל (12 כדורים)", 25, "מנות חמות", "מטוגן טרי, עם צ'יפס בצד", "🧆", "#F3EEEA"],
-  ["שניצל עוף", 42, "מנות חמות", "חזה עוף בציפוי פירורי לחם", "🍗", "#F3EEEA"],
-  ["שקשוקה", 38, "מנות חמות", "שתי ביצים ברוטב עגבניות", "🍳", "#EEF2F6"],
-  ["פיתה טרייה (5 יח')", 10, "מאפים", "", "🫓", "#F2EFE9"],
-  ["בורקס תפוחי אדמה (6 יח')", 30, "מאפים", "", "🥟", "#ECEFF6"],
-  ["עוגת שוקולד", 55, "קינוחים", "מספיקה ל-10 אנשים", "🍰", "#F1EDF4"],
-  ["מלבי", 14, "קינוחים", "עם סירופ ורדים ובוטנים", "🍮", "#F1EDF4"],
-  ["לימונדה טבעית 1 ליטר", 16, "שתייה", "", "🍋", "#EAF2EF"]
-];
-function demoSeed() {
-  const t = Date.now();
-  return {
-    session: null,
-    settings: { storeName: "המאפייה של דני (דוגמה)", whatsapp: "0500000000", logo: "" },
-    users: {
-      admin1: { name: "מנהל החנות", email: DEMO_ADMIN, phone: "0500000000", password: "demo123", status: "approved", createdAt: t - 9e7 },
-      cust1:  { name: "יוסי כהן", email: "yossi@demo.co.il", phone: "0521234567", password: "demo123", status: "approved", createdAt: t - 8e7 },
-      cust2:  { name: "מיכל לוי", email: "michal@demo.co.il", phone: "0547654321", password: "demo123", status: "pending", createdAt: t - 3e6 }
-    },
-    products: {
-      p1: { name: "חלה מתוקה", price: 18, cat: "לחמים", desc: "חלה קלועה בעבודת יד", image: svgTile("🍞", "#FFE3EC"), createdAt: t - 7e7 },
-      p2: { name: "לחם מחמצת", price: 26, cat: "לחמים", desc: "התפחה של 24 שעות", image: svgTile("🥖", "#FFF1C7"), createdAt: t - 7e7 + 1 },
-      p3: { name: "קרואסון חמאה", price: 9, cat: "מאפים", desc: "", image: svgTile("🥐", "#FFE6D3"), createdAt: t - 7e7 + 2 },
-      p4: { name: "עוגת שמרים שוקולד", price: 42, cat: "עוגות", desc: "מספיקה ל-8 אנשים", image: svgTile("🍫", "#ECE2FC"), createdAt: t - 7e7 + 3 },
-      p5: { name: "עוגיות חמאה 500 גר'", price: 35, cat: "עוגות", desc: "", image: svgTile("🍪", "#D4F5F0"), createdAt: t - 7e7 + 4 },
-      p6: { name: "בורקס גבינה (6 יח')", price: 30, cat: "מאפים", desc: "", image: svgTile("🥟", "#DDE9FD"), createdAt: t - 7e7 + 5 }
-    },
-    orders: {
-      o1: { uid: "cust1", name: "יוסי כהן", email: "yossi@demo.co.il", phone: "0521234567", status: "new", note: "אפשר לאסוף ביום שישי בבוקר?",
-            items: [{ id:"p1", name:"חלה מתוקה", price:18, qty:2 }, { id:"p4", name:"עוגת שמרים שוקולד", price:42, qty:1 }, { id:"p3", name:"קרואסון חמאה", price:9, qty:4 }],
-            subtotal: 114, createdAt: t - 36e5 }
-    }
-  };
-}
-function demoBackend() {
-  const KEY = "mechiron-demo-v1";
-  let mem;
-  try { mem = JSON.parse(localStorage.getItem(KEY)); } catch (e) { mem = null; }
-  if (!mem || !mem.users) mem = demoSeed();
-  const subs = new Set();
-  const emit = () => { try { localStorage.setItem(KEY, JSON.stringify(mem)); } catch (e) {} subs.forEach(f => f()); };
-  const sub = fn => { subs.add(fn); setTimeout(fn, 0); return () => subs.delete(fn); };
-  const nid = () => Math.random().toString(36).slice(2, 8) + Date.now().toString(36);
-  const list = o => Object.entries(o).map(([id, v]) => ({ id, ...v }));
-  const findUser = email => Object.entries(mem.users).find(([, u]) => u.email === String(email).trim().toLowerCase());
-  let authCb = null;
-  const fireAuth = () => { if (!authCb) return; const u = mem.users[mem.session]; authCb(u ? { uid: mem.session, name: u.name, email: u.email, phone: u.phone, status: isAdminEmail(u.email) ? "approved" : u.status, isAdmin: isAdminEmail(u.email) } : null); };
-  subs.add(fireAuth);
-  return {
-    onAuth(cb) { authCb = cb; setTimeout(fireAuth, 0); },
-    async signUp({ name, email, phone, password }) {
-      email = email.trim().toLowerCase();
-      if (findUser(email)) throw new Error("האימייל הזה כבר רשום. נסו להתחבר.");
-      if (password.length < 6) throw new Error("הסיסמה צריכה לפחות 6 תווים");
-      const id = nid();
-      mem.users[id] = { name, email, phone, password, status: isAdminEmail(email) ? "approved" : "pending", createdAt: Date.now() };
-      mem.session = id; emit();
-    },
-    async signIn(email, password) { const e = findUser(email); if (!e || e[1].password !== password) throw new Error("אימייל או סיסמה שגויים"); mem.session = e[0]; emit(); },
-    async signOut() { mem.session = null; emit(); },
-    async reset() { throw new Error("במצב הדגמה לא נשלחים מיילים"); },
-    loginAs(email) { const e = findUser(email); if (e) { mem.session = e[0]; emit(); } },
-    resetAll() { mem = demoSeed(); emit(); },
-    watchProducts: cb => sub(() => cb(list(mem.products).sort((a, b) => a.createdAt - b.createdAt))),
-    async saveProduct(p) { const { id, ...d } = p; const k = id || nid(); mem.products[k] = { ...(mem.products[k] || { createdAt: Date.now() }), ...d }; emit(); },
-    async deleteProduct(id) { delete mem.products[id]; emit(); },
-    watchUsers: cb => sub(() => cb(list(mem.users).map(({ password, ...u }) => u))),
-    async setUserStatus(id, status) { mem.users[id].status = status; emit(); },
-    async updateUser(id, p) { Object.assign(mem.users[id], p); emit(); },
-    watchSettings: cb => sub(() => cb({ ...mem.settings })),
-    async saveSettings(s) { mem.settings = { ...mem.settings, ...s }; emit(); },
-    async createOrder(o) { const id = nid(); mem.orders[id] = { ...o, createdAt: Date.now() }; emit(); return id; },
-    watchOrders: cb => sub(() => cb(list(mem.orders))),
-    watchMyOrders: (uid, cb) => sub(() => cb(list(mem.orders).filter(o => o.uid === uid))),
-    async updateOrder(id, p) { Object.assign(mem.orders[id], p); emit(); },
-    async deleteOrder(id) { delete mem.orders[id]; emit(); }
-  };
-}
-
-/* ---------- Firebase backend ---------- */
-async function firebaseBackend(cfg) {
-  const base = "https://www.gstatic.com/firebasejs/10.12.2/";
-  const [appM, authM, fs] = await Promise.all(["firebase-app.js", "firebase-auth.js", "firebase-firestore.js"].map(f => import(base + f)));
-  const app = appM.initializeApp(cfg), auth = authM.getAuth(app), db = fs.getFirestore(app);
-  const col = n => fs.collection(db, n), doc = (n, id) => fs.doc(db, n, id);
-  const snapList = (q, cb) => fs.onSnapshot(q, s => cb(s.docs.map(d => ({ id: d.id, ...d.data() }))), e => { console.warn(e); cb([]); });
-  let profUnsub = null;
-  return {
-    onAuth(cb) {
-      authM.onAuthStateChanged(auth, u => {
-        if (profUnsub) { profUnsub(); profUnsub = null; }
-        if (!u) return cb(null);
-        const admin = isAdminEmail(u.email);
-        profUnsub = fs.onSnapshot(doc("users", u.uid), s => {
-          const d = s.data();
-          if (!d && admin) fs.setDoc(doc("users", u.uid), { name: "מנהל החנות", email: u.email.toLowerCase(), phone: "", status: "approved", createdAt: Date.now() }).catch(console.warn);
-          cb({ uid: u.uid, email: u.email, name: d?.name || "", phone: d?.phone || "", status: admin ? "approved" : (d?.status || "pending"), isAdmin: admin });
-        }, e => { console.warn(e); cb({ uid: u.uid, email: u.email, name: "", phone: "", status: admin ? "approved" : "pending", isAdmin: admin }); });
-      });
-    },
-    async signUp({ name, email, phone, password }) {
-      const c = await authM.createUserWithEmailAndPassword(auth, email.trim(), password);
-      await fs.setDoc(doc("users", c.user.uid), { name, email: email.trim().toLowerCase(), phone, status: isAdminEmail(email) ? "approved" : "pending", createdAt: Date.now() });
-    },
-    signIn: (e, p) => authM.signInWithEmailAndPassword(auth, e.trim(), p),
-    signOut: () => authM.signOut(auth),
-    reset: e => authM.sendPasswordResetEmail(auth, e.trim()),
-    watchProducts: cb => snapList(col("products"), l => cb(l.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0)))),
-    async saveProduct(p) { const { id, ...d } = p; if (id) await fs.setDoc(doc("products", id), d, { merge: true }); else await fs.addDoc(col("products"), { ...d, createdAt: Date.now() }); },
-    deleteProduct: id => fs.deleteDoc(doc("products", id)),
-    watchUsers: cb => snapList(col("users"), cb),
-    setUserStatus: (id, status) => fs.updateDoc(doc("users", id), { status }),
-    updateUser: (id, p) => fs.updateDoc(doc("users", id), p),
-    watchSettings: cb => fs.onSnapshot(doc("settings", "store"), s => cb(s.data() || {}), () => cb({})),
-    saveSettings: s => fs.setDoc(doc("settings", "store"), s, { merge: true }),
-    createOrder: async o => (await fs.addDoc(col("orders"), { ...o, createdAt: Date.now() })).id,
-    watchOrders: cb => snapList(col("orders"), cb),
-    watchMyOrders: (uid, cb) => snapList(fs.query(col("orders"), fs.where("uid", "==", uid)), cb),
-    updateOrder: (id, p) => fs.updateDoc(doc("orders", id), p),
-    deleteOrder: id => fs.deleteDoc(doc("orders", id))
-  };
-}
-
-/* ---------- data subscriptions ---------- */
-let unsubs = [], subKey = "";
-function onProfile(p) {
-  S.profile = p; S.ready = true;
-  const key = p ? `${p.uid}|${p.isAdmin}|${p.status}` : "";
-  if (key !== subKey) {
-    subKey = key; unsubs.forEach(u => u && u()); unsubs = [];
-    S.products = []; S.users = []; S.orders = []; S.myOrders = [];
-    if (!p) { S.cart = {}; S.view = "shop"; S.openOrder = null; S.sheet = null; S.tab = "orders"; }
-    else if (p.isAdmin) {
-      unsubs.push(api.watchProducts(l => { S.products = l; render(); }), api.watchUsers(l => { S.users = l; render(); }), api.watchOrders(l => { S.orders = l.sort((a, b) => b.createdAt - a.createdAt); render(); }));
-    } else if (p.status === "approved") {
-      unsubs.push(api.watchProducts(l => { S.products = l; render(); }), api.watchMyOrders(p.uid, l => { S.myOrders = l.sort((a, b) => b.createdAt - a.createdAt); render(); }));
-    }
-  }
-  render(true);
-}
-
-/* ---------- render ---------- */
-let deferred = false;
-function render(force) {
-  const a = document.activeElement;
-  if (!force && a && $app.contains(a) && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && a.type !== "file") { deferred = true; return; }
-  deferred = false;
-  const y = window.scrollY;
-  $app.innerHTML = view();
-  window.scrollTo(0, y);
-  document.title = S.settings.storeName ? `${S.settings.storeName} · מחירון` : "מחירון הזמנות";
-}
-$app.addEventListener("focusout", () => setTimeout(() => { if (deferred) render(); }, 0));
-
-function view() {
-  if (S.fatal) return `<div class="center wrap"><div class="box">${ico("alert")}<h2>החיבור נכשל</h2><p class="muted">${esc(S.fatal)}</p></div></div>`;
-  if (!S.ready) return `<div class="center"><div class="spin"></div></div>`;
-  let html = demoBar();
-  const p = S.profile;
-  if (!p) html += authView();
-  else if (p.isAdmin) html += adminView();
-  else if (p.status === "rejected") html += msgView("block", "", "החשבון לא אושר", "פנו למנהל החנות לפרטים נוספים.");
-  else if (p.status !== "approved") html += msgView("clock", "", "ממתינים לאישור המנהל", `שלום ${esc(p.name || "")}, ההרשמה התקבלה. ברגע שהמנהל יאשר את החשבון, המחירון ייפתח כאן אוטומטית.`);
-  else if (S.view === "sent") html += sentView();
-  else if (S.view === "mine") html += myOrdersView();
-  else html += shopView();
-  if (S.toast) html += `<div class="toast" role="status">${esc(S.toast)}</div>`;
-  return html;
-}
-
-function demoBar() {
-  if (S.mode !== "demo") return "";
-  return `<div class="demo"><div class="wrap"><b>מצב הדגמה · הנתונים נשמרים רק בדפדפן הזה</b>
-    <button data-a="demoAs" data-id="${DEMO_ADMIN}">כניסה כמנהל</button>
-    <button data-a="demoAs" data-id="yossi@demo.co.il">כניסה כלקוח</button>
-    <button data-a="demoAs" data-id="michal@demo.co.il">לקוח ממתין</button>
-    <button data-a="demoReset">איפוס</button></div></div>`;
-}
-function header(extra) {
-  return `<header class="top"><div class="wrap"><div class="brand">${logoEl()}<h1>${esc(S.settings.storeName)}</h1></div>${extra}</div></header>`;
-}
-function msgView(icon, bg, title, text) {
-  return header(`<button class="hbtn" data-a="logout">יציאה</button>`) +
-    `<div class="center wrap"><div class="box">${ico(icon)}<h2>${title}</h2><p class="muted">${text}</p></div></div>`;
-}
-
-/* auth */
-function authView() {
-  const reg = S.authTab === "register";
-  return `<main class="auth wrap"><div class="auth-card">
-    <div class="auth-head">${logoEl()}<h1>${esc(S.settings.storeName)}</h1><p class="muted" style="margin:0">${reg ? "פותחים חשבון ומחכים לאישור המנהל" : "כניסה למחירון ולהזמנות"}</p></div>
-    <div class="seg"><button class="${reg ? "" : "on"}" data-a="authTab" data-id="login">כניסה</button><button class="${reg ? "on" : ""}" data-a="authTab" data-id="register">הרשמה</button></div>
-    ${S.err ? `<div class="err" role="alert">${esc(S.err)}</div>` : ""}
-    ${reg ? `<form class="stack" data-submit="register">
-        <label class="f">שם מלא<input class="i" id="rName" data-m="r_name" value="${esc(fv("r_name"))}" required autocomplete="name"></label>
-        <label class="f">אימייל<input class="i" id="rEmail" type="email" data-m="r_email" value="${esc(fv("r_email"))}" required autocomplete="email" dir="ltr"></label>
-        <label class="f">טלפון<input class="i" id="rPhone" type="tel" data-m="r_phone" value="${esc(fv("r_phone"))}" required autocomplete="tel" dir="ltr" placeholder="050-0000000"></label>
-        <label class="f">סיסמה (לפחות 6 תווים)<input class="i" id="rPass" type="password" data-m="r_pass" value="${esc(fv("r_pass"))}" required minlength="6" autocomplete="new-password" dir="ltr"></label>
-        <button class="btn full" ${S.busy ? "disabled" : ""}>${S.busy ? "נרשם..." : "הרשמה"}</button>
-      </form>`
-    : `<form class="stack" data-submit="login">
-        <label class="f">אימייל<input class="i" id="lEmail" type="email" data-m="l_email" value="${esc(fv("l_email"))}" required autocomplete="email" dir="ltr"></label>
-        <label class="f">סיסמה<input class="i" id="lPass" type="password" data-m="l_pass" value="${esc(fv("l_pass"))}" required autocomplete="current-password" dir="ltr"></label>
-        <button class="btn full" ${S.busy ? "disabled" : ""}>${S.busy ? "מתחבר..." : "כניסה"}</button>
-        <button type="button" class="link" data-a="forgot">שכחתי סיסמה</button>
-      </form>`}
-  </div></main>`;
-}
-
-/* customer: shop */
-function cartItems() {
-  return S.products.filter(p => S.cart[p.id] > 0).map(p => ({ id: p.id, name: p.name, price: +p.price || 0, qty: S.cart[p.id], image: p.image, cat: p.cat }));
-}
-function shopView() {
-  const c = cats(), sel = c.includes(S.cat) ? S.cat : "הכל";
-  const list = sel === "הכל" ? S.products : S.products.filter(p => (p.cat || "").trim() === sel);
-  const items = cartItems(), n = items.reduce((s, i) => s + i.qty, 0), sum = items.reduce((s, i) => s + i.qty * i.price, 0);
-  let h = header(`<button class="hbtn" data-a="mine">ההזמנות שלי</button><button class="hbtn" data-a="logout">יציאה</button>`);
-  h += `<main class="wrap"><div class="hello"><h2>שלום ${esc(S.profile.name || "")}</h2><span class="muted">בחרו מוצרים וכמויות, ובסוף שלחו את ההזמנה</span></div>`;
-  if (c.length > 1) {
-    h += `<div class="catbar"><button class="catbtn" data-a="openCats" aria-haspopup="dialog"><span class="muted">קטגוריה</span><b>${esc(sel)}</b><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>${sel !== "הכל" ? `<button class="link" data-a="cat" data-id="הכל">הצגת הכל</button>` : ""}</div>`;
-  }
-  h += `<div class="grid">${list.length ? list.map(productCard).join("") : `<div class="empty">${ico("bag")}<h3>עדיין אין מוצרים במחירון</h3><span class="muted">המוצרים יופיעו כאן ברגע שהמנהל יוסיף אותם</span></div>`}</div></main>`;
-  if (n) h += `<div class="bar"><div class="wrap"><button class="btn" data-a="openCart"><span class="row"><span class="count">${n}</span> סיכום ושליחה</span><span class="num">${money(sum)}</span></button></div></div>`;
-  if (S.sheet === "cart") h += cartSheet(items, sum);
-  if (S.sheet === "cats") h += catsSheet(c, sel);
-  return h;
-}
-function productCard(p) {
-  const q = S.cart[p.id] || 0, i = p.cat ? catIdx(p.cat) : hashIdx(p.name);
-  return `<article class="pc${q ? " on" : ""}${S.bump === p.id ? " bump" : ""}">
-    <div class="ph tap" data-a="tapAdd" data-id="${p.id}" role="button" aria-label="הוספת ${esc(p.name)}" style="background:${CAT_TINTS[i]}">${q ? `<span class="qbadge">${q}</span>` : ""}${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">` : `<span class="noimg" style="color:${CAT_COLORS[i]}">${initial(p.name)}</span>`}
-      <span class="tag">${money(p.price)}</span>${p.cat ? `<span class="badge-cat" style="background:${CAT_COLORS[i]}">${esc(p.cat)}</span>` : ""}</div>
-    <div class="pb tap" data-a="tapAdd" data-id="${p.id}">
-<h3>${esc(p.name)}</h3>${p.desc ? `<p>${esc(p.desc)}</p>` : ""}</div>
-    <div class="pq">${q
-      ? `<button class="qb minus" data-a="dec" data-id="${p.id}" aria-label="פחות">−</button><span class="qn">${q}</span><button class="qb" data-a="inc" data-id="${p.id}" aria-label="עוד">+</button>`
-      : `<button class="btn soft full" data-a="inc" data-id="${p.id}">הוספה</button>`}</div>
-  </article>`;
-}
-function catsSheet(c, sel) {
-  const count = x => x === "הכל" ? S.products.length : S.products.filter(p => (p.cat || "").trim() === x).length;
-  return `<div class="scrim" data-a="closeSheet"><div class="sheet" data-stop="1" role="dialog" aria-label="בחירת קטגוריה">
-    <div class="sheet-h"><h2>בחירת קטגוריה</h2><button class="x" data-a="closeSheet" aria-label="סגירה">×</button></div>
-    <div class="catlist">${["הכל", ...c].map(x => `<button class="catopt${sel === x ? " on" : ""}" data-a="pickCat" data-id="${esc(x)}"><span>${esc(x)}</span><span class="muted num">${count(x)}</span></button>`).join("")}</div>
-  </div></div>`;
-}
-function cartSheet(items, sum) {
-  return `<div class="scrim" data-a="closeSheet"><div class="sheet" data-stop="1" role="dialog" aria-label="סיכום הזמנה">
-    <div class="sheet-h"><h2>סיכום ההזמנה</h2><button class="x" data-a="closeSheet" aria-label="סגירה">×</button></div>
-    <div>${items.map(i => `<div class="line">${thumb(i)}<div class="nm"><b>${esc(i.name)}</b><span class="muted num">${money(i.price)} ליחידה</span></div>
-      <div class="mini"><button class="qb minus" data-a="dec" data-id="${i.id}" aria-label="פחות">−</button><span class="qn num">${i.qty}</span><button class="qb" data-a="inc" data-id="${i.id}" aria-label="עוד">+</button></div></div>`).join("")}</div>
-    <label class="f">הערה למנהל (לא חובה)<textarea class="i" id="cNote" data-m="c_note" placeholder="למשל: מועד איסוף, בקשות מיוחדות">${esc(fv("c_note"))}</textarea></label>
-    <div class="total"><span>סה"כ לפי המחירון</span><span class="big num">${money(sum)}</span></div>
-    <p class="muted" style="margin:0;font-size:14px">המחיר הסופי ייקבע על ידי המנהל ויופיע אצלך ב"ההזמנות שלי".</p>
-    <button class="btn wa full" data-a="sendOrder" ${S.busy ? "disabled" : ""}>${S.busy ? "שולח..." : "שליחת ההזמנה בוואטסאפ"}</button>
-  </div></div>`;
-}
-function sentView() {
-  const s = S.sent || {};
-  return header(`<button class="hbtn" data-a="logout">יציאה</button>`) + `<div class="center wrap"><div class="box">
-    ${ico("check")}<h2>ההזמנה #${esc(shortId(s.id))} נשמרה</h2>
-    <p class="muted">המנהל כבר רואה אותה. ${s.url ? "כדי לשלוח גם בוואטסאפ, לחצו על הכפתור:" : ""}</p>
-    ${s.url ? `<a class="btn wa full" href="${esc(s.url)}" target="_blank" rel="noopener">פתיחת וואטסאפ עם ההזמנה</a>` : ""}
-    <div class="row" style="justify-content:center"><button class="btn ghost" data-a="toShop">חזרה למחירון</button><button class="btn soft" data-a="mine">ההזמנות שלי</button></div>
-  </div></div>`;
-}
-function myOrdersView() {
-  let h = header(`<button class="hbtn" data-a="toShop">למחירון</button><button class="hbtn" data-a="logout">יציאה</button>`);
-  h += `<main class="wrap"><div class="hello"><h2>ההזמנות שלי</h2></div><div class="myo">`;
-  if (!S.myOrders.length) h += `<div class="empty">${ico("box")}<h3>עוד לא שלחת הזמנות</h3><button class="btn" data-a="toShop">למחירון</button></div>`;
-  h += S.myOrders.map(o => `<article class="ocard">
-    <div class="cube-top"><b>הזמנה #${esc(shortId(o.id))}</b><span class="pill ${o.status}">${o.status === "priced" ? "המחיר אושר" : "ממתין למחיר סופי"}</span></div>
-    <span class="muted">${fmtDate(o.createdAt)} · ${itemsCount(o)} פריטים</span>
-    <div class="oitems">${(o.items || []).map(i => `${esc(i.name)} × ${i.qty}`).join(" · ")}</div>
-    ${o.status === "priced" ? `<div class="final"><span>${o.discountPct > 0 ? `<s class="muted num">${money(o.subtotal)}</s> · הנחה ${r2(o.discountPct)}%` : "מחיר סופי"}</span><b class="num">${money(o.finalPrice)}</b></div>
-      ${o.adminNote ? `<div class="note">${esc(o.adminNote)}</div>` : ""}`
-      : `<div class="cube-bot"><span class="muted">לפי המחירון</span><b class="num">${money(o.subtotal)}</b></div>`}
-  </article>`).join("");
-  return h + `</div></main>`;
-}
-
-/* admin */
-function adminView() {
-  const newN = S.orders.filter(o => o.status === "new").length, pendN = S.users.filter(u => u.status === "pending" && !isAdminEmail(u.email)).length;
-  const tabs = [["orders", "הזמנות", newN, "var(--pink)"], ["products", "מוצרים", S.products.length, "var(--teal)"], ["customers", "לקוחות", pendN, "var(--orange)"], ["settings", "הגדרות", "", "var(--grape)"]];
-  let h = header(`<button class="hbtn" data-a="logout">יציאה</button>`);
-  h += `<main class="wrap"><nav class="tabs">${tabs.map(([k, l, n, c]) => `<button class="tab ${S.tab === k ? "on" : ""}" data-a="tab" data-id="${k}">${l}${n !== "" && n ? `<span class="n">${n}</span>` : ""}</button>`).join("")}</nav>`;
-  if (backupDue() && S.tab !== "settings" && (S.products.length || S.orders.length)) h += `<div class="note" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between"><span>${S.settings.lastBackup ? `עברו יותר מ-${BACKUP_DAYS} ימים מהגיבוי האחרון.` : "עדיין לא הורדת גיבוי של החנות."}</span><button class="btn sm" data-a="backup">הורדת גיבוי עכשיו</button></div>`;
-  if (S.tab === "orders") h += S.openOrder ? orderDetail() : ordersList();
-  else if (S.tab === "products") h += productsAdmin();
-  else if (S.tab === "customers") h += customersAdmin();
-  else h += settingsAdmin();
-  h += `</main>`;
-  if (S.sheet === "product") h += productSheet();
-  if (S.sheet === "customer") h += customerSheet();
-  return h;
-}
-function ordersList() {
-  const f = S.ofilter, list = S.orders.filter(o => f === "all" || o.status === f);
-  const chips = [["new", "חדשות", "var(--orange)"], ["priced", "נשלח מחיר", "var(--teal)"], ["all", "הכל", "var(--ink)"]];
-  return `<div class="sec-h"><h2>הזמנות</h2><div class="row">
-      ${chips.map(([k, l, c]) => `<button class="chip ${f === k ? "on" : ""}" data-a="ofilter" data-id="${k}">${l}</button>`).join("")}
-      ${S.orders.length ? `<button class="btn sm teal" data-a="xlsAll">ייצוא הכל לאקסל</button>` : ""}</div></div>
-    <div class="cubes">${list.length ? list.map(o => { const i = hashIdx(o.uid || o.name);
-      return `<button class="cube" data-a="openOrder" data-id="${o.id}">
-        <span class="cube-top"><span class="row" style="gap:10px;min-width:0;flex-wrap:nowrap"><span class="av" style="background:${CAT_COLORS[i]}">${initial(o.name)}</span><b>${esc(o.name)}</b></span><span class="pill ${o.status}">${STATUS[o.status] || o.status}</span></span>
-        <span class="muted">#${esc(shortId(o.id))} · ${fmtDate(o.createdAt)}</span>
-        <span class="cube-bot"><span>${itemsCount(o)} פריטים</span><b class="num">${money(orderTotal(o))}</b></span></button>`; }).join("")
-      : `<div class="empty">${ico("inbox")}<h3>${f === "new" ? "אין הזמנות חדשות" : "אין הזמנות"}</h3><span class="muted">כשלקוח ישלח הזמנה היא תופיע כאן</span></div>`}</div>`;
-}
-function calcPrice(o) {
-  const mode = fv("pr_mode", "pct"), raw = parseFloat(fv("pr_val"));
-  if (isNaN(raw)) return { mode, final: r2(o.subtotal), pct: 0 };
-  if (mode === "pct") { const pct = Math.min(100, Math.max(0, raw)); return { mode, pct: r2(pct), final: r2(o.subtotal * (1 - pct / 100)) }; }
-  const fin = Math.max(0, raw); return { mode, final: r2(fin), pct: o.subtotal ? r2((1 - fin / o.subtotal) * 100) : 0 };
-}
-function customerMsg(o) {
-  const lines = [`שלום ${o.name},`, `ההזמנה שלך #${shortId(o.id)} ב${S.settings.storeName} אושרה.`, "",
-    ...(o.items || []).map(i => `• ${i.name} × ${i.qty}`), "",
-    `לפי המחירון: ${money(o.subtotal)}`];
-  if (o.discountPct > 0) lines.push(`הנחה: ${r2(o.discountPct)}%`);
-  lines.push(`לתשלום: ${money(o.finalPrice)}`);
-  if (o.adminNote) lines.push("", o.adminNote);
-  lines.push("", "תודה!");
-  return lines.join("\n");
-}
-function orderDetail() {
-  const o = S.orders.find(x => x.id === S.openOrder);
-  if (!o) return `<div class="empty"><h3>ההזמנה לא נמצאה</h3><button class="btn" data-a="closeOrder">חזרה</button></div>`;
-  const c = calcPrice(o), i = hashIdx(o.uid || o.name), mode = fv("pr_mode", "pct");
-  const prodMap = Object.fromEntries(S.products.map(p => [p.id, p]));
-  return `<div class="sec-h"><button class="btn sm ghost" data-a="closeOrder">→ כל ההזמנות</button><span class="pill ${o.status}">${STATUS[o.status]}</span></div>
-  <div class="detail">
-    <section class="panel">
-      <div class="who"><span class="av" style="background:${CAT_COLORS[i]}">${initial(o.name)}</span><div><h2 style="font-size:24px">${esc(o.name)}</h2><span class="muted">הזמנה #${esc(shortId(o.id))} · ${fmtDate(o.createdAt)}</span></div></div>
-      <div class="kv"><span>טלפון</span><span class="sel num" dir="ltr" style="text-align:right">${esc(o.phone)}</span><span>אימייל</span><span class="sel" dir="ltr" style="text-align:right">${esc(o.email)}</span></div>
-      ${o.note ? `<div class="note"><b>הערת הלקוח:</b> ${esc(o.note)}</div>` : ""}
-      <div class="tbl-wrap"><table class="t"><thead><tr><th>מוצר</th><th>מחיר</th><th>כמות</th><th>סה"כ</th></tr></thead><tbody>
-        ${(o.items || []).map(it => `<tr><td><div class="tp">${thumb(prodMap[it.id] || it)}<b>${esc(it.name)}</b></div></td><td class="n">${money(it.price)}</td><td class="n">${it.qty}</td><td class="n"><b>${money(it.price * it.qty)}</b></td></tr>`).join("")}
-      </tbody></table></div>
-      <div class="total"><span>סה"כ לפי המחירון</span><span class="num">${money(o.subtotal)}</span></div>
-    </section>
-    <section class="panel">
-      <h2 style="font-size:22px">מחיר סופי ללקוח</h2>
-      <div class="seg"><button class="${mode === "pct" ? "on" : ""}" data-a="prMode" data-id="pct">הנחה באחוזים</button><button class="${mode === "final" ? "on" : ""}" data-a="prMode" data-id="final">מחיר סופי</button></div>
-      <label class="f">${mode === "pct" ? "אחוז הנחה" : "המחיר הסופי בשקלים"}<input class="i num" id="prVal" type="number" inputmode="decimal" min="0" step="any" data-m="pr_val" value="${esc(fv("pr_val"))}" placeholder="${mode === "pct" ? "למשל 10" : esc(r2(o.subtotal))}"></label>
-      <div class="final"><span id="prPct">${c.pct > 0 ? `הנחה ${c.pct}%` : c.pct < 0 ? `תוספת ${-c.pct}%` : "ללא הנחה"}</span><b class="num" id="prOut">${money(c.final)}</b></div>
-      <label class="f">הודעה ללקוח (לא חובה)<textarea class="i" id="prNote" data-m="pr_note" placeholder="למשל: מוכן לאיסוף ביום שישי ב-9:00">${esc(fv("pr_note"))}</textarea></label>
-      <button class="btn full" data-a="savePrice" ${S.busy ? "disabled" : ""}>${o.status === "priced" ? "עדכון המחיר ללקוח" : "אישור ושליחה ללקוח"}</button>
-      ${o.status === "priced" ? `<a class="btn wa full" href="${esc(waLink(o.phone, customerMsg(o)))}" target="_blank" rel="noopener">שליחת המחיר ללקוח בוואטסאפ</a>` : ""}
-      <h3 style="font-size:18px;margin-top:6px">הורדת ההזמנה</h3>
-      <div class="dl"><button class="btn sky" data-a="pdf" data-id="${o.id}">PDF מעוצב</button><button class="btn teal" data-a="xls" data-id="${o.id}">אקסל</button></div>
-      ${S.confirm === "delOrder" ? `<div class="confirm"><b>למחוק את ההזמנה לצמיתות?</b><div class="row"><button class="btn sm danger" data-a="delOrderYes">מחיקה</button><button class="btn sm ghost" data-a="noConfirm">ביטול</button></div></div>`
-        : `<button class="link" style="color:var(--danger)" data-a="ask" data-id="delOrder">מחיקת ההזמנה</button>`}
-    </section>
-  </div>`;
-}
-function productsAdmin() {
-  const nSample = S.products.filter(p => p.sample).length;
-  return `<div class="sec-h"><h2>מוצרים</h2><div class="row">
-    ${nSample ? (S.confirm === "delSamples" ? `<span class="confirm" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:6px 10px"><b>למחוק ${nSample} מוצרי דוגמה?</b><button class="btn sm danger" data-a="delSamplesYes">מחיקה</button><button class="btn sm ghost" data-a="noConfirm">ביטול</button></span>`
-      : `<button class="btn ghost" data-a="ask" data-id="delSamples">מחיקת מוצרי הדוגמה (${nSample})</button>`)
-      : `<button class="btn ghost" data-a="addSamples" ${S.busy ? "disabled" : ""}>הוספת מוצרי דוגמה</button>`}
-    <button class="btn teal" data-a="newProduct">+ מוצר חדש</button></div></div>
-  <div class="plist">${S.products.length ? S.products.map(p => { const i = p.cat ? catIdx(p.cat) : hashIdx(p.name);
-    return `<article class="pc"><div class="ph" style="background:${CAT_TINTS[i]}">${p.image ? `<img src="${esc(p.image)}" alt="" loading="lazy">` : `<span class="noimg" style="color:${CAT_COLORS[i]}">${initial(p.name)}</span>`}<span class="tag">${money(p.price)}</span>${p.cat ? `<span class="badge-cat" style="background:${CAT_COLORS[i]}">${esc(p.cat)}</span>` : ""}</div>
-      <div class="pb"><h3>${esc(p.name)}</h3>${p.desc ? `<p>${esc(p.desc)}</p>` : ""}</div>
-      <div class="pa"><button class="btn sm soft" data-a="editProduct" data-id="${p.id}">עריכה</button></div></article>`; }).join("")
-    : `<div class="empty">${ico("box")}<h3>אין עדיין מוצרים</h3><span class="muted">הוסיפו את המוצר הראשון עם תמונה ומחיר</span><button class="btn teal" data-a="newProduct">+ מוצר חדש</button></div>`}</div>`;
-}
-function productSheet() {
-  const isNew = S.editProduct === "new", img = fv("p_image");
-  return `<div class="scrim" data-a="closeSheet"><form class="sheet" data-stop="1" data-submit="saveProduct" role="dialog" aria-label="מוצר">
-    <div class="sheet-h"><h2>${isNew ? "מוצר חדש" : "עריכת מוצר"}</h2><button type="button" class="x" data-a="closeSheet" aria-label="סגירה">×</button></div>
-    <div class="imgpick"><div class="prev">${img ? `<img src="${esc(img)}" alt="">` : "אין תמונה"}</div>
-      <div class="row"><span class="btn sm sky filebtn">${img ? "החלפת תמונה" : "בחירת תמונה"}<input type="file" id="pImg" accept="image/*"></span>${img ? `<button type="button" class="btn sm ghost" data-a="clearImg">הסרה</button>` : ""}</div></div>
-    <label class="f">שם המוצר<input class="i" id="pName" data-m="p_name" value="${esc(fv("p_name"))}" required></label>
-    <label class="f">מחיר בשקלים<input class="i num" id="pPrice" type="number" inputmode="decimal" min="0" step="any" data-m="p_price" value="${esc(fv("p_price"))}" required></label>
-    <label class="f">קטגוריה (לא חובה)<input class="i" id="pCat" data-m="p_cat" value="${esc(fv("p_cat"))}" list="catList" placeholder="למשל: עוגות"><datalist id="catList">${cats().map(c => `<option value="${esc(c)}">`).join("")}</datalist></label>
-    <label class="f">תיאור קצר (לא חובה)<input class="i" id="pDesc" data-m="p_desc" value="${esc(fv("p_desc"))}"></label>
-    <button class="btn teal full" ${S.busy ? "disabled" : ""}>${S.busy ? "שומר..." : "שמירה"}</button>
-    ${!isNew ? (S.confirm === "delProduct" ? `<div class="confirm"><b>למחוק את המוצר מהמחירון?</b><div class="row"><button type="button" class="btn sm danger" data-a="delProductYes">מחיקה</button><button type="button" class="btn sm ghost" data-a="noConfirm">ביטול</button></div></div>`
-      : `<button type="button" class="link" style="color:var(--danger)" data-a="ask" data-id="delProduct">מחיקת המוצר</button>`) : ""}
-  </form></div>`;
-}
-function customersAdmin() {
-  const us = S.users.filter(u => !isAdminEmail(u.email)).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-  const groups = [["pending", "ממתינים לאישור"], ["approved", "לקוחות מאושרים"], ["rejected", "נדחו"]];
-  let h = `<div class="sec-h"><h2>לקוחות</h2></div>`;
-  if (!us.length) return h + `<div class="empty">${ico("users")}<h3>עדיין אין לקוחות רשומים</h3><span class="muted">שלחו ללקוחות את הקישור לאתר. אחרי ההרשמה הם יופיעו כאן לאישור.</span></div>`;
-  for (const [st, title] of groups) {
-    const g = us.filter(u => (u.status || "pending") === st); if (!g.length) continue;
-    h += `<h3 style="font-size:18px;margin:6px 0 10px">${title} <span class="muted num">(${g.length})</span></h3><div class="ulist">` + g.map(u => { const i = hashIdx(u.id || u.name);
-      return `<div class="urow"><span class="av" style="background:${CAT_COLORS[i]}">${initial(u.name)}</span>
-        <div class="info"><b>${esc(u.name)}</b><span class="muted sel" dir="ltr" style="text-align:right">${esc(u.phone)} · ${esc(u.email)}</span>${u.adminNote ? `<span class="muted" style="font-size:13px">${esc(u.adminNote)}</span>` : ""}</div>
-        <div class="row"><button class="btn sm ghost" data-a="editUser" data-id="${u.id}">עריכה</button>${st !== "approved" ? `<button class="btn sm teal" data-a="approve" data-id="${u.id}">אישור</button>` : ""}${st !== "rejected" ? `<button class="btn sm ghost" data-a="reject" data-id="${u.id}">${st === "approved" ? "חסימה" : "דחייה"}</button>` : ""}</div></div>`; }).join("") + `</div>`;
-  }
-  return h;
-}
-function customerSheet() {
-  const u = S.users.find(x => x.id === S.editUser);
-  if (!u) return "";
-  const n = S.orders.filter(o => o.uid === u.id).length, st = fv("u_status", u.status || "pending");
-  return `<div class="scrim" data-a="closeSheet"><form class="sheet" data-stop="1" data-submit="saveUser" role="dialog" aria-label="עריכת לקוח">
-    <div class="sheet-h"><h2>עריכת לקוח</h2><button type="button" class="x" data-a="closeSheet" aria-label="סגירה">×</button></div>
-    <label class="f">שם מלא<input class="i" id="uName" data-m="u_name" value="${esc(fv("u_name"))}" required></label>
-    <label class="f">טלפון<input class="i num" id="uPhone" type="tel" dir="ltr" data-m="u_phone" value="${esc(fv("u_phone"))}" required></label>
-    <div class="f" style="display:grid;gap:6px"><b style="font-size:14px">אימייל להתחברות</b><span class="sel" dir="ltr" style="text-align:right;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px">${esc(u.email)}</span><span class="muted" style="font-size:13px">אי אפשר לשנות מכאן את האימייל שאיתו הלקוח מתחבר.</span></div>
-    <div style="display:grid;gap:6px"><b style="font-size:14px">סטטוס</b><div class="seg" style="grid-template-columns:repeat(3,1fr)">
-      ${[["approved","מאושר"],["pending","ממתין"],["rejected","חסום"]].map(([k,l]) => `<button type="button" class="${st === k ? "on" : ""}" data-a="uStatus" data-id="${k}">${l}</button>`).join("")}</div></div>
-    <label class="f">הערה פנימית (לא מוצגת ללקוח באתר)<textarea class="i" id="uNote" data-m="u_note" placeholder="למשל: לקוח קבוע, מעדיף איסוף בשישי">${esc(fv("u_note"))}</textarea></label>
-    ${n ? `<span class="muted" style="font-size:14px">שינוי השם והטלפון יעודכן גם ב-${n} ההזמנות של הלקוח.</span>` : ""}
-    <button class="btn full" ${S.busy ? "disabled" : ""}>${S.busy ? "שומר..." : "שמירה"}</button>
-  </form></div>`;
-}
-function settingsAdmin() {
-  const logo = fv("s_logo", S.settings.logo), link = location.href.split("#")[0].split("?")[0];
-  return `<div class="sec-h"><h2>הגדרות</h2></div><form class="panel" style="max-width:560px;margin-bottom:40px" data-submit="saveSettings">
-    <div class="imgpick"><div class="prev">${logo ? `<img src="${esc(logo)}" alt="" style="object-fit:contain">` : "אין לוגו"}</div>
-      <div style="display:grid;gap:8px"><b>לוגו החנות</b><span class="muted" style="font-size:14px">מופיע בכותרת ובקובצי ה-PDF</span>
-      <div class="row"><span class="btn sm grape filebtn">${logo ? "החלפה" : "העלאת לוגו"}<input type="file" id="sLogo" accept="image/*"></span>${logo ? `<button type="button" class="btn sm ghost" data-a="clearLogo">הסרה</button>` : ""}</div></div></div>
-    <label class="f">שם החנות<input class="i" id="sStore" data-m="s_store" value="${esc(fv("s_store", S.settings.storeName))}" required></label>
-    <label class="f">מספר הוואטסאפ שאליו יגיעו ההזמנות<input class="i num" id="sWa" type="tel" dir="ltr" data-m="s_wa" value="${esc(fv("s_wa", S.settings.whatsapp))}" placeholder="050-0000000"></label>
-    <button class="btn grape full" ${S.busy ? "disabled" : ""}>שמירת ההגדרות</button>
-    ${S.mode === "live" ? `<div style="display:grid;gap:6px;margin-top:6px"><b>הקישור לשליחה ללקוחות</b><div class="row"><span class="sel" dir="ltr" style="background:var(--bg);padding:8px 12px;border-radius:10px;word-break:break-all;flex:1;min-width:0">${esc(link)}</span><button type="button" class="btn sm sky" data-a="copyLink">העתקה</button></div></div>` : ""}
-  </form>${backupPanel()}`;
-}
-const BACKUP_DAYS = 7;
-const backupDue = () => !S.settings.lastBackup || Date.now() - S.settings.lastBackup > BACKUP_DAYS * 864e5;
-function backupPanel() {
-  const r = S.restore;
-  return `<div class="sec-h"><h2>גיבוי</h2></div><section class="panel" style="max-width:560px;margin-bottom:40px">
-    <p class="muted" style="margin:0">קובץ גיבוי אחד שכולל את כל המוצרים (עם התמונות), הלקוחות, ההזמנות וההגדרות. שמרו אותו בטלפון, במייל או ב-Google Drive.</p>
-    <div class="kv"><span>גיבוי אחרון</span><span class="num">${S.settings.lastBackup ? fmtDate(S.settings.lastBackup) : "עדיין לא בוצע"}</span></div>
-    <button class="btn full" data-a="backup" ${S.busy ? "disabled" : ""}>הורדת גיבוי מלא</button>
-    <div style="border-top:1px solid var(--line);padding-top:14px;display:grid;gap:10px">
-      <b>שחזור מקובץ גיבוי</b>
-      <span class="muted" style="font-size:14px">מחזיר את המוצרים וההגדרות מהקובץ. מוצרים שקיימים כבר יעודכנו לפי הקובץ, ושום דבר לא נמחק.</span>
-      ${r ? `<div class="confirm" style="background:var(--accent-soft);border-color:var(--line2)"><b>בקובץ מ-${esc(fmtDate(r.exportedAt))}: ${r.products.length} מוצרים${r.settings ? " והגדרות החנות" : ""}. לשחזר?</b>
-          <div class="row"><button class="btn sm" data-a="restoreYes">שחזור</button><button class="btn sm ghost" data-a="restoreNo">ביטול</button></div></div>`
-        : `<span class="btn ghost filebtn" style="justify-self:start">בחירת קובץ גיבוי<input type="file" id="restoreFile" accept=".json,application/json"></span>`}
-    </div></section>`;
-}
-function downloadBlob(blob, name) {
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob); a.download = name;
-  document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-}
-
-/* ---------- exports ---------- */
-const XLSX_SRC = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";
-const PDF_SRC = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
-const fileSafe = s => String(s || "").replace(/[\\/:*?"<>|]+/g, "").trim() || "הזמנה";
-
-async function exportXls(orders, filename) {
-  await loadScript(XLSX_SRC);
-  const wb = XLSX.utils.book_new();
-  if (orders.length === 1) {
-    const o = orders[0];
-    const rows = [
-      [S.settings.storeName], [],
-      ["הזמנה", "#" + shortId(o.id)], ["תאריך", fmtDate(o.createdAt)], ["לקוח", o.name], ["טלפון", o.phone], ["אימייל", o.email],
-      ...(o.note ? [["הערת לקוח", o.note]] : []), [],
-      ["מוצר", "מחיר ליחידה", "כמות", "סה\"כ"],
-      ...(o.items || []).map(i => [i.name, +i.price, +i.qty, r2(i.price * i.qty)]), [],
-      ["", "", "סה\"כ לפי המחירון", r2(o.subtotal)]
-    ];
-    if (o.status === "priced") { rows.push(["", "", "הנחה %", r2(o.discountPct || 0)], ["", "", "לתשלום", r2(o.finalPrice)]); }
-    const ws = XLSX.utils.aoa_to_sheet(rows);
-    ws["!cols"] = [{ wch: 30 }, { wch: 14 }, { wch: 18 }, { wch: 14 }];
-    XLSX.utils.book_append_sheet(wb, ws, "הזמנה");
-  } else {
-    const sum = [["מספר", "תאריך", "לקוח", "טלפון", "פריטים", "לפי מחירון", "הנחה %", "לתשלום", "סטטוס", "הערה"],
-      ...orders.map(o => ["#" + shortId(o.id), fmtDate(o.createdAt), o.name, o.phone, itemsCount(o), r2(o.subtotal), o.status === "priced" ? r2(o.discountPct || 0) : "", o.status === "priced" ? r2(o.finalPrice) : "", STATUS[o.status] || o.status, o.note || ""])];
-    const ws = XLSX.utils.aoa_to_sheet(sum);
-    ws["!cols"] = [{ wch: 9 }, { wch: 16 }, { wch: 20 }, { wch: 14 }, { wch: 8 }, { wch: 12 }, { wch: 8 }, { wch: 12 }, { wch: 12 }, { wch: 30 }];
-    XLSX.utils.book_append_sheet(wb, ws, "הזמנות");
-    const lines = [["מספר", "לקוח", "מוצר", "מחיר ליחידה", "כמות", "סה\"כ"]];
-    orders.forEach(o => (o.items || []).forEach(i => lines.push(["#" + shortId(o.id), o.name, i.name, +i.price, +i.qty, r2(i.price * i.qty)])));
-    const ws2 = XLSX.utils.aoa_to_sheet(lines);
-    ws2["!cols"] = [{ wch: 9 }, { wch: 20 }, { wch: 30 }, { wch: 12 }, { wch: 8 }, { wch: 12 }];
-    XLSX.utils.book_append_sheet(wb, ws2, "פירוט מוצרים");
-  }
-  wb.Workbook = { Views: [{ RTL: true }] };
-  XLSX.writeFile(wb, filename);
-}
-function pdfHtml(o) {
-  const prodMap = Object.fromEntries(S.products.map(p => [p.id, p]));
-  const logo = S.settings.logo ? `<img src="${esc(S.settings.logo)}" alt="">` : `<span class="lp">${initial(S.settings.storeName)}</span>`;
-  const priced = o.status === "priced";
-  return `<div class="pdf">
-    <div class="pdf-band">${logo}<div><h1>${esc(S.settings.storeName)}</h1><div class="sub">${priced ? "הצעת מחיר / סיכום הזמנה" : "סיכום הזמנה"} · #${esc(shortId(o.id))}</div></div></div>
-    <div class="pdf-stripe"></div>
-    <div class="pdf-body">
-      <div class="pdf-meta">
-        <div class="pdf-box"><b>פרטי הלקוח</b>${esc(o.name)}<br><span dir="ltr">${esc(o.phone)}</span><br><span dir="ltr">${esc(o.email)}</span></div>
-        <div class="pdf-box"><b>פרטי ההזמנה</b>מספר: #${esc(shortId(o.id))}<br>תאריך: ${fmtDate(o.createdAt)}<br>פריטים: ${itemsCount(o)}</div>
-      </div>
-      <table><thead><tr><th style="width:70px"></th><th>מוצר</th><th>מחיר ליחידה</th><th>כמות</th><th>סה"כ</th></tr></thead><tbody>
-        ${(o.items || []).map(i => { const p = prodMap[i.id];
-          return `<tr><td>${p && p.image ? `<img class="pimg" src="${esc(p.image)}" alt="">` : `<span class="pimg ph">${initial(i.name)}</span>`}</td><td><b>${esc(i.name)}</b></td><td>${money(i.price)}</td><td>${i.qty}</td><td><b>${money(i.price * i.qty)}</b></td></tr>`; }).join("")}
-      </tbody></table>
-      <div class="pdf-sum">
-        <div><span>סה"כ לפי המחירון</span><span>${money(o.subtotal)}</span></div>
-        ${priced && o.discountPct > 0 ? `<div><span>הנחה (${r2(o.discountPct)}%)</span><span>−${money(o.subtotal - o.finalPrice)}</span></div>` : ""}
-        <div class="grand"><span>${priced ? "לתשלום" : "סה\"כ"}</span><span>${money(priced ? o.finalPrice : o.subtotal)}</span></div>
-      </div>
-      ${o.note ? `<div class="pdf-note"><b>הערת הלקוח:</b> ${esc(o.note)}</div>` : ""}
-      ${priced && o.adminNote ? `<div class="pdf-note"><b>הערה מהחנות:</b> ${esc(o.adminNote)}</div>` : ""}
-      <div class="pdf-foot">תודה שהזמנתם מ${esc(S.settings.storeName)} · הופק ב-${new Date().toLocaleDateString("he-IL")}</div>
-    </div></div>`;
-}
-async function exportPdf(o) {
-  await loadScript(PDF_SRC);
-  const host = document.getElementById("pdfHost");
-  host.innerHTML = pdfHtml(o);
-  try {
-    await Promise.all([...host.querySelectorAll("img")].map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
-    if (document.fonts && document.fonts.ready) await document.fonts.ready;
-    await html2pdf().set({
-      margin: 0, filename: `הזמנה ${shortId(o.id)} - ${fileSafe(o.name)}.pdf`,
-      image: { type: "jpeg", quality: 0.95 }, html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
-      jsPDF: { unit: "px", format: [794, 1123], hotfixes: ["px_scaling"] }, pagebreak: { mode: ["css", "legacy"], avoid: "tr" }
-    }).from(host.firstElementChild).save();
-  } finally { host.innerHTML = ""; }
-}
-
-/* ---------- actions ---------- */
-const findOrder = id => S.orders.find(o => o.id === id);
-function openOrderInit(o) {
-  S.f.pr_mode = o.priceMode || "pct";
-  S.f.pr_val = o.status === "priced" ? String(o.priceMode === "final" ? o.finalPrice : (o.discountPct || 0)) : "";
-  S.f.pr_note = o.adminNote || "";
-  S.confirm = null;
-}
-async function run(fn, okMsg) {
-  S.busy = true; S.err = ""; render(true);
-  try { await fn(); if (okMsg) toast(okMsg); }
-  catch (e) { console.warn(e); S.err = errMsg(e); if (S.profile) toast(errMsg(e)); }
-  S.busy = false; render(true);
-}
-const ACT = {
-  demoAs: email => { S.err = ""; api.loginAs(email); },
-  demoReset: () => { S.cart = {}; S.f = {}; S.openOrder = null; S.sheet = null; api.resetAll(); },
-  authTab: t => { S.authTab = t; S.err = ""; render(true); },
-  login: () => run(() => api.signIn(fv("l_email"), fv("l_pass"))).then(() => { S.f.l_pass = ""; }),
-  register: () => {
-    const name = fv("r_name").trim(), phone = fv("r_phone").trim();
-    if (phone.replace(/\D/g, "").length < 9) { S.err = "מספר הטלפון לא תקין"; return render(true); }
-    run(() => api.signUp({ name, email: fv("r_email"), phone, password: fv("r_pass") }));
-  },
-  forgot: () => { if (!fv("l_email")) { S.err = "כתבו קודם את האימייל, ואז לחצו על \"שכחתי סיסמה\""; return render(true); } run(() => api.reset(fv("l_email")), "נשלח מייל לאיפוס הסיסמה"); },
-  logout: () => { S.f = {}; api.signOut(); },
-  tapAdd: id => { if (!S.cart[id]) ACT.inc(id); },
-  inc: id => { S.cart[id] = (S.cart[id] || 0) + 1; S.bump = S.sheet ? null : id; render(true); S.bump = null; },
-  dec: id => { S.cart[id] = Math.max(0, (S.cart[id] || 0) - 1); if (!S.cart[id]) delete S.cart[id]; if (!cartItems().length) S.sheet = null; render(true); },
-  cat: c => { S.cat = c; render(true); },
-  openCats: () => { S.sheet = "cats"; render(true); },
-  pickCat: c => { S.cat = c; S.sheet = null; render(true); window.scrollTo(0, 0); },
-  openCart: () => { S.sheet = "cart"; render(true); },
-  closeSheet: () => { S.sheet = null; S.confirm = null; render(true); },
-  mine: () => { S.view = "mine"; S.sheet = null; render(true); window.scrollTo(0, 0); },
-  toShop: () => { S.view = "shop"; render(true); window.scrollTo(0, 0); },
-  sendOrder: () => {
-    const items = cartItems(); if (!items.length) return;
-    const p = S.profile, subtotal = r2(items.reduce((s, i) => s + i.qty * i.price, 0)), note = fv("c_note").trim();
-    run(async () => {
-      const id = await api.createOrder({ uid: p.uid, name: p.name, email: p.email, phone: p.phone, items: items.map(({ id, name, price, qty }) => ({ id, name, price, qty })), subtotal, note, status: "new" });
-      const text = [`הזמנה חדשה #${shortId(id)}`, `לקוח: ${p.name}`, `טלפון: ${p.phone}`, "", ...items.map(i => `• ${i.name} × ${i.qty} = ${money(i.price * i.qty)}`), "", `סה"כ לפי המחירון: ${money(subtotal)}`, ...(note ? ["", `הערה: ${note}`] : [])].join("\n");
-      const url = S.settings.whatsapp ? waLink(S.settings.whatsapp, text) : "";
-      S.sent = { id, url }; S.cart = {}; S.f.c_note = ""; S.sheet = null; S.view = "sent";
-      if (url) { try { window.open(url, "_blank", "noopener"); } catch (e) {} }
-    });
-  },
-  tab: t => { S.tab = t; S.openOrder = null; S.confirm = null; render(true); },
-  ofilter: f => { S.ofilter = f; render(true); },
-  openOrder: id => { const o = findOrder(id); if (!o) return; openOrderInit(o); S.openOrder = id; render(true); window.scrollTo(0, 0); },
-  closeOrder: () => { S.openOrder = null; S.confirm = null; render(true); },
-  prMode: m => { S.f.pr_mode = m; S.f.pr_val = ""; render(true); },
-  savePrice: () => {
-    const o = findOrder(S.openOrder); if (!o) return;
-    const c = calcPrice(o);
-    run(() => api.updateOrder(o.id, { status: "priced", finalPrice: c.final, discountPct: c.pct, priceMode: c.mode, adminNote: fv("pr_note").trim(), pricedAt: Date.now() }), "המחיר נשמר. הלקוח כבר רואה אותו ב\"ההזמנות שלי\"");
-  },
-  ask: what => { S.confirm = what; render(true); },
-  noConfirm: () => { S.confirm = null; render(true); },
-  delOrderYes: () => { const id = S.openOrder; S.openOrder = null; S.confirm = null; run(() => api.deleteOrder(id), "ההזמנה נמחקה"); },
-  pdf: id => { const o = findOrder(id); if (o) run(() => exportPdf(o), "קובץ ה-PDF ירד"); },
-  xls: id => { const o = findOrder(id); if (o) run(() => exportXls([o], `הזמנה ${shortId(o.id)} - ${fileSafe(o.name)}.xlsx`), "קובץ האקסל ירד"); },
-  xlsAll: () => { const l = S.orders.filter(o => S.ofilter === "all" || o.status === S.ofilter); run(() => exportXls(l.length ? l : S.orders, `הזמנות ${new Date().toLocaleDateString("he-IL").replace(/\./g, "-")}.xlsx`), "קובץ האקסל ירד"); },
-  addSamples: () => run(async () => {
-    const t = Date.now();
-    for (const [k, [name, price, cat, desc, emoji, bg]] of SAMPLE_FOOD.entries())
-      await api.saveProduct({ id: "sample_" + (k + 1), name, price, cat, desc, image: svgTile(emoji, bg), sample: true, createdAt: t + k });
-  }, `נוספו ${SAMPLE_FOOD.length} מוצרי דוגמה`),
-  delSamplesYes: () => { const ids = S.products.filter(p => p.sample).map(p => p.id); S.confirm = null;
-    run(async () => { for (const id of ids) await api.deleteProduct(id); }, "מוצרי הדוגמה נמחקו"); },
-  newProduct: () => { S.editProduct = "new"; Object.assign(S.f, { p_name: "", p_price: "", p_cat: "", p_desc: "", p_image: "" }); S.confirm = null; S.sheet = "product"; render(true); },
-  editProduct: id => { const p = S.products.find(x => x.id === id); if (!p) return; S.editProduct = id; Object.assign(S.f, { p_name: p.name || "", p_price: String(p.price ?? ""), p_cat: p.cat || "", p_desc: p.desc || "", p_image: p.image || "" }); S.confirm = null; S.sheet = "product"; render(true); },
-  clearImg: () => { S.f.p_image = ""; render(true); },
-  saveProduct: () => {
-    const name = fv("p_name").trim(), price = parseFloat(fv("p_price"));
-    if (!name || isNaN(price) || price < 0) return toast("צריך שם ומחיר תקין");
-    const data = { name, price: r2(price), cat: fv("p_cat").trim(), desc: fv("p_desc").trim(), image: fv("p_image") };
-    if (S.editProduct !== "new") data.id = S.editProduct;
-    run(async () => { await api.saveProduct(data); S.sheet = null; }, "המוצר נשמר");
-  },
-  delProductYes: () => { const id = S.editProduct; S.sheet = null; S.confirm = null; run(() => api.deleteProduct(id), "המוצר נמחק"); },
-  editUser: id => { const u = S.users.find(x => x.id === id); if (!u) return;
-    S.editUser = id; Object.assign(S.f, { u_name: u.name || "", u_phone: u.phone || "", u_note: u.adminNote || "", u_status: u.status || "pending" });
-    S.sheet = "customer"; render(true); },
-  uStatus: st => { S.f.u_status = st; render(true); },
-  saveUser: () => {
-    const id = S.editUser, name = fv("u_name").trim(), phone = fv("u_phone").trim();
-    if (!name) return toast("צריך שם");
-    if (phone.replace(/\D/g, "").length < 9) return toast("מספר הטלפון לא תקין");
-    const u = S.users.find(x => x.id === id), mine = S.orders.filter(o => o.uid === id);
-    run(async () => {
-      await api.updateUser(id, { name, phone, adminNote: fv("u_note").trim(), status: fv("u_status", "pending") });
-      if (u && (u.name !== name || u.phone !== phone)) for (const o of mine) await api.updateOrder(o.id, { name, phone });
-      S.sheet = null;
-    }, "פרטי הלקוח נשמרו");
-  },
-  approve: id => run(() => api.setUserStatus(id, "approved"), "הלקוח אושר"),
-  reject: id => run(() => api.setUserStatus(id, "rejected")),
-  clearLogo: () => { S.f.s_logo = ""; render(true); },
-  saveSettings: () => run(() => api.saveSettings({ storeName: fv("s_store", S.settings.storeName).trim() || "החנות של אפריים בן דוד", whatsapp: fv("s_wa", S.settings.whatsapp).trim(), logo: fv("s_logo", S.settings.logo) }), "ההגדרות נשמרו"),
-  backup: () => run(async () => {
-    const data = { app: "mechiron", version: 1, exportedAt: Date.now(), settings: S.settings, products: S.products, users: S.users, orders: S.orders };
-    const d = new Date(), name = `גיבוי ${fileSafe(S.settings.storeName)} ${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}.json`;
-    downloadBlob(new Blob([JSON.stringify(data, null, 1)], { type: "application/json" }), name);
-    await api.saveSettings({ lastBackup: Date.now() });
-  }, "קובץ הגיבוי ירד"),
-  restoreNo: () => { S.restore = null; render(true); },
-  restoreYes: () => { const r = S.restore; if (!r) return; S.restore = null;
-    run(async () => {
-      for (const p of r.products) { const { id, ...d } = p; if (id && d.name != null) await api.saveProduct({ id, ...d }); }
-      if (r.settings) { const { lastBackup, ...st } = r.settings; await api.saveSettings(st); }
-    }, `שוחזרו ${r.products.length} מוצרים`); },
-  copyLink: () => { const l = location.href.split("#")[0].split("?")[0]; try { navigator.clipboard.writeText(l).then(() => toast("הקישור הועתק"), () => toast("סמנו את הקישור והעתיקו")); } catch (e) { toast("סמנו את הקישור והעתיקו"); } }
-};
-
-$app.addEventListener("click", e => {
-  const b = e.target.closest("[data-a]");
-  if (!b) return;
-  if (b.classList.contains("scrim") && e.target.closest("[data-stop]")) return;
-  e.preventDefault();
-  ACT[b.dataset.a] && ACT[b.dataset.a](b.dataset.id, b, e);
-});
-$app.addEventListener("submit", e => { e.preventDefault(); const k = e.target.dataset.submit; ACT[k] && ACT[k](); });
-$app.addEventListener("input", e => {
-  const k = e.target.dataset.m; if (!k) return;
-  S.f[k] = e.target.value;
-  if (k === "pr_val") {
-    const o = findOrder(S.openOrder); if (!o) return; const c = calcPrice(o);
-    const out = document.getElementById("prOut"), pct = document.getElementById("prPct");
-    if (out) out.textContent = money(c.final);
-    if (pct) pct.textContent = c.pct > 0 ? `הנחה ${c.pct}%` : c.pct < 0 ? `תוספת ${-c.pct}%` : "ללא הנחה";
-  }
-});
-$app.addEventListener("change", async e => {
-  const t = e.target;
-  if (t.id === "restoreFile" && t.files && t.files[0]) {
-    try {
-      const j = JSON.parse(await t.files[0].text());
-      if (!j || j.app !== "mechiron" || !Array.isArray(j.products)) throw new Error("זה לא קובץ גיבוי של המחירון");
-      S.restore = { exportedAt: j.exportedAt, products: j.products, settings: j.settings || null };
-    } catch (err) { toast(err instanceof SyntaxError ? "הקובץ פגום ולא ניתן לקרוא אותו" : err.message); }
-    return render(true);
-  }
-  if ((t.id === "pImg" || t.id === "sLogo") && t.files && t.files[0]) {
-    try {
-      if (t.id === "pImg") S.f.p_image = await compress(t.files[0], 640, "image/jpeg");
-      else S.f.s_logo = await compress(t.files[0], 320, "image/png");
-    } catch (err) { toast(err.message); }
-    render(true);
-  }
-});
-// links inside the app (WhatsApp) must still work: the click handler only intercepts [data-a]
-
-/* ---------- boot ---------- */
-(async () => {
-  try {
-    if (FIREBASE_CONFIG) { S.mode = "live"; api = await firebaseBackend(FIREBASE_CONFIG); }
-    else { S.mode = "demo"; api = demoBackend(); }
-    api.watchSettings(s => { S.settings = { ...DEFAULT_SETTINGS, ...s }; render(); });
-    api.onAuth(onProfile);
-  } catch (e) { console.error(e); S.fatal = "לא הצלחתי להתחבר ל-Firebase. בדקו את פרטי FIREBASE_CONFIG. (" + (e.message || e) + ")"; S.ready = true; render(true); }
-})();
 </script>
 </body>
 </html>
