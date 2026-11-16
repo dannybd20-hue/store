@@ -538,12 +538,19 @@ const CHECK='<svg class="ic pop" viewBox="0 0 24 24" fill="none" stroke="current
 const XMARK='<svg class="ic pop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 let ac;function A(){try{if(!ac)ac=new (window.AudioContext||window.webkitAudioContext)();if(ac.state==="suspended")ac.resume()}catch(e){}return ac}
 function tone(f,d,type="sine",v=.25,at=0){const c=A();if(!c)return;const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;const s=c.currentTime+at;g.gain.setValueAtTime(v,s);g.gain.exponentialRampToValueAtTime(.001,s+d);o.connect(g).connect(c.destination);o.start(s);o.stop(s+d)}
-const sTick=()=>tone(1500,.05,"square",.15),sSoft=()=>tone(900,.03,"square",.04);
-const sOk=()=>{tone(1318,.5,"sine",.3);tone(1760,.7,"sine",.25,.12)};
-const sBad=()=>{tone(180,.45,"sawtooth",.2);tone(140,.45,"sawtooth",.2,.05)};
-const sOver=()=>{tone(400,.25,"triangle",.3);tone(300,.25,"triangle",.3,.25);tone(200,.5,"triangle",.3,.5)};
-const sWin=()=>[1047,1319,1568,2093].forEach((f,i)=>tone(f,.35,"sine",.25,i*.13));
-const sSwap=()=>{tone(700,.12,"sine",.25);tone(500,.12,"sine",.25,.12)};
+const SND={};let introSrc=null,sndLoading=false;
+function loadSnds(){if(sndLoading)return;sndLoading=true;const c=A();if(!c)return;["tick","ok","bad","over","pong","intro","close"].forEach(n=>{fetch("sounds/"+n+".wav").then(r=>r.arrayBuffer()).then(b=>new Promise((ok,no)=>c.decodeAudioData(b,ok,no))).then(buf=>{SND[n]=buf;if(n==="intro"&&introWant)playIntro()}).catch(()=>{})})}
+function playS(n,v,fb){const c=A(),b=SND[n];if(!c||!b){fb&&fb();return null}const s=c.createBufferSource();s.buffer=b;const g=c.createGain();g.gain.value=v||1;s.connect(g).connect(c.destination);s.start();return s}
+let introWant=false;
+function playIntro(){if(introSrc||!SND.intro)return;introSrc=playS("intro",.9);if(introSrc)introSrc.onended=()=>{introSrc=null}}
+function stopIntro(){introWant=false;try{introSrc&&introSrc.stop()}catch(e){}introSrc=null}
+const sTick=()=>playS("tick",.9,()=>tone(1500,.05,"square",.15)),sSoft=()=>tone(900,.03,"square",.04);
+const sOk=()=>playS("ok",1,()=>{tone(1318,.5,"sine",.3);tone(1760,.7,"sine",.25,.12)});
+const sBad=()=>playS("bad",1,()=>{tone(180,.45,"sawtooth",.2);tone(140,.45,"sawtooth",.2,.05)});
+const sOver=()=>playS("over",1,()=>{tone(400,.25,"triangle",.3);tone(300,.25,"triangle",.3,.25);tone(200,.5,"triangle",.3,.5)});
+const sWin=()=>playS("close",1,()=>[1047,1319,1568,2093].forEach((f,i)=>tone(f,.35,"sine",.25,i*.13)));
+const sSwap=()=>playS("pong",1,()=>{tone(700,.12,"sine",.25);tone(500,.12,"sine",.25,.12)});
+document.addEventListener("pointerdown",()=>{if(sndLoading)return;loadSnds();if(!$("start").hidden){introWant=true;playIntro()}},{once:false});
 const $=id=>document.getElementById(id);
 const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
 const show=id=>["start","lobby","turn","play","done"].forEach(s=>$(s).hidden=s!==id);
@@ -559,7 +566,7 @@ const L=$("lvls");for(let i=1;i<=5;i++){const b=document.createElement("button")
 ["n1","n2"].forEach(id=>$(id).oninput=()=>$("err").textContent="");
 function hdr(){$("hdr").textContent=mode==="solo"?P[0].name+" · "+P[0].score:mode==="pp"?"פינג פונג":"קוד "+MP.code}
 function renderDuel(){P.forEach((p,i)=>{const el=$("pl"+i);el.classList.toggle("on",i===cur);el.querySelector(".n").textContent=p.name;el.querySelector(".p").textContent=p.score;el.querySelector(".c").textContent=p.right+" / "+target+" נכונות"})}
-$("go").onclick=()=>{A();if(mode==="mp")return mpGo();const a=$("n1").value.trim(),b=$("n2").value.trim();
+$("go").onclick=()=>{A();stopIntro();if(mode==="mp")return mpGo();const a=$("n1").value.trim(),b=$("n2").value.trim();
  if(!a){$("err").textContent=mode==="pp"?"הכנס את השם של שחקן 1":"הכנס את השם שלך";$("n1").focus();return}
  if(mode==="pp"&&!b){$("err").textContent="הכנס את השם של שחקן 2";$("n2").focus();return}
  if(mode==="pp"&&a===b){$("err").textContent="תן לשחקנים שמות שונים";$("n2").focus();return}
@@ -707,7 +714,7 @@ async function mpPick(b,ok,choice,q){if(mpAnswered)return;mpAnswered=true;const 
  if(ok){sOk();mark(b,true);$("msg").innerHTML="<span style='color:var(--ok)'>נכון! בודקים מי היה הכי מהיר…</span>"}else{sBad();mark(b,false);b.classList.add("shake");curItem={m:MP.st.item.m};showRight();$("msg").innerHTML="<span style='color:var(--bad)'>טעות</span>"}
  try{await MP.db.doc("games/"+MP.code+"/answers/"+q+"-"+MP.me.key).set({q,name:MP.me.name,choice:String(choice),ok,ms})}catch(e){$("msg").textContent=mpErr(e)}}
 function mpReveal(s){clearInterval(MP.timer);curItem={m:s.item.m};showRight();const w=s.winner,me=w&&w.name===MP.me.name;
- if(w){if(me)sWin();$("msg").innerHTML="";const sp=document.createElement("span");sp.style.color=me?"var(--ok)":"var(--ink)";sp.textContent=me?"⚡ ענית ראשון! +"+w.pts:"⚡ "+w.name+" ענה ראשון ("+w.sec+" שנ׳) +"+w.pts;$("msg").appendChild(sp)}
+ if(w){if(me)sOk();$("msg").innerHTML="";const sp=document.createElement("span");sp.style.color=me?"var(--ok)":"var(--ink)";sp.textContent=me?"⚡ ענית ראשון! +"+w.pts:"⚡ "+w.name+" ענה ראשון ("+w.sec+" שנ׳) +"+w.pts;$("msg").appendChild(sp)}
  else $("msg").innerHTML="<span style='color:var(--muted)'>אף אחד לא ענה נכון</span>";
  P[0].score=((s.scores||{})[MP.me.key]||{}).score||0;mpBoard(s)}
 function mpOver(s){if(!$("done").hidden&&mode==="mp")return;clearInterval(MP.timer);show("done");sWin();const arr=Object.values(s.scores||{}).sort((a,b)=>b.score-a.score);
