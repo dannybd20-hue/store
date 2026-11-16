@@ -545,7 +545,7 @@ const SND={};let introSrc=null,sndLoading=false;
 function loadSnds(){if(sndLoading)return;sndLoading=true;const c=A();if(!c)return;["tick","ok","bad","over","pong","intro","close"].forEach(n=>{fetch("sounds/"+n+".wav").then(r=>r.arrayBuffer()).then(b=>new Promise((ok,no)=>c.decodeAudioData(b,ok,no))).then(buf=>{SND[n]=buf;if(n==="intro"&&introWant)playIntro()}).catch(()=>{})})}
 function playS(n,v,fb){const c=A(),b=SND[n];if(!c||!b){fb&&fb();return null}const s=c.createBufferSource();s.buffer=b;const g=c.createGain();g.gain.value=v||1;s.connect(g).connect(c.destination);s.start();return s}
 let introWant=false;
-function playIntro(){if(introSrc||!SND.intro)return;introSrc=playS("intro",.9);if(introSrc)introSrc.onended=()=>{introSrc=null}}
+function playIntro(){if(introSrc||!SND.intro)return;introSrc=playS("intro",.9);if(introSrc)introSrc.loop=true}
 function stopIntro(){introWant=false;try{introSrc&&introSrc.stop()}catch(e){}introSrc=null}
 const sTick=()=>playS("tick",.9,()=>tone(1500,.05,"square",.15));
 const sOk=()=>playS("ok",1,()=>{tone(1318,.5,"sine",.3);tone(1760,.7,"sine",.25,.12)});
