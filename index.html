@@ -429,7 +429,14 @@ $("home").onclick=()=>{clearInterval(timer);mpLeave();$("hdr").textContent="";[.
 
 /* ---- backend: Claude db inside Claude, Firebase on the web ---- */
 // כדי לחבר טבלת אלופים משותפת ומשחק בכמה טלפונים: להדביק כאן את פרטי Firebase (ראו README)
-const FIREBASE_CONFIG = null;
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyD5h73ZKLfpPnRmq2iPtZctNx0aBzF02K8",
+  authDomain: "efi-ben-david.firebaseapp.com",
+  projectId: "efi-ben-david",
+  storageBucket: "efi-ben-david.firebasestorage.app",
+  messagingSenderId: "721588019888",
+  appId: "1:721588019888:web:9cd9605874d47525b39175"
+};
 let _dbp=null;
 function loadJs(u){return new Promise((ok,no)=>{const e=document.createElement("script");e.src=u;e.onload=ok;e.onerror=no;document.head.appendChild(e)})}
 function getDb(){return _dbp||(_dbp=(async()=>{
