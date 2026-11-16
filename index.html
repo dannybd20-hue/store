@@ -544,7 +544,7 @@ function playS(n,v,fb){const c=A(),b=SND[n];if(!c||!b){fb&&fb();return null}cons
 let introWant=false;
 function playIntro(){if(introSrc||!SND.intro)return;introSrc=playS("intro",.9);if(introSrc)introSrc.onended=()=>{introSrc=null}}
 function stopIntro(){introWant=false;try{introSrc&&introSrc.stop()}catch(e){}introSrc=null}
-const sTick=()=>playS("tick",.9,()=>tone(1500,.05,"square",.15)),sSoft=()=>tone(900,.03,"square",.04);
+const sTick=()=>playS("tick",.9,()=>tone(1500,.05,"square",.15));
 const sOk=()=>playS("ok",1,()=>{tone(1318,.5,"sine",.3);tone(1760,.7,"sine",.25,.12)});
 const sBad=()=>playS("bad",1,()=>{tone(180,.45,"sawtooth",.2);tone(140,.45,"sawtooth",.2,.05)});
 const sOver=()=>playS("over",1,()=>{tone(400,.25,"triangle",.3);tone(300,.25,"triangle",.3,.25);tone(200,.5,"triangle",.3,.5)});
@@ -583,7 +583,7 @@ function distract(it){let pool=W.filter(x=>x.m!==it.m);if(level>=3){const same=p
 function ask(it){curItem=it;lock=false;$("q").textContent=it.w;$("msg").textContent="";
  $("qn").textContent=mode==="solo"?"שאלה "+(qi+1)+" מתוך "+order.length:"התור של "+P[cur].name;
  const box=$("opts");box.innerHTML="";shuf([it.m,...distract(it)]).forEach(o=>{const b=document.createElement("button");b.className="opt";const s=document.createElement("span");s.textContent=o;b.appendChild(s);const m=document.createElement("span");m.className="mk";b.appendChild(m);b.onclick=()=>pick(b,o===it.m);box.appendChild(b)});
- left=TIME;draw();clearInterval(timer);timer=setInterval(()=>{left--;draw();if(left<=5&&left>0)sTick();else if(left>5)sSoft();if(left<=0){clearInterval(timer);timeUp()}},1000)}
+ left=TIME;draw();clearInterval(timer);timer=setInterval(()=>{left--;draw();if(left>0)sTick();if(left<=0){clearInterval(timer);timeUp()}},1000)}
 function draw(){$("clock").textContent=left+" שניות";$("clock").classList.toggle("hot",left<=5);const b=$("bar");b.style.width=(left/TIME*100)+"%";b.style.background=left<=5?"var(--bad)":left<=10?"var(--warn)":"var(--ok)"}
 function mark(b,ok){b.classList.add(ok?"ok":"bad");b.querySelector(".mk").innerHTML=ok?CHECK:XMARK}
 function showRight(){[...$("opts").children].forEach(b=>{if(b.firstChild.textContent===curItem.m&&!b.classList.contains("ok")){mark(b,true);b.classList.add("glow")}})}
@@ -709,7 +709,7 @@ let mpAnswered=false,mpT0=0;
 function mpAsk(s){show("play");$("duel").hidden=true;$("mpb").hidden=true;$("lvl").textContent="שלב "+level+" · "+NAMES[level];$("qn").textContent="שאלה "+(s.q+1)+" מתוך "+(s.total||MPQ);
  $("q").textContent=s.item.w;$("msg").textContent="";mpAnswered=false;mpT0=performance.now();const box=$("opts");box.innerHTML="";
  (s.item.opts||[]).forEach(o=>{const b=document.createElement("button");b.className="opt";const sp=document.createElement("span");sp.textContent=String(o);b.appendChild(sp);const m=document.createElement("span");m.className="mk";b.appendChild(m);b.onclick=()=>mpPick(b,o===s.item.m,o,s.q);box.appendChild(b)});
- left=TIME;draw();clearInterval(MP.timer);MP.timer=setInterval(()=>{left--;draw();if(left<=5&&left>0)sTick();else if(left>5)sSoft();if(left<=0){clearInterval(MP.timer);if(!mpAnswered){mpAnswered=true;sOver();$("msg").innerHTML="<span style='color:var(--bad)'>נגמר הזמן</span>"}}},1000)}
+ left=TIME;draw();clearInterval(MP.timer);MP.timer=setInterval(()=>{left--;draw();if(left>0)sTick();if(left<=0){clearInterval(MP.timer);if(!mpAnswered){mpAnswered=true;sOver();$("msg").innerHTML="<span style='color:var(--bad)'>נגמר הזמן</span>"}}},1000)}
 async function mpPick(b,ok,choice,q){if(mpAnswered)return;mpAnswered=true;const ms=Math.round(performance.now()-mpT0);
  if(ok){sOk();mark(b,true);$("msg").innerHTML="<span style='color:var(--ok)'>נכון! בודקים מי היה הכי מהיר…</span>"}else{sBad();mark(b,false);b.classList.add("shake");curItem={m:MP.st.item.m};showRight();$("msg").innerHTML="<span style='color:var(--bad)'>טעות</span>"}
  try{await MP.db.doc("games/"+MP.code+"/answers/"+q+"-"+MP.me.key).set({q,name:MP.me.name,choice:String(choice),ok,ms})}catch(e){$("msg").textContent=mpErr(e)}}
