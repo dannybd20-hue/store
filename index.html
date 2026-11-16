@@ -20,6 +20,7 @@
 .lives{display:flex;gap:8px;justify-content:center;margin-bottom:10px;font-size:28px;line-height:1}.lives span{transition:transform .3s,opacity .3s,filter .3s}.lives .x{transform:scale(.9)}.lives svg{display:block}
 @media (min-width:900px){.lives{justify-content:center;gap:16px;font-size:46px;margin:6px 0 18px}.opts{margin-top:34px}}
 html,body{margin:0;min-height:100%}
+body.inplay{background:#FFF6C9}@media (prefers-color-scheme:dark){body.inplay{background:#3A3410}}
 body{background:var(--bg);color:var(--ink);font:400 17px/1.5 var(--body);padding-top:env(safe-area-inset-top,0);padding-bottom:env(safe-area-inset-bottom,0);-webkit-font-smoothing:antialiased}
 button{font:inherit;color:inherit;cursor:pointer}
 header{background:var(--brand);color:#fff;padding:14px max(16px,env(safe-area-inset-left,0));display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -1093,7 +1094,7 @@ const sSwap=()=>playS("pong",1,()=>{tone(700,.12,"sine",.25);tone(500,.12,"sine"
 document.addEventListener("pointerdown",()=>{if(sndLoading)return;loadSnds();if(!$("start").hidden){introWant=true;playIntro()}},{once:false});
 const $=id=>document.getElementById(id);
 const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
-const show=id=>{["start","lobby","turn","play","done"].forEach(s=>$(s).hidden=s!==id);};
+const show=id=>{["start","lobby","turn","play","done"].forEach(s=>$(s).hidden=s!==id);document.body.classList.toggle("inplay",id==="play")};
 const store={get(k){try{return localStorage.getItem(k)||""}catch(e){return""}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 $("n1").value=store.get("ab_n1");$("n2").value=store.get("ab_n2");
 function seg(id,fn){const el=$(id);[...el.children].forEach(b=>b.onclick=()=>{[...el.children].forEach(x=>x.classList.toggle("on",x===b));fn(b)})}
