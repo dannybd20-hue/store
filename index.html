@@ -17,7 +17,7 @@
 :root{--bg:#F4F1EA;--card:#FFFFFF;--ink:#1A1A1A;--muted:#6B6558;--line:#E2DCCD;--brand:#10263A;--gold:#B8893A;--ok:#1E8A4C;--ok-bg:#E3F4EA;--bad:#C2362F;--bad-bg:#FBE7E5;--warn:#D08A10;--serif:"Frank Ruhl Libre",serif;--body:"Assistant",system-ui,sans-serif}
 @media (prefers-color-scheme:dark){:root{--bg:#0E141B;--card:#161E27;--ink:#E9EDF2;--muted:#98A2B3;--line:#2A3646;--brand:#0A1A28;--gold:#D6A955;--ok:#3CCB7A;--ok-bg:#12301F;--bad:#F06A60;--bad-bg:#3A1A18;--warn:#E8A73A}}
 *{box-sizing:border-box}
-.lives{display:flex;gap:8px;justify-content:center;margin-bottom:10px;font-size:28px;line-height:1}.lives span{transition:transform .3s,opacity .3s,filter .3s}.lives .x{opacity:.45;filter:grayscale(1);transform:scale(.85)}
+.lives{display:flex;gap:8px;justify-content:center;margin-bottom:10px;font-size:28px;line-height:1}.lives span{transition:transform .3s,opacity .3s,filter .3s}.lives .x{transform:scale(.9)}.lives svg{display:block}
 @media (min-width:900px){.lives{position:fixed;inset-inline-start:28px;top:28%;flex-direction:column;gap:14px;font-size:44px;margin:0}}
 html,body{margin:0;min-height:100%}
 body{background:var(--bg);color:var(--ink);font:400 17px/1.5 var(--body);padding-top:env(safe-area-inset-top,0);padding-bottom:env(safe-area-inset-bottom,0);-webkit-font-smoothing:antialiased}
@@ -582,7 +582,8 @@ function drawCard(){if(!deck.length)deck=shuf(W.filter(x=>x.lv===level));return 
 function turnScreen(why){show("turn");$("turnWhy").textContent=why;$("turnWho").textContent=P[cur].name}
 $("turnGo").onclick=()=>{A();show("play");$("lvl").textContent="שלב "+level+" · "+NAMES[level];renderDuel();ask(drawCard())};
 let curItem,lives=5,overFlag=false;
-function drawLives(){const e=$("lives");e.hidden=mode!=="solo";e.innerHTML="";for(let i=0;i<5;i++){const f=document.createElement("span");const dead=i>=lives;f.textContent=dead?"😵":"😀";if(dead)f.className="x";e.appendChild(f)}}
+const FACE='<svg viewBox="0 0 48 48" width="1em" height="1em"><circle cx="24" cy="24" r="21" fill="#fff" stroke="#000" stroke-width="3"/><circle cx="17" cy="19" r="2.8" fill="#000"/><circle cx="31" cy="19" r="2.8" fill="#000"/><path d="M14 29q10 10 20 0" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round"/>';
+function drawLives(){const e=$("lives");e.hidden=mode!=="solo";e.innerHTML="";for(let i=0;i<5;i++){const f=document.createElement("span");const dead=i>=lives;f.innerHTML=FACE+(dead?'<path d="M8 8L40 40M40 8L8 40" stroke="#000" stroke-width="5" stroke-linecap="round"/>':"")+"</svg>";if(dead)f.className="x";e.appendChild(f)}}
 function loseLife(){if(mode==="solo"){lives=Math.max(0,lives-1);drawLives()}}
 function gameOver(){overFlag=true;show("done");sWin();$("rank").hidden=true;$("dt").textContent="המשחק הסתיים";$("ds").textContent=P[0].name+", הניקוד שלך: "+P[0].score;$("next").textContent="התחל מחדש"}
 function distract(it){let pool=W.filter(x=>x.m!==it.m);if(level>=3){const same=pool.filter(x=>x.t===it.t);if(same.length>=3)pool=same}else{const near=pool.filter(x=>x.lv<=level+1);if(near.length>=3)pool=near}const seenM=new Set(),out=[];for(const x of shuf(pool)){if(!seenM.has(x.m)){seenM.add(x.m);out.push(x.m)}if(out.length===3)break}return out}
