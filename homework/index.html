@@ -105,6 +105,8 @@ section[hidden],[hidden]{display:none!important}
 .err{color:var(--bad);font-weight:700;min-height:24px}
 .avs{display:flex;flex-wrap:wrap;gap:4px;font-size:28px}.avs button{padding:4px;border-radius:10px}.avs button.on{background:#EEE9FF;outline:2px solid var(--brand)}
 .vid{position:relative;padding-top:56.25%;border-radius:16px;overflow:hidden;margin-top:12px;background:#000}.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.ph{width:1.15em;height:1.15em;border-radius:50%;object-fit:cover;vertical-align:middle;border:3px solid #fff;box-shadow:0 3px 10px rgba(40,20,120,.25)}
+.crop{position:relative;width:240px;height:240px;margin:8px auto;border-radius:50%;overflow:hidden;touch-action:none;background:#EEE9FF;border:3px solid var(--brand)}.crop canvas{width:100%;height:100%;cursor:grab}
 .toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;z-index:60}
 </style>
 </head>
@@ -275,6 +277,7 @@ function fit(){cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*device
 function confetti(n=120){const C=["#FFC83D","#5B3FD6","#1E9E5A","#E0483E","#2BA8F0","#FF7AC6"];for(let i=0;i<n;i++)parts.push({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.3,vx:(Math.random()-.5)*6,vy:2+Math.random()*5,r:4+Math.random()*7,c:pick(C),a:Math.random()*6,life:180});if(parts.length===n)loop()}
 function loop(){cx.clearRect(0,0,cv.width,cv.height);parts=parts.filter(p=>p.life-->0&&p.y<cv.height+20);parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy*devicePixelRatio;p.vy+=.05;p.a+=.1;cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);cx.fillStyle=p.c;cx.fillRect(-p.r,-p.r/2,p.r*2,p.r)/1;cx.restore()});if(parts.length)requestAnimationFrame(loop);else cx.clearRect(0,0,cv.width,cv.height)}
 
+const avHtml=k=>k.photo?`<img class="ph" src="${k.photo}" alt="">`:k.av;
 /* ===== מצב ===== */
 let FAM=null,KID=null,PROG=null,CAT=[],GAME=null,ST=null;
 const screens=["sKids","sHome","sMap","sPlay","sWin"];
@@ -285,7 +288,7 @@ function setCoins(){$("coins").textContent="🪙 "+(PROG?PROG.coins:0)}
 /* ===== מסך ילדים ===== */
 async function openKids(){
  KID=null;show("sKids");$("ttl").innerHTML='עזרה בשיעורי בית<br><span style="font-weight:500;font-size:15px;opacity:.9">משפחת בן דוד</span>';
- $("kidList").innerHTML=FAM.kids.map(k=>`<button class="kid" data-id="${k.id}"><div class="av">${k.av}</div><div class="nm">${esc(k.name)}</div><div class="gr">כיתה ${esc(k.grade)}׳</div></button>`).join("");
+ $("kidList").innerHTML=FAM.kids.map(k=>`<button class="kid" data-id="${k.id}"><div class="av">${avHtml(k)}</div><div class="nm">${esc(k.name)}</div><div class="gr">כיתה ${esc(k.grade)}׳</div></button>`).join("");
  $("kidList").querySelectorAll(".kid").forEach(b=>b.onclick=()=>{ac();startMusic();play("intro");selectKid(b.dataset.id)});
 }
 async function selectKid(id){KID=FAM.kids.find(k=>k.id===id);PROG=await getProg(id);openHome()}
@@ -298,7 +301,7 @@ function gProg(gid){return PROG.games[gid]||(PROG.games[gid]={stages:{},wrong:0,
 /* ===== דף הבית ===== */
 function openHome(){
  show("sHome");setCoins();$("ttl").textContent="שלום "+KID.name+"!";
- $("hAv").textContent=KID.av;$("hName").textContent=KID.name;$("hSub").textContent="כיתה "+KID.grade+"׳ · "+pick(["מוכן לאתגר?","בוא נצבור כוכבים!","היום אתה אלוף!"]);
+ $("hAv").innerHTML=avHtml(KID);$("hName").textContent=KID.name;$("hSub").textContent="כיתה "+KID.grade+"׳ · "+pick(["מוכן לאתגר?","בוא נצבור כוכבים!","היום אתה אלוף!"]);
  const gs=gamesFor(KID);
  $("gameList").innerHTML=gs.length?gs.map(g=>{const s=SUBJ[g.subject]||SUBJ.other;const gp=PROG.games[g.id];const n=g.stages||0;const d=gp?Object.keys(gp.stages).length:0;const stars=gp?Object.values(gp.stages).reduce((a,b)=>a+b,0):0;
   return `<button class="game" data-id="${g.id}"><div class="si" style="background:${s[2]}">${s[0]}</div><div><div class="t">${esc(g.title)}</div><div class="s">${s[1]}${g.date?" · "+esc(g.date):""}${g.demo?" · דוגמה":""}</div></div><div class="st">${d>=n&&n?"✅ ":""}⭐ ${stars}</div></button>`}).join("")
@@ -402,7 +405,7 @@ async function check(ok,btn,val){
 async function askPass(title){
  return new Promise(res=>{
   $("sheet").innerHTML=`<h3>🔒 ${esc(title)}</h3><p class="small">רק אמא או אבא יודעים את הסיסמה</p><input id="pw" type="password" inputmode="numeric" autocomplete="off"><div class="err" id="pe"></div><button class="big" id="pok">אישור</button><button class="big sec" id="pno">ביטול</button>`;
-  $("modal").hidden=false;setTimeout(()=>$("pw").focus(),100);
+  $("modal").hidden=false;setTimeout(()=>{const e=$("pw");if(e)e.focus()},100);
   const done=v=>{$("modal").hidden=true;res(v)};
   $("pno").onclick=()=>done(false);
   const go=async()=>{const h=await sha($("pw").value);const want=FAM.pass||await sha(DEFAULT_PASS);if(h===want)done(true);else{$("pe").textContent="סיסמה לא נכונה";$("pw").value=""}};
@@ -442,7 +445,7 @@ async function parentPanel(){
  const progs={};for(const k of FAM.kids)progs[k.id]=await getProg(k.id);
  $("sheet").innerHTML=`<h3>👨‍👩‍👧‍👦 אזור הורים</h3>
  <div id="kidsEd">${FAM.kids.map((k,i)=>{const p=progs[k.id];const gs=Object.entries(p.games||{});
-  return `<div class="kidrow"><div class="row"><span style="font-size:30px">${k.av}</span><b style="flex:1">${esc(k.name)} · כיתה ${esc(k.grade)}׳${k.easy?" · קריאה בקול":""}</b><button class="link" style="margin:0;padding:6px" data-ed="${i}">עריכה</button></div>
+  return `<div class="kidrow"><div class="row"><span style="font-size:30px">${avHtml(k)}</span><b style="flex:1">${esc(k.name)} · כיתה ${esc(k.grade)}׳${k.easy?" · קריאה בקול":""}</b><button class="link" style="margin:0;padding:6px" data-ed="${i}">עריכה</button></div>
   <div class="small">🪙 ${p.coins} מטבעות · ${gs.length} משחקים${gs.length?"<br>"+gs.map(([g,v])=>{const m=CAT.find(c=>c.id===g);return esc(m?m.title:g)+": "+Object.keys(v.stages).length+" שלבים, "+v.wrong+" טעויות, "+v.reveals+" גילויים"}).join("<br>"):""}</div></div>`}).join("")}</div>
  <button class="big sec" id="addKid">➕ הוספת ילד</button>
  <h3 style="margin-top:18px">🔑 החלפת סיסמה</h3><input id="np" type="password" inputmode="numeric" placeholder="סיסמה חדשה"><button class="big sec" id="setp">שמירת סיסמה</button>
@@ -460,10 +463,24 @@ function editKid(i){
  <input id="kn" placeholder="שם" value="${esc(k.name)}">
  <select id="kg">${GRADES.map(g=>`<option ${g===k.grade?"selected":""}>${g}</option>`).join("")}</select>
  <div class="avs" id="kav">${AVATARS.map(a=>`<button class="${a===k.av?"on":""}">${a}</button>`).join("")}</div>
+ <div class="row" style="margin-top:10px"><button class="big sec" style="margin:0;flex:1" id="kph">📷 ${k.photo?"החלפת תמונה":"הוספת תמונה"}</button>${k.photo?'<button class="big sec" style="margin:0;flex:none;width:auto;padding:0 14px;color:var(--bad)" id="kphx">הסרה</button>':""}</div>
+ <input type="file" id="kfile" accept="image/*" hidden>
+ <div id="cropBox" hidden><div class="crop"><canvas id="ccv" width="480" height="480"></canvas></div><p class="small" style="text-align:center;margin:0">גררו את התמונה כדי למרכז את הפנים</p><input type="range" id="czoom" min="1" max="4" step="0.01" value="1.4" style="height:36px"></div>
  <label class="row" style="margin:10px 0"><input type="checkbox" id="ke" style="width:24px;height:24px" ${k.easy?"checked":""}> הקראת שאלות בקול ופחות תשובות לבחירה</label>
  <button class="big" id="ksave">שמירה</button>${i>=0?'<button class="big sec" id="kdel" style="color:var(--bad)">מחיקה</button>':""}<button class="big sec" id="kback">חזרה</button>`;
  $("kav").querySelectorAll("button").forEach(b=>b.onclick=()=>{k.av=b.textContent;$("kav").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b))});
- $("ksave").onclick=async()=>{k.name=$("kn").value.trim();if(!k.name){toast("צריך שם");return}k.grade=$("kg").value;k.easy=$("ke").checked;if(i>=0)FAM.kids[i]=k;else FAM.kids.push(k);await saveFamily(FAM);parentPanel()};
+ let CR=null;
+ $("kph").onclick=()=>$("kfile").click();
+ if(k.photo)$("kphx").onclick=()=>{delete k.photo;CR=null;toast("התמונה תוסר בשמירה");$("kphx").remove();$("kph").textContent="📷 הוספת תמונה"};
+ $("kfile").onchange=e=>{const f=e.target.files[0];if(!f)return;const img=new Image();img.onload=()=>{const sq=Math.abs(img.width-img.height)<img.width*.15;CR={img,x:img.width/2,y:sq?img.height/2:img.height*.4,z:sq?1:1.4};$("czoom").value=CR.z;$("cropBox").hidden=false;draw()};img.src=URL.createObjectURL(f)};
+ const cv2=$("ccv"),c2=cv2.getContext("2d");
+ function draw(){if(!CR)return;const {img}=CR;const side=Math.min(img.width,img.height)/CR.z;c2.clearRect(0,0,480,480);c2.drawImage(img,CR.x-side/2,CR.y-side/2,side,side,0,0,480,480)}
+ let drag=null;cv2.onpointerdown=e=>{if(!CR)return;drag={x:e.clientX,y:e.clientY};cv2.setPointerCapture(e.pointerId)};
+ cv2.onpointermove=e=>{if(!drag)return;const side=Math.min(CR.img.width,CR.img.height)/CR.z;const sc=side/240;CR.x-=(e.clientX-drag.x)*sc;CR.y-=(e.clientY-drag.y)*sc;drag={x:e.clientX,y:e.clientY};draw()};
+ cv2.onpointerup=()=>drag=null;
+ $("czoom").oninput=e=>{if(CR){CR.z=+e.target.value;draw()}};
+ $("ksave").onclick=async()=>{if(CR){const o=document.createElement("canvas");o.width=o.height=220;o.getContext("2d").drawImage(cv2,0,0,220,220);k.photo=o.toDataURL("image/jpeg",.8)}
+  k.name=$("kn").value.trim();if(!k.name){toast("צריך שם");return}k.grade=$("kg").value;k.easy=$("ke").checked;if(i>=0)FAM.kids[i]=k;else FAM.kids.push(k);await saveFamily(FAM);parentPanel()};
  if(i>=0)$("kdel").onclick=async()=>{if(!confirm("למחוק את "+k.name+"?"))return;FAM.kids.splice(i,1);await saveFamily(FAM);parentPanel()};
  $("kback").onclick=parentPanel;
 }
