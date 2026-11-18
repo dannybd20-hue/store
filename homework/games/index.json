@@ -1,0 +1,4 @@
+{"games":[
+ {"id":"demo-math","title":"דוגמה: חשבון עד 20","subject":"math","grade":"*","stages":3,"date":"2026-11-18","demo":true},
+ {"id":"demo-english","title":"Demo: Colors & Animals","subject":"english","grade":"*","stages":2,"date":"2026-11-18","demo":true}
+]}

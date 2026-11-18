@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>עזרה בשיעורי בית – משפחת בן דוד</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#5B3FD6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="שיעורי בית">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap">
+<style>
+:root{--bg:#F3F0FF;--card:#fff;--ink:#22194A;--muted:#6E6890;--line:#E1DBFA;--brand:#5B3FD6;--brand2:#8B6CFF;--sun:#FFC83D;--ok:#1E9E5A;--okbg:#E2F7EA;--bad:#E0483E;--badbg:#FDE8E6;--f:"Rubik",system-ui,sans-serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font:400 18px/1.45 var(--f);padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+header{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;min-height:60px}
+header h1{margin:0;font-size:19px;font-weight:800;flex:1;line-height:1.15}
+header .pill{background:rgba(255,255,255,.2);border-radius:999px;padding:6px 12px;font-weight:700;font-size:16px;white-space:nowrap}
+.ib{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);font-size:22px;display:grid;place-items:center;flex:none}
+main{max-width:640px;margin:0 auto;padding:16px}
+section[hidden],[hidden]{display:none!important}
+.hero{text-align:center;padding:10px 0 6px}
+.mascot{font-size:72px;display:inline-block;animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(-4deg)}}
+.hero h2{margin:4px 0;font-size:26px;font-weight:800}
+.hero p{margin:0;color:var(--muted)}
+.kids{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.kid{background:var(--card);border-radius:20px;padding:16px 10px;text-align:center;box-shadow:0 4px 0 var(--line);border:2px solid var(--line);transition:transform .1s}
+.kid:active{transform:scale(.96)}
+.kid .av{font-size:56px;line-height:1.1}
+.kid .nm{font-weight:800;font-size:21px;margin-top:4px}
+.kid .gr{color:var(--muted);font-size:15px}
+.kid .cn{margin-top:6px;font-weight:700;color:#B07A00}
+.link{display:block;margin:22px auto 0;color:var(--brand);font-weight:700;font-size:16px;padding:10px}
+.h3{font-size:20px;font-weight:800;margin:18px 0 10px}
+.game{display:flex;align-items:center;gap:12px;width:100%;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:14px;margin-bottom:10px;text-align:right;box-shadow:0 3px 0 var(--line)}
+.game .si{font-size:34px;width:52px;height:52px;border-radius:14px;display:grid;place-items:center;flex:none}
+.game .t{font-weight:700;font-size:18px}
+.game .s{color:var(--muted);font-size:14px}
+.game .st{margin-inline-start:auto;font-size:15px;white-space:nowrap}
+.empty{background:var(--card);border:2px dashed var(--line);border-radius:18px;padding:22px;text-align:center;color:var(--muted)}
+.stickers{display:flex;flex-wrap:wrap;gap:6px;font-size:30px;background:var(--card);border-radius:18px;padding:12px;border:2px solid var(--line)}
+.stickers .lk{opacity:.18;filter:grayscale(1)}
+.path{display:flex;flex-direction:column;align-items:center;gap:14px;padding:10px 0}
+.node{width:min(100%,360px);display:flex;align-items:center;gap:14px;background:var(--card);border:3px solid var(--line);border-radius:22px;padding:14px 16px;text-align:right}
+.node .n{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-size:24px;font-weight:800;background:var(--brand);color:#fff;flex:none}
+.node.lock{opacity:.5}.node.lock .n{background:#B9B3D6}
+.node.done .n{background:var(--ok)}
+.node .t{font-weight:700;font-size:18px}.node .s{font-size:15px;color:var(--muted)}
+.big{display:block;width:100%;min-height:58px;border-radius:18px;background:var(--brand);color:#fff;font-weight:800;font-size:20px;box-shadow:0 5px 0 #3F28A8;margin-top:12px}
+.big:active{transform:translateY(3px);box-shadow:0 2px 0 #3F28A8}
+.big.sec{background:var(--card);color:var(--brand);border:2px solid var(--line);box-shadow:0 4px 0 var(--line)}
+.big.sun{background:var(--sun);color:#4A3300;box-shadow:0 5px 0 #C99400}
+.meta{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:15px;font-weight:500}
+.dots{display:flex;gap:5px;margin:8px 0 12px}.dots i{flex:1;height:9px;border-radius:9px;background:var(--line)}.dots i.on{background:var(--ok)}.dots i.cur{background:var(--sun)}
+.buddy{display:flex;align-items:flex-end;gap:8px;margin-bottom:10px}
+.buddy .m{font-size:46px;line-height:1}
+.bubble{white-space:pre-line;background:var(--card);border:2px solid var(--line);border-radius:18px 18px 18px 4px;padding:10px 14px;font-size:17px;font-weight:500;flex:1;min-height:48px}
+.bubble.hint{border-color:var(--sun);background:#FFF7DD}
+.qcard{background:var(--card);border-radius:22px;padding:18px;border:2px solid var(--line);box-shadow:0 4px 0 var(--line);position:relative}
+.qtext{font-size:26px;font-weight:700;text-align:center;line-height:1.35;padding:6px 40px;unicode-bidi:plaintext;white-space:pre-line}
+.qcard.sm .qtext{font-size:21px}
+.say{position:absolute;top:10px;left:10px;width:44px;height:44px;border-radius:50%;background:var(--bg);font-size:22px}
+.qimg{display:block;max-width:100%;max-height:220px;margin:8px auto;border-radius:12px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.opts.one{grid-template-columns:1fr}
+.opt{min-height:66px;border-radius:18px;background:var(--card);border:2px solid var(--line);box-shadow:0 4px 0 var(--line);font-size:22px;font-weight:700;padding:8px;unicode-bidi:plaintext}
+.opt:active{transform:translateY(2px)}
+.opt.ok{background:var(--okbg);border-color:var(--ok);color:var(--ok)}
+.opt.bad{background:var(--badbg);border-color:var(--bad);color:var(--bad);opacity:.6}
+.inp{display:flex;gap:10px;margin-top:14px}
+.inp input{flex:1;min-width:0;height:64px;border-radius:18px;border:2px solid var(--line);background:var(--card);text-align:center;font-size:26px;font-weight:700;unicode-bidi:plaintext}
+.inp input:focus{outline:none;border-color:var(--brand)}
+.inp button{width:84px;border-radius:18px;background:var(--brand);color:#fff;font-weight:800;font-size:19px}
+.tools{display:flex;gap:10px;margin-top:14px}
+.tools button{flex:1;min-height:52px;border-radius:16px;font-weight:700;font-size:17px;background:#FFF2C7;color:#7A5600;border:2px solid #FFE08A}
+.tools button.lockb{background:#EEE9FF;color:var(--brand);border-color:var(--line)}
+.reveal{margin-top:12px;background:#EEE9FF;border-radius:16px;padding:12px;font-weight:700;text-align:center;unicode-bidi:plaintext}
+.win{text-align:center;padding:10px 0}
+.win .dance{font-size:96px;display:inline-block;animation:dance .6s ease-in-out infinite alternate}
+@keyframes dance{0%{transform:rotate(-14deg) translateY(0)}100%{transform:rotate(14deg) translateY(-14px)}}
+.win h2{font-size:30px;margin:6px 0}
+.stars{font-size:46px;letter-spacing:4px}
+.stars span{display:inline-block;animation:pop .5s backwards}
+.joke{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:14px;margin-top:14px;font-size:17px}
+.joke b{display:block;margin-bottom:4px;color:var(--brand)}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.3)}100%{transform:scale(1)}}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.pop{animation:pop .35s}.shake{animation:shake .25s 2}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:50}
+.modal{position:fixed;inset:0;background:rgba(20,12,50,.55);display:grid;place-items:center;z-index:40;padding:16px}
+.sheet{background:var(--card);border-radius:24px;padding:20px;width:min(100%,460px);max-height:90vh;overflow:auto}
+.sheet h3{margin:0 0 10px;font-size:22px}
+.sheet input,.sheet select{width:100%;height:52px;border-radius:14px;border:2px solid var(--line);padding:0 12px;font-size:19px;margin:6px 0;background:#fff}
+.row{display:flex;gap:8px;align-items:center}
+.small{font-size:14px;color:var(--muted)}
+.kidrow{border:2px solid var(--line);border-radius:16px;padding:10px;margin:8px 0}
+.err{color:var(--bad);font-weight:700;min-height:24px}
+.avs{display:flex;flex-wrap:wrap;gap:4px;font-size:28px}.avs button{padding:4px;border-radius:10px}.avs button.on{background:#EEE9FF;outline:2px solid var(--brand)}
+.vid{position:relative;padding-top:56.25%;border-radius:16px;overflow:hidden;margin-top:12px;background:#000}.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;z-index:60}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<header>
+  <button class="ib" id="back" aria-label="חזרה" hidden>→</button>
+  <h1 id="ttl">עזרה בשיעורי בית<br><span style="font-weight:500;font-size:15px;opacity:.9">משפחת בן דוד</span></h1>
+  <span class="pill" id="coins" hidden>🪙 0</span>
+  <button class="ib" id="mus" aria-label="מוזיקה">🎵</button>
+</header>
+<main>
+  <!-- בחירת ילד -->
+  <section id="sKids">
+    <div class="hero"><div class="mascot">🦉</div><h2>מי משחק עכשיו?</h2><p>בחרו את השם שלכם</p></div>
+    <div class="kids" id="kidList"></div>
+    <button class="link" id="parentBtn">🔒 אזור הורים</button>
+  </section>
+
+  <!-- דף הבית של הילד -->
+  <section id="sHome" hidden>
+    <div class="hero"><div class="mascot" id="hAv">🦁</div><h2 id="hName"></h2><p id="hSub"></p></div>
+    <div class="h3">📚 שיעורי הבית שלי</div>
+    <div id="gameList"></div>
+    <div class="h3">🌟 אלבום המדבקות שלי</div>
+    <div class="stickers" id="stk"></div>
+    <p class="small" style="text-align:center">כל 50 מטבעות פותחים מדבקה חדשה</p>
+  </section>
+
+  <!-- מפת שלבים -->
+  <section id="sMap" hidden>
+    <div class="hero"><div class="mascot" id="mIc">📘</div><h2 id="mTitle"></h2><p id="mSub"></p></div>
+    <div id="mVid"></div>
+    <div class="path" id="path"></div>
+  </section>
+
+  <!-- משחק -->
+  <section id="sPlay" hidden>
+    <div class="meta"><span id="pStage"></span><span id="pNum"></span></div>
+    <div class="dots" id="dots"></div>
+    <div class="buddy"><div class="m" id="bud">🦉</div><div class="bubble" id="bub"></div></div>
+    <div class="qcard" id="qcard">
+      <button class="say" id="say" aria-label="הקראה">🔊</button>
+      <img class="qimg" id="qimg" alt="" hidden>
+      <div class="qtext" id="qtext"></div>
+    </div>
+    <div id="ans"></div>
+    <div class="tools">
+      <button id="hintBtn">💡 רמז</button>
+      <button id="revBtn" class="lockb">🔒 עזרה מאמא</button>
+    </div>
+    <div class="reveal" id="rev" hidden></div>
+  </section>
+
+  <!-- ניצחון -->
+  <section id="sWin" hidden>
+    <div class="win">
+      <div class="dance" id="wDance">🦉</div>
+      <h2 id="wTitle">כל הכבוד!</h2>
+      <div class="stars" id="wStars"></div>
+      <p id="wSub" style="font-weight:700;font-size:19px;margin:6px 0"></p>
+      <div class="joke" id="wJoke"></div>
+      <button class="big sun" id="wNext">לשלב הבא ←</button>
+      <button class="big sec" id="wMap">למפת השלבים</button>
+    </div>
+  </section>
+</main>
+
+<div class="modal" id="modal" hidden><div class="sheet" id="sheet"></div></div>
+
+<script>
+/* ===== הגדרות ===== */
+const FAMILY="hw-bendavid";            // מסמך המשפחה ב-Firestore (games/hw-bendavid)
+const DEFAULT_PASS="1234";             // סיסמת ברירת מחדל – להחליף באזור ההורים
+const FIREBASE_CONFIG={apiKey:"AIzaSyD5h73ZKLfpPnRmq2iPtZctNx0aBzF02K8",authDomain:"efi-ben-david.firebaseapp.com",projectId:"efi-ben-david",storageBucket:"efi-ben-david.firebasestorage.app",messagingSenderId:"721588019888",appId:"1:721588019888:web:9cd9605874d47525b39175"};
+const DEFAULT_KIDS=[
+ {id:"gavriel",name:"גבריאל",grade:"ח",av:"🦁",easy:false},
+ {id:"zevi",name:"זאבי",grade:"ו",av:"🐯",easy:true,note:"כיתה מקדמת"},
+ {id:"mina",name:"מינה",grade:"ד",av:"🦄",easy:false},
+ {id:"mendi",name:"מנדי",grade:"א",av:"🐶",easy:true}
+];
+const GRADES=["א","ב","ג","ד","ה","ו","ז","ח","ט","י","יא","יב"];
+const AVATARS=["🦁","🐯","🦄","🐶","🐱","🐼","🦊","🐸","🐵","🐨","🐧","🐰","🐻","🐙","🦖","🚀","⚽","🏀","🎸","👑"];
+const STICKERS=["⭐","🎈","🍦","🚗","🦋","🌈","🍕","🎁","🐳","🏆","🚁","🎨","🍩","🦕","🏰","🎡","🛸","🐲","💎","🥇"];
+const SUBJ={math:["🔢","חשבון","#FFE7B8"],english:["🔤","אנגלית","#D9F0FF"],reading:["📖","קריאה","#E8E2FF"],hebrew:["✏️","לשון","#FFE0EA"],science:["🔬","מדעים","#DDF6E4"],torah:["📜","קודש","#FFF1C9"],other:["📘","שיעורי בית","#EEE"]};
+const PRAISE=["מעולה! 🎉","יש! צדקת! 💪","אלוף! 🏆","וואו, איזה חכם! 🤩","בדיוק! ⭐","כל הכבוד! 👏","פגז! 🚀"];
+const TRY=["כמעט! בוא ננסה שוב 🙂","לא נורא, טעויות זה חלק מללמוד!","עוד ניסיון קטן, אתה בדרך הנכונה","הממ... בוא נחשוב ביחד 🤔"];
+const JOKES=[
+ ["למה ספר החשבון היה עצוב?","כי היו לו המון בעיות! 📕"],
+ ["מה אמר העיפרון למחק?","תודה שאתה נותן לי להתחיל מחדש! ✏️"],
+ ["מה אמרה הפרה כשנכנסה למסעדה?","מווווו-עולה! 🐄"],
+ ["איך קוראים לדינוזאור שישן?","דינו-נוחר! 🦖💤"],
+ ["מה אמרה המטרייה לגשם?","אל תדאג, אני מכסה אותך! ☂️"],
+ ["מה אומרת דבורה בבוקר?","בזזזז-וקר טוב! 🐝"],
+ ["מה אמר האפס לשמונה?","איזו חגורה יפה! 0️⃣8️⃣"],
+ ["למה התרנגול קם מוקדם?","כי הוא לא רוצה לפספס את הקוקוריקו-ריקו! 🐓"],
+ ["מה עושה עגבנייה כשמתביישת?","מאדימה! 🍅"],
+ ["למה השלג לא הולך לבית ספר?","כי הוא נמס מכל המבחנים! ⛄"]
+];
+
+/* ===== עזרים ===== */
+const $=id=>document.getElementById(id);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>String(s).trim().toLowerCase().replace(/[֑-ׇ]/g,"").replace(/\s+/g," ").replace(/[.,!?״"׳']/g,"");
+function toast(t){const d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2200)}
+async function sha(s){try{const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode("bd:"+s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}catch(e){return "p:"+s}}
+
+/* ===== מסד נתונים: Firebase של אלוף בגמרא, עם גיבוי מקומי ===== */
+let fsdb=null;
+function loadJs(u){return new Promise((ok,no)=>{const e=document.createElement("script");e.src=u;e.onload=ok;e.onerror=no;document.head.appendChild(e)})}
+async function initDb(){
+ try{const b="https://www.gstatic.com/firebasejs/10.12.2/";await loadJs(b+"firebase-app-compat.js");await loadJs(b+"firebase-firestore-compat.js");firebase.initializeApp(FIREBASE_CONFIG);fsdb=firebase.firestore()}catch(e){fsdb=null}
+}
+const L={get:k=>{try{return JSON.parse(localStorage.getItem("hw:"+k))}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem("hw:"+k,JSON.stringify(v))}catch(e){}}};
+function fam(){return fsdb.collection("games").doc(FAMILY)}
+async function getFamily(){
+ let f=null;
+ if(fsdb){try{const d=await Promise.race([fam().get(),sleep(6000).then(()=>{throw 0})]);if(d.exists)f=d.data()}catch(e){}}
+ if(!f)f=L.get("family");
+ if(!f||!Array.isArray(f.kids)||!f.kids.length){f=Object.assign({},f||{},{kids:DEFAULT_KIDS});await saveFamily(f)}
+ L.set("family",f);return f;
+}
+async function saveFamily(f){L.set("family",f);if(fsdb){try{await fam().set(f,{merge:true})}catch(e){}}}
+async function getProg(id){
+ let p=null;
+ if(fsdb){try{const d=await Promise.race([fam().collection("kids").doc(id).get(),sleep(6000).then(()=>{throw 0})]);if(d.exists)p=d.data()}catch(e){}}
+ const lp=L.get("prog:"+id);
+ if(!p||(lp&&(lp.t||0)>(p.t||0)))p=lp;
+ return Object.assign({coins:0,games:{}},p||{});
+}
+async function saveProg(id,p){p.t=Date.now();L.set("prog:"+id,p);if(fsdb){try{await fam().collection("kids").doc(id).set(p)}catch(e){}}}
+
+/* ===== מוזיקה (נוצרת בדפדפן) וצלילים ===== */
+let AC=null,musicOn=L.get("music")!==false,musTimer=null,master=null;
+function ac(){if(!AC){AC=new (window.AudioContext||window.webkitAudioContext)();master=AC.createGain();master.gain.value=.05;master.connect(AC.destination)}if(AC.state==="suspended")AC.resume();return AC}
+function note(f,t,d,type="triangle",v=1,dest){const a=ac(),o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.02);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(dest||master);o.start(t);o.stop(t+d+.05)}
+const MEL=[[0,2,4,2,7,4,2,0],[5,4,2,4,0,2,4,-1],[0,4,7,9,7,4,2,4],[5,4,2,0,2,4,0,-1]];
+const SC=[0,2,4,5,7,9,11,12,14,16],BASE=392;
+function hz(st){return BASE*Math.pow(2,st/12)}
+function startMusic(){
+ if(musTimer||!musicOn)return;const a=ac();let bar=0,next=a.currentTime+.1;const beat=.28;
+ musTimer=setInterval(()=>{while(next<a.currentTime+.6){const m=MEL[bar%4];const root=[0,5,7,0][bar%4];
+  m.forEach((s,i)=>{if(s>=0)note(hz(s),next+i*beat,beat*.9,"triangle",.9)});
+  [0,2,4,6].forEach(i=>note(hz(root-24),next+i*beat,beat*1.6,"sine",1.2));
+  next+=beat*8;bar++}},200);
+}
+function stopMusic(){clearInterval(musTimer);musTimer=null}
+function setMusicBtn(){$("mus").textContent=musicOn?"🎵":"🔇"}
+$("mus").onclick=()=>{musicOn=!musicOn;L.set("music",musicOn);setMusicBtn();musicOn?startMusic():stopMusic()};
+const SND={};["ok","bad","over","intro"].forEach(n=>{SND[n]=new Audio("../sounds/"+n+".wav");SND[n].preload="auto"});
+function play(n){try{const s=SND[n];s.currentTime=0;s.volume=.7;s.play().catch(()=>{})}catch(e){}}
+function fanfare(){const a=ac(),t=a.currentTime;[0,4,7,12,7,12].forEach((s,i)=>note(hz(s),t+i*.12,.25,"square",.5))}
+
+/* ===== הקראה ===== */
+function speak(text,lang){
+ try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text).replace(/[_]{2,}/g," ... ").replace(/\p{Extended_Pictographic}/gu,""));
+  u.lang=lang==="en"?"en-US":"he-IL";u.rate=lang==="en"?.85:.95;
+  const v=speechSynthesis.getVoices().find(v=>v.lang.replace("_","-").startsWith(u.lang.slice(0,2)));if(v)u.voice=v;speechSynthesis.speak(u)}catch(e){}
+}
+const isEn=s=>/[A-Za-z]/.test(s)&&!/[֐-׿]/.test(s);
+
+/* ===== קונפטי ===== */
+const cv=$("fx"),cx=cv.getContext("2d");let parts=[];
+function fit(){cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*devicePixelRatio}fit();addEventListener("resize",fit);
+function confetti(n=120){const C=["#FFC83D","#5B3FD6","#1E9E5A","#E0483E","#2BA8F0","#FF7AC6"];for(let i=0;i<n;i++)parts.push({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.3,vx:(Math.random()-.5)*6,vy:2+Math.random()*5,r:4+Math.random()*7,c:pick(C),a:Math.random()*6,life:180});if(parts.length===n)loop()}
+function loop(){cx.clearRect(0,0,cv.width,cv.height);parts=parts.filter(p=>p.life-->0&&p.y<cv.height+20);parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy*devicePixelRatio;p.vy+=.05;p.a+=.1;cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);cx.fillStyle=p.c;cx.fillRect(-p.r,-p.r/2,p.r*2,p.r)/1;cx.restore()});if(parts.length)requestAnimationFrame(loop);else cx.clearRect(0,0,cv.width,cv.height)}
+
+/* ===== מצב ===== */
+let FAM=null,KID=null,PROG=null,CAT=[],GAME=null,ST=null;
+const screens=["sKids","sHome","sMap","sPlay","sWin"];
+function show(id){screens.forEach(s=>$(s).hidden=s!==id);$("back").hidden=id==="sKids";$("coins").hidden=id==="sKids";scrollTo(0,0);try{speechSynthesis.cancel()}catch(e){}}
+$("back").onclick=()=>{if(!$("sPlay").hidden||!$("sWin").hidden)openMap();else if(!$("sMap").hidden)openHome();else openKids()};
+function setCoins(){$("coins").textContent="🪙 "+(PROG?PROG.coins:0)}
+
+/* ===== מסך ילדים ===== */
+async function openKids(){
+ KID=null;show("sKids");$("ttl").innerHTML='עזרה בשיעורי בית<br><span style="font-weight:500;font-size:15px;opacity:.9">משפחת בן דוד</span>';
+ $("kidList").innerHTML=FAM.kids.map(k=>`<button class="kid" data-id="${k.id}"><div class="av">${k.av}</div><div class="nm">${esc(k.name)}</div><div class="gr">כיתה ${esc(k.grade)}׳</div></button>`).join("");
+ $("kidList").querySelectorAll(".kid").forEach(b=>b.onclick=()=>{ac();startMusic();play("intro");selectKid(b.dataset.id)});
+}
+async function selectKid(id){KID=FAM.kids.find(k=>k.id===id);PROG=await getProg(id);openHome()}
+
+/* ===== קטלוג משחקים ===== */
+async function loadCatalog(){try{const r=await fetch("games/index.json?t="+Date.now());CAT=(await r.json()).games||[]}catch(e){CAT=[]}}
+function gamesFor(k){return CAT.filter(g=>{const kids=g.kids||(g.kid?[g.kid]:null);if(kids)return kids.includes(k.id)||kids.includes(k.name);return g.grade==="*"||g.grade===k.grade}).sort((a,b)=>(b.date||"").localeCompare(a.date||""))}
+function gProg(gid){return PROG.games[gid]||(PROG.games[gid]={stages:{},wrong:0,reveals:0})}
+
+/* ===== דף הבית ===== */
+function openHome(){
+ show("sHome");setCoins();$("ttl").textContent="שלום "+KID.name+"!";
+ $("hAv").textContent=KID.av;$("hName").textContent=KID.name;$("hSub").textContent="כיתה "+KID.grade+"׳ · "+pick(["מוכן לאתגר?","בוא נצבור כוכבים!","היום אתה אלוף!"]);
+ const gs=gamesFor(KID);
+ $("gameList").innerHTML=gs.length?gs.map(g=>{const s=SUBJ[g.subject]||SUBJ.other;const gp=PROG.games[g.id];const n=g.stages||0;const d=gp?Object.keys(gp.stages).length:0;const stars=gp?Object.values(gp.stages).reduce((a,b)=>a+b,0):0;
+  return `<button class="game" data-id="${g.id}"><div class="si" style="background:${s[2]}">${s[0]}</div><div><div class="t">${esc(g.title)}</div><div class="s">${s[1]}${g.date?" · "+esc(g.date):""}${g.demo?" · דוגמה":""}</div></div><div class="st">${d>=n&&n?"✅ ":""}⭐ ${stars}</div></button>`}).join("")
+  :`<div class="empty">🎒 עוד אין כאן שיעורי בית.<br>בקשו מאבא לשלוח צילום של החומר!</div>`;
+ $("gameList").querySelectorAll(".game").forEach(b=>b.onclick=()=>openGame(b.dataset.id));
+ const got=Math.floor(PROG.coins/50);
+ $("stk").innerHTML=STICKERS.map((s,i)=>`<span class="${i<got?"":"lk"}">${s}</span>`).join("");
+}
+
+/* ===== מפת שלבים ===== */
+async function openGame(id){
+ const meta=CAT.find(g=>g.id===id);
+ try{const r=await fetch("games/"+(meta.file||id+".json")+"?t="+Date.now());GAME=await r.json();GAME.id=id}catch(e){toast("לא הצלחתי לטעון את המשחק");return}
+ openMap();
+}
+function openMap(){
+ show("sMap");setCoins();const s=SUBJ[GAME.subject]||SUBJ.other;$("ttl").textContent=s[1];
+ $("mIc").textContent=GAME.icon||s[0];$("mTitle").textContent=GAME.title;$("mSub").textContent=GAME.intro||"עברו את כל השלבים ואספו כוכבים!";
+ $("mVid").innerHTML=GAME.video?`<button class="big sec" id="vidBtn">🎬 סרטון הסבר</button><div id="vidBox"></div>`:"";
+ if(GAME.video)$("vidBtn").onclick=()=>{stopMusic();$("vidBox").innerHTML=`<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(GAME.video)}?rel=0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe></div>`};
+ const gp=gProg(GAME.id);
+ $("path").innerHTML=GAME.stages.map((st,i)=>{const done=gp.stages[i]!=null;const open=i===0||gp.stages[i-1]!=null;
+  return `<button class="node ${done?"done":open?"":"lock"}" data-i="${i}" ${open?"":"disabled"}><div class="n">${done?"✓":open?i+1:"🔒"}</div><div><div class="t">שלב ${i+1}: ${esc(st.name||"")}</div><div class="s">${done?"⭐".repeat(gp.stages[i])+"☆".repeat(3-gp.stages[i]):st.questions.length+" שאלות"}</div></div></button>`}).join("");
+ $("path").querySelectorAll(".node:not([disabled])").forEach(b=>b.onclick=()=>startStage(+b.dataset.i));
+}
+
+/* ===== שלב ===== */
+function startStage(i){
+ const st=GAME.stages[i];
+ ST={i,qs:st.questions.slice(),k:0,wrong:0,first:0,tries:0,hintShown:0,revealed:false,coins:0};
+ if(GAME.shuffle)ST.qs=shuffle(ST.qs);
+ show("sPlay");startMusic();$("ttl").textContent=GAME.title;
+ $("pStage").textContent="שלב "+(i+1)+(st.name?" · "+st.name:"");
+ showQ();
+}
+function lang(q){return q.lang||GAME.lang||(isEn(q.say||q.q)?"en":"he")}
+function showQ(){
+ const q=ST.qs[ST.k];ST.tries=0;ST.hintShown=0;ST.revealed=false;
+ $("pNum").textContent="שאלה "+(ST.k+1)+" מתוך "+ST.qs.length;
+ $("dots").innerHTML=ST.qs.map((_,j)=>`<i class="${j<ST.k?"on":j===ST.k?"cur":""}"></i>`).join("");
+ $("bud").textContent="🦉";
+ $("bub").className="bubble";$("bub").textContent=ST.k===0?pick(["בוא נתחיל! אני כאן לעזור 🦉","יאללה, נראה אותך!","אתה יכול! קדימה"]):pick(["שאלה הבאה!","ממשיכים!","אתה בתנופה! 🚀"]);
+ $("qtext").textContent=q.q;$("qcard").className="qcard"+(q.q.length>40?" sm":"");
+ $("qtext").dir=isEn(q.q)?"ltr":"rtl";
+ if(q.img){$("qimg").src=q.img.startsWith("http")?q.img:"games/"+q.img;$("qimg").hidden=false}else $("qimg").hidden=true;
+ $("rev").hidden=true;$("revBtn").hidden=false;$("hintBtn").hidden=false;
+ const A=$("ans");
+ if(q.type==="input"){
+  A.innerHTML=`<div class="inp"><input id="inp" autocomplete="off" autocapitalize="off" spellcheck="false" ${q.numeric||/^-?\d+([.,]\d+)?$/.test(String([].concat(q.answer)[0]))?'inputmode="decimal"':""} placeholder="${lang(q)==="en"?"type here":"כתבו כאן"}"><button id="ok">בדוק</button></div>`;
+  const go=()=>{const v=$("inp").value;if(!v.trim())return;check([].concat(q.answer).some(a=>norm(a)===norm(v)),null,v)};
+  $("ok").onclick=go;$("inp").onkeydown=e=>{if(e.key==="Enter")go()};
+  if(!KID.easy)setTimeout(()=>$("inp").focus(),200);
+ }else{
+  let opts=q.type==="tf"?["נכון ✔️","לא נכון ✖️"]:q.options.slice();
+  let correct=q.type==="tf"?(q.answer===true||q.answer==="true"||q.answer==="נכון"?opts[0]:opts[1]):String(q.answer);
+  if(q.type!=="tf"){if(KID.easy&&opts.length>3){const wrong=shuffle(opts.filter(o=>String(o)!==correct)).slice(0,2);opts=[correct,...wrong]}opts=shuffle(opts)}
+  const long=opts.some(o=>String(o).length>16)||opts.length===3;
+  A.innerHTML=`<div class="opts ${long?"one":""}">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join("")}</div>`;
+  A.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(b.classList.contains("bad")||b.classList.contains("ok"))return;check(b.dataset.v===correct,b,b.dataset.v)});
+ }
+ if(KID.easy||q.autoSay)setTimeout(()=>speak(q.say||q.q,lang(q)),350);
+}
+$("say").onclick=()=>{const q=ST.qs[ST.k];speak(q.say||q.q,lang(q))};
+
+function hintFor(q,n){
+ const h=q.hints||[];if(h[n])return h[n];
+ if(n===h.length){if(q.type==="choice")return "נסה לפסול תשובות שבטוח לא נכונות 🕵️";if(q.type==="tf")return "קרא את המשפט לאט, מילה אחרי מילה";return "קרא שוב את השאלה לאט. מה בדיוק שואלים?"}
+ return null;
+}
+function showHint(){
+ const q=ST.qs[ST.k];const h=hintFor(q,ST.hintShown);
+ if(!h){$("bub").className="bubble hint";$("bub").textContent="נגמרו לי הרמזים 🙈 אפשר לבקש עזרה מאמא";$("revBtn").classList.add("pop");return}
+ ST.hintShown++;$("bub").className="bubble hint pop";$("bub").textContent="💡 "+h;$("bud").textContent="🤔";
+ if(KID.easy)speak(h,isEn(h)?"en":"he");
+}
+$("hintBtn").onclick=showHint;
+
+async function check(ok,btn,val){
+ const q=ST.qs[ST.k];
+ if(ok){
+  if(btn)btn.classList.add("ok","pop");
+  play("ok");const first=ST.tries===0&&!ST.revealed;if(first){ST.first++;ST.coins+=10}else if(!ST.revealed)ST.coins+=3;
+  $("bud").textContent="🥳";$("bub").className="bubble pop";$("bub").textContent=pick(PRAISE)+(q.explain?" "+q.explain:"");
+  confetti(40);
+  $("ans").querySelectorAll("button,input").forEach(e=>e.disabled=true);
+  await sleep(q.explain?2300:1300);
+  ST.k++;if(ST.k<ST.qs.length)showQ();else finishStage();
+ }else{
+  ST.tries++;ST.wrong++;play("bad");
+  if(btn)btn.classList.add("bad","shake");else{$("inp").classList.add("shake");setTimeout(()=>{const i=$("inp");if(i){i.classList.remove("shake");i.select()}},500)}
+  $("bud").textContent="🦉";
+  const fb=q.wrong&&q.wrong[val];
+  if(fb){$("bub").className="bubble hint shake";$("bub").textContent="💡 "+fb}
+  else if(hintFor(q,ST.hintShown)){showHint();$("bub").textContent=pick(TRY)+"\n"+$("bub").textContent}
+  else{$("bub").className="bubble shake";$("bub").textContent=pick(TRY)}
+  if(ST.tries>=3){$("revBtn").classList.add("pop");$("bub").textContent+="\n(אפשר לקרוא לאמא שתעזור 🔒)"}
+ }
+}
+
+/* ===== גילוי תשובה עם סיסמה ===== */
+async function askPass(title){
+ return new Promise(res=>{
+  $("sheet").innerHTML=`<h3>🔒 ${esc(title)}</h3><p class="small">רק אמא או אבא יודעים את הסיסמה</p><input id="pw" type="password" inputmode="numeric" autocomplete="off"><div class="err" id="pe"></div><button class="big" id="pok">אישור</button><button class="big sec" id="pno">ביטול</button>`;
+  $("modal").hidden=false;setTimeout(()=>$("pw").focus(),100);
+  const done=v=>{$("modal").hidden=true;res(v)};
+  $("pno").onclick=()=>done(false);
+  const go=async()=>{const h=await sha($("pw").value);const want=FAM.pass||await sha(DEFAULT_PASS);if(h===want)done(true);else{$("pe").textContent="סיסמה לא נכונה";$("pw").value=""}};
+  $("pok").onclick=go;$("pw").onkeydown=e=>{if(e.key==="Enter")go()};
+ });
+}
+$("revBtn").onclick=async()=>{
+ if(!await askPass("גילוי התשובה"))return;
+ const q=ST.qs[ST.k];ST.revealed=true;gProg(GAME.id).reveals++;
+ const ans=q.type==="tf"?((q.answer===true||q.answer==="true"||q.answer==="נכון")?"נכון":"לא נכון"):[].concat(q.answer)[0];
+ $("rev").hidden=false;$("rev").innerHTML="התשובה: <span style='font-size:22px'>"+esc(ans)+"</span>"+(q.explain?"<br><span style='font-weight:500'>"+esc(q.explain)+"</span>":"")+(q.parent?"<br><span class='small'>להורים: "+esc(q.parent)+"</span>":"")+"<br><span class='small'>עכשיו תסבירו לו למה, והוא יענה בעצמו 🙂</span>";
+};
+
+/* ===== סיום שלב ===== */
+async function finishStage(){
+ const n=ST.qs.length;const stars=ST.wrong===0?3:ST.wrong<=Math.ceil(n/3)?2:1;
+ const gp=gProg(GAME.id);gp.stages[ST.i]=Math.max(gp.stages[ST.i]||0,stars);gp.wrong+=ST.wrong;gp.last=new Date().toISOString().slice(0,10);
+ const before=Math.floor(PROG.coins/50);const bonus=stars*5;PROG.coins+=ST.coins+bonus;const after=Math.floor(PROG.coins/50);
+ saveProg(KID.id,PROG);
+ show("sWin");setCoins();play("over");fanfare();confetti(160);setTimeout(()=>confetti(100),900);
+ $("wDance").textContent=pick(["🦉","💃","🕺","🐒","🦖","🤖","🐧"]);
+ $("wTitle").textContent=pick(["כל הכבוד "+KID.name+"!","ניצחת! 🎉","איזה אלוף!","שלב הושלם!"]);
+ $("wStars").innerHTML=[0,1,2].map(i=>`<span style="animation-delay:${.3+i*.25}s">${i<stars?"⭐":"☆"}</span>`).join("");
+ let sub="הרווחת 🪙 "+(ST.coins+bonus)+" מטבעות";if(after>before)sub+="\nופתחת מדבקה חדשה: "+STICKERS.slice(before,after).join(" ");
+ $("wSub").textContent=sub;$("wSub").style.whiteSpace="pre-line";
+ const j=pick(JOKES);$("wJoke").innerHTML=`<b>😂 בדיחה בשבילך:</b>${esc(j[0])}<br><button class="link" style="margin:6px auto 0;padding:6px" id="jk">גלה את התשובה</button>`;
+ $("jk").onclick=()=>{$("jk").outerHTML=`<div style="font-weight:700;margin-top:6px" class="pop">${esc(j[1])}</div>`};
+ const last=ST.i>=GAME.stages.length-1;
+ $("wNext").textContent=last?"🏆 סיימת את כל השלבים! חזרה לשיעורים":"לשלב הבא ←";
+ $("wNext").onclick=()=>last?openHome():startStage(ST.i+1);
+ $("wMap").onclick=openMap;
+}
+
+/* ===== אזור הורים ===== */
+$("parentBtn").onclick=async()=>{if(await askPass("אזור הורים"))parentPanel()};
+async function parentPanel(){
+ const progs={};for(const k of FAM.kids)progs[k.id]=await getProg(k.id);
+ $("sheet").innerHTML=`<h3>👨‍👩‍👧‍👦 אזור הורים</h3>
+ <div id="kidsEd">${FAM.kids.map((k,i)=>{const p=progs[k.id];const gs=Object.entries(p.games||{});
+  return `<div class="kidrow"><div class="row"><span style="font-size:30px">${k.av}</span><b style="flex:1">${esc(k.name)} · כיתה ${esc(k.grade)}׳${k.easy?" · קריאה בקול":""}</b><button class="link" style="margin:0;padding:6px" data-ed="${i}">עריכה</button></div>
+  <div class="small">🪙 ${p.coins} מטבעות · ${gs.length} משחקים${gs.length?"<br>"+gs.map(([g,v])=>{const m=CAT.find(c=>c.id===g);return esc(m?m.title:g)+": "+Object.keys(v.stages).length+" שלבים, "+v.wrong+" טעויות, "+v.reveals+" גילויים"}).join("<br>"):""}</div></div>`}).join("")}</div>
+ <button class="big sec" id="addKid">➕ הוספת ילד</button>
+ <h3 style="margin-top:18px">🔑 החלפת סיסמה</h3><input id="np" type="password" inputmode="numeric" placeholder="סיסמה חדשה"><button class="big sec" id="setp">שמירת סיסמה</button>
+ <p class="small">${fsdb?"✅ מחובר למסד הנתונים – ההתקדמות נשמרת בכל הטלפונים":"⚠️ אין חיבור למסד הנתונים – ההתקדמות נשמרת רק בטלפון הזה"}</p>
+ <button class="big" id="pclose">סגירה</button>`;
+ $("modal").hidden=false;
+ $("pclose").onclick=()=>{$("modal").hidden=true;openKids()};
+ $("setp").onclick=async()=>{const v=$("np").value.trim();if(v.length<3){toast("לפחות 3 תווים");return}FAM.pass=await sha(v);await saveFamily(FAM);toast("הסיסמה עודכנה ✅");$("np").value=""};
+ $("addKid").onclick=()=>editKid(-1);
+ $("sheet").querySelectorAll("[data-ed]").forEach(b=>b.onclick=()=>editKid(+b.dataset.ed));
+}
+function editKid(i){
+ const k=i>=0?Object.assign({},FAM.kids[i]):{id:"k"+Date.now(),name:"",grade:"א",av:"🐼",easy:false};
+ $("sheet").innerHTML=`<h3>${i>=0?"עריכת ילד":"ילד חדש"}</h3>
+ <input id="kn" placeholder="שם" value="${esc(k.name)}">
+ <select id="kg">${GRADES.map(g=>`<option ${g===k.grade?"selected":""}>${g}</option>`).join("")}</select>
+ <div class="avs" id="kav">${AVATARS.map(a=>`<button class="${a===k.av?"on":""}">${a}</button>`).join("")}</div>
+ <label class="row" style="margin:10px 0"><input type="checkbox" id="ke" style="width:24px;height:24px" ${k.easy?"checked":""}> הקראת שאלות בקול ופחות תשובות לבחירה</label>
+ <button class="big" id="ksave">שמירה</button>${i>=0?'<button class="big sec" id="kdel" style="color:var(--bad)">מחיקה</button>':""}<button class="big sec" id="kback">חזרה</button>`;
+ $("kav").querySelectorAll("button").forEach(b=>b.onclick=()=>{k.av=b.textContent;$("kav").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b))});
+ $("ksave").onclick=async()=>{k.name=$("kn").value.trim();if(!k.name){toast("צריך שם");return}k.grade=$("kg").value;k.easy=$("ke").checked;if(i>=0)FAM.kids[i]=k;else FAM.kids.push(k);await saveFamily(FAM);parentPanel()};
+ if(i>=0)$("kdel").onclick=async()=>{if(!confirm("למחוק את "+k.name+"?"))return;FAM.kids.splice(i,1);await saveFamily(FAM);parentPanel()};
+ $("kback").onclick=parentPanel;
+}
+
+/* ===== התחלה ===== */
+(async()=>{
+ setMusicBtn();
+ $("kidList").innerHTML='<div class="empty" style="grid-column:1/-1">טוען...</div>';
+ await Promise.all([initDb(),loadCatalog()]);
+ FAM=await getFamily();
+ openKids();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{"title":"Demo: Colors & Animals","subject":"english","lang":"en","intro":"לחצו על 🔊 כדי לשמוע את המילים באנגלית","stages":[
+ {"name":"Colors","questions":[
+  {"type":"choice","q":"☀️ What color is the sun?","options":["yellow","blue","green","black"],"answer":"yellow","hints":["תחשוב על בננה 🍌 – היא באותו צבע","המילה מתחילה באות Y"]},
+  {"type":"choice","q":"🍎 The apple is ___","say":"The apple is","options":["red","purple","white","gray"],"answer":"red","hints":["כמו עגבנייה 🍅","מתחיל ב-r"]},
+  {"type":"choice","q":"מה זה כחול באנגלית?","lang":"he","options":["blue","brown","pink","orange"],"answer":"blue","hints":["כמו השמיים ביום בהיר","b - l - ..."]},
+  {"type":"input","q":"🌿 Write the color of grass","answer":"green","hints":["מתחיל באות g","g _ _ _ n"]}
+ ]},
+ {"name":"Animals","questions":[
+  {"type":"choice","q":"🐶 This is a ___","say":"This is a","options":["dog","cat","cow","fish"],"answer":"dog","hints":["הוא עושה הב-הב","מתחיל ב-d"]},
+  {"type":"choice","q":"🐱 This is a ___","say":"This is a","options":["cat","dog","bird","lion"],"answer":"cat","hints":["הוא עושה מיאו","מתחיל ב-c"]},
+  {"type":"choice","q":"Which animal can fly?","options":["bird","fish","cow","dog"],"answer":"bird","hints":["למי יש כנפיים? 🪽"]},
+  {"type":"input","q":"🐟 f _ s h","say":"fish","answer":"fish","hints":["חסרה אות אחת, שנשמעת כמו 'אִ'","האות i"]},
+  {"type":"tf","q":"🐄 A cow says: Moo!","answer":true,"hints":["איזה קול עושה פרה?"]}
+ ]}
+]}
