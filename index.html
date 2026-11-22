@@ -1189,15 +1189,15 @@ const LB={db:null,top:[],best:{},q:{},busy:{},local:false};
 const key=n=>"n"+[...new TextEncoder().encode(n.trim())].map(b=>b.toString(16).padStart(2,"0")).join("");
 function lbLocalLoad(){try{return JSON.parse(localStorage.getItem("ab_lb")||"{}")}catch(e){return{}}}
 function lbLocalSave(m){try{localStorage.setItem("ab_lb",JSON.stringify(m))}catch(e){}}
-function lbRender(){const ol=$("lbl");ol.innerHTML="";const md=["🥇","🥈","🥉"];
+function lbRender(){const ol=$("lbl");ol.innerHTML="";const md=["🥇","🥈","🥉","4","5"];
  if(!LB.top.length){const li=document.createElement("li");li.className="empty";li.textContent="עדיין אין שיאים. היה הראשון!";ol.appendChild(li);return}
  const mine=new Set(P.map(p=>p.name));
- LB.top.slice(0,3).forEach((e,i)=>{const li=document.createElement("li");if(mine.has(e.name))li.className="me";
+ LB.top.slice(0,5).forEach((e,i)=>{const li=document.createElement("li");if(mine.has(e.name))li.className="me";
   const a=document.createElement("span");a.className="md";a.textContent=md[i];
   const b=document.createElement("span");b.className="nm";b.textContent=e.name;
   const c=document.createElement("span");c.className="pt";c.textContent=Number(e.best).toLocaleString("he-IL");
   li.append(a,b,c);ol.appendChild(li)})}
-function setTop(list){const prev=LB.top.map(e=>e.name);LB.top=list.filter(e=>e&&typeof e.name==="string"&&typeof e.best==="number").sort((a,b)=>b.best-a.best).slice(0,3);lbRender();
+function setTop(list){const prev=LB.top.map(e=>e.name);LB.top=list.filter(e=>e&&typeof e.name==="string"&&typeof e.best==="number").sort((a,b)=>b.best-a.best).slice(0,5);lbRender();
  P.forEach(p=>{const i=LB.top.findIndex(e=>e.name===p.name),j=prev.indexOf(p.name);if(i>=0&&(j<0||i<j)&&LB.armed)toast(p.name+" עלה למקום "+(i+1)+"!")})}
 function toast(t){const el=$("toast");el.textContent=t;el.hidden=false;clearTimeout(el._t);el._t=setTimeout(()=>el.hidden=true,2600)}
 function useLocal(){LB.local=true;$("lbst").textContent="במכשיר הזה";const m=lbLocalLoad();LB.best=Object.assign({},m);setTop(Object.entries(m).map(([name,best])=>({name,best})))}
@@ -1205,7 +1205,7 @@ async function lbInit(){
  const db=await getDb();
  if(!db){useLocal();return}
  LB.db=db;const t=setTimeout(()=>{if(!LB.got)$("lbst").textContent="לא מתעדכן"},10000);
- db.collection("scores").orderBy("best","desc").limit(3).onSnapshot(s=>{LB.got=true;clearTimeout(t);$("lbst").textContent="";setTop(s.docs.map(d=>d.data()))},e=>{clearTimeout(t);useLocal()})}
+ db.collection("scores").orderBy("best","desc").limit(5).onSnapshot(s=>{LB.got=true;clearTimeout(t);$("lbst").textContent="";setTop(s.docs.map(d=>d.data()))},e=>{clearTimeout(t);useLocal()})}
 async function knownBest(name){if(name in LB.best)return LB.best[name];
  if(LB.db&&!LB.local){try{const d=await LB.db.doc("scores/"+key(name)).get();LB.best[name]=d.exists&&typeof d.data().best==="number"?d.data().best:0}catch(e){LB.best[name]=0}}else LB.best[name]=LB.best[name]||0;return LB.best[name]}
 async function report(name,score){const b=await knownBest(name);if(score<=b)return;LB.best[name]=score;
