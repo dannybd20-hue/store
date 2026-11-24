@@ -111,6 +111,9 @@ section[hidden],[hidden]{display:none!important}
 .pad button{height:64px;border-radius:18px;background:#F3F0FF;border:2px solid var(--line);font-size:28px;font-weight:800;box-shadow:0 3px 0 var(--line)}
 .pad button:active{transform:translateY(2px)}.pad .go{background:var(--ok);color:#fff;border-color:var(--ok)}
 .pdots{display:flex;justify-content:center;gap:14px;margin:12px 0 4px;direction:ltr}.pdots i{width:22px;height:22px;border-radius:50%;border:3px solid var(--brand)}.pdots i.f{background:var(--brand)}
+#menu{position:fixed;top:calc(64px + env(safe-area-inset-top,0));left:10px;z-index:45;background:var(--card);border-radius:18px;box-shadow:0 10px 30px rgba(30,15,90,.25);border:2px solid var(--line);overflow:hidden;min-width:230px}
+#menu button{display:block;width:100%;text-align:right;padding:15px 18px;font-size:18px;font-weight:700;border-bottom:1px solid var(--line)}#menu button:last-child{border:0}
+.steps{text-align:right;padding-inline-start:22px;line-height:1.9;font-size:18px}
 .toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;z-index:60}
 </style>
 </head>
@@ -121,7 +124,9 @@ section[hidden],[hidden]{display:none!important}
   <h1 id="ttl">עזרה בשיעורי בית<br><span style="font-weight:500;font-size:15px;opacity:.9">משפחת בן דוד</span></h1>
   <span class="pill" id="coins" hidden>🪙 0</span>
   <button class="ib" id="mus" aria-label="מוזיקה">🎵</button>
+  <button class="ib" id="menuBtn" aria-label="תפריט" style="font-size:26px;font-weight:800">⋮</button>
 </header>
+<div id="menu" hidden><button id="instBtn">📲 התקן על הטלפון</button><button id="shareBtn">🔗 שליחת קישור לאפליקציה</button><button id="reloadBtn">🔄 רענון</button></div>
 <main>
   <!-- בחירת ילד -->
   <section id="sKids">
@@ -522,6 +527,32 @@ function editKid(i){
  if(i>=0)$("kdel").onclick=async()=>{if(!confirm("למחוק את "+k.name+"?"))return;FAM.kids.splice(i,1);await saveFamily(FAM);parentPanel()};
  $("kback").onclick=parentPanel;
 }
+
+/* ===== התקנה על הטלפון ===== */
+let installEvt=null;
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();installEvt=e});
+addEventListener("appinstalled",()=>{installEvt=null;toast("האפליקציה הותקנה! 🎉")});
+const isStandalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+$("menuBtn").onclick=e=>{e.stopPropagation();$("menu").hidden=!$("menu").hidden};
+document.addEventListener("click",e=>{if(!$("menu").contains(e.target))$("menu").hidden=true});
+$("reloadBtn").onclick=()=>location.reload();
+$("shareBtn").onclick=async()=>{$("menu").hidden=true;const url=location.href.split("#")[0].split("?")[0];
+ try{if(navigator.share){await navigator.share({title:"עזרה בשיעורי בית",url});return}}catch(e){return}
+ try{await navigator.clipboard.writeText(url);toast("הקישור הועתק 📋")}catch(e){prompt("הקישור:",url)}};
+$("instBtn").onclick=async()=>{
+ $("menu").hidden=true;
+ if(isStandalone()){toast("האפליקציה כבר מותקנת ✅");return}
+ if(installEvt){installEvt.prompt();const r=await installEvt.userChoice;installEvt=null;if(r.outcome!=="accepted")toast("ההתקנה בוטלה");return}
+ const ua=navigator.userAgent,ios=/iPhone|iPad|iPod/.test(ua)||(/Mac/.test(ua)&&navigator.maxTouchPoints>1);
+ const inApp=/FBAN|FBAV|Instagram|WhatsApp|Line\//.test(ua);
+ let body;
+ if(inApp)body=`<p>פתחת את הקישור מתוך אפליקציה אחרת (למשל וואטסאפ). צריך קודם לפתוח אותו בדפדפן:</p><ol class="steps"><li>לחצו על ⋮ או על סמל השיתוף למעלה</li><li>בחרו <b>פתח בדפדפן</b> (Chrome או Safari)</li><li>שם לחצו שוב ⋮ ← <b>התקן על הטלפון</b></li></ol>`;
+ else if(ios)body=`<p>באייפון ההתקנה נעשית דרך Safari:</p><ol class="steps"><li>לחצו על כפתור השיתוף <b>⬆️</b> בתחתית המסך</li><li>גללו ובחרו <b>הוסף למסך הבית</b> ➕</li><li>לחצו <b>הוסף</b></li></ol>`;
+ else body=`<p>אפשר להתקין דרך תפריט הדפדפן:</p><ol class="steps"><li>לחצו על <b>⋮</b> בפינה העליונה של Chrome</li><li>בחרו <b>התקן אפליקציה</b> או <b>הוסף למסך הבית</b></li><li>אשרו <b>התקן</b></li></ol><p class="small">אם זה לא מופיע, חכו כמה שניות אחרי שהדף נטען ונסו שוב את הכפתור.</p>`;
+ $("sheet").innerHTML=`<div style="text-align:center"><img src="icon-192.png" width="72" height="72" style="border-radius:16px" alt=""><h3 style="margin:8px 0">📲 התקנה על הטלפון</h3></div>${body}<button class="big" id="iok">הבנתי</button>`;
+ $("modal").hidden=false;$("iok").onclick=()=>$("modal").hidden=true;
+};
 
 /* ===== התחלה ===== */
 (async()=>{
