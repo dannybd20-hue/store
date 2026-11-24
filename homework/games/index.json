@@ -1,4 +1,67 @@
-{"games":[
- {"id":"demo-math","title":"דוגמה: חשבון עד 20","subject":"math","grade":"*","stages":3,"date":"2026-11-18","demo":true},
- {"id":"demo-english","title":"Demo: Colors & Animals","subject":"english","grade":"*","stages":2,"date":"2026-11-18","demo":true}
-]}
+{
+ "games": [
+  {
+   "id": "mendi-math-1",
+   "title": "חשבון לכיתה א׳: חיבור וחיסור עד 20",
+   "subject": "math",
+   "grade": "א",
+   "kids": [
+    "mendi"
+   ],
+   "stages": 3,
+   "date": "2026-11-24"
+  },
+  {
+   "id": "mina-math-4",
+   "title": "חשבון לכיתה ד׳: כפל, חילוק ובעיות מילוליות",
+   "subject": "math",
+   "grade": "ד",
+   "kids": [
+    "mina"
+   ],
+   "stages": 3,
+   "date": "2026-11-24"
+  },
+  {
+   "id": "zevi-english-6",
+   "title": "English: Grammar & Vocabulary (Grade 6)",
+   "subject": "english",
+   "grade": "ו",
+   "kids": [
+    "zevi"
+   ],
+   "stages": 3,
+   "date": "2026-11-24"
+  },
+  {
+   "id": "levi-alefbet",
+   "title": "האלף־בית: להכיר את האותיות",
+   "subject": "hebrew",
+   "grade": "א",
+   "kids": [
+    "levi",
+    "לוי"
+   ],
+   "stages": 3,
+   "date": "2026-11-24"
+  },
+  {
+   "id": "demo-math",
+   "title": "דוגמה: חשבון עד 20",
+   "subject": "math",
+   "grade": "*",
+   "stages": 3,
+   "date": "2026-11-18",
+   "demo": true
+  },
+  {
+   "id": "demo-english",
+   "title": "Demo: Colors & Animals",
+   "subject": "english",
+   "grade": "*",
+   "stages": 2,
+   "date": "2026-11-18",
+   "demo": true
+  }
+ ]
+}

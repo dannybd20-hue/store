@@ -1,0 +1,255 @@
+{
+ "title": "English: Grammar & Vocabulary (Grade 6)",
+ "subject": "english",
+ "lang": "en",
+ "intro": "דקדוק ואוצר מילים. לחצו על 🔊 כדי לשמוע",
+ "stages": [
+  {
+   "name": "Grammar",
+   "questions": [
+    {
+     "type": "choice",
+     "q": "🏫 My brother ___ to school every day.",
+     "options": [
+      "goes",
+      "go",
+      "going",
+      "gone"
+     ],
+     "answer": "goes",
+     "hints": [
+      "he/she/it מוסיפים s לפועל",
+      "המילה מתחילה ב-g ומסתיימת ב-s"
+     ],
+     "say": "My brother blank to school every day."
+    },
+    {
+     "type": "choice",
+     "q": "They ___ playing football now.",
+     "options": [
+      "are",
+      "is",
+      "am",
+      "be"
+     ],
+     "answer": "are",
+     "hints": [
+      "they הולך עם...",
+      "are / is / am"
+     ],
+     "say": "They blank playing football now."
+    },
+    {
+     "type": "choice",
+     "q": "Yesterday I ___ a new book.",
+     "options": [
+      "bought",
+      "buy",
+      "buyed",
+      "buying"
+     ],
+     "answer": "bought",
+     "hints": [
+      "זמן עבר של buy הוא לא סדיר",
+      "b _ u _ _ t"
+     ],
+     "say": "Yesterday I blank a new book."
+    },
+    {
+     "type": "input",
+     "q": "Write the past of: go",
+     "answer": "went",
+     "hints": [
+      "זה פועל לא סדיר",
+      "מתחיל ב-w"
+     ]
+    },
+    {
+     "type": "tf",
+     "q": "She don't like pizza.",
+     "answer": false,
+     "hints": [
+      "she מקבל doesn't"
+     ],
+     "explain": "She doesn't like pizza."
+    },
+    {
+     "type": "input",
+     "q": "I have two ___ (child)",
+     "say": "I have two child",
+     "answer": "children",
+     "hints": [
+      "הרבים של child לא סדיר – לא מוסיפים s",
+      "c h i l d _ _ _ (מוסיפים 3 אותיות)"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Vocabulary",
+   "questions": [
+    {
+     "type": "choice",
+     "q": "What is the opposite of 'big'?",
+     "options": [
+      "small",
+      "tall",
+      "long",
+      "fast"
+     ],
+     "answer": "small",
+     "hints": [
+      "ההפך מגדול",
+      "s _ _ _ _"
+     ]
+    },
+    {
+     "type": "choice",
+     "q": "מה זה 'library' בעברית?",
+     "options": [
+      "ספרייה",
+      "מעבדה",
+      "מסעדה",
+      "חנות"
+     ],
+     "answer": "ספרייה",
+     "hints": [
+      "שם מקום שבו יש ספרים 📚"
+     ],
+     "lang": "he"
+    },
+    {
+     "type": "choice",
+     "q": "A person who teaches is a ___",
+     "options": [
+      "teacher",
+      "doctor",
+      "driver",
+      "farmer"
+     ],
+     "answer": "teacher",
+     "hints": [
+      "הוא עובד בבית ספר"
+     ]
+    },
+    {
+     "type": "input",
+     "q": "Write in English: שבוע (7 days)",
+     "lang": "he",
+     "answer": "week",
+     "hints": [
+      "w _ _ k",
+      "יש שתי e"
+     ]
+    },
+    {
+     "type": "choice",
+     "q": "Which word is a fruit?",
+     "options": [
+      "banana",
+      "carrot",
+      "bread",
+      "cheese"
+     ],
+     "answer": "banana",
+     "hints": [
+      "פרי צהוב 🍌"
+     ]
+    },
+    {
+     "type": "input",
+     "q": "The sun rises in the e _ s t",
+     "say": "The sun rises in the east",
+     "answer": "east",
+     "hints": [
+      "כיוון: מזרח",
+      "e _ s t"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Mixed",
+   "questions": [
+    {
+     "type": "choice",
+     "q": "Choose the correct sentence:",
+     "options": [
+      "She is taller than me.",
+      "She is more tall than me.",
+      "She is tallest than me.",
+      "She tall than me."
+     ],
+     "answer": "She is taller than me.",
+     "hints": [
+      "השוואה: מוסיפים er לשם תואר קצר"
+     ]
+    },
+    {
+     "type": "choice",
+     "q": "I'm hungry ___ I didn't eat breakfast.",
+     "options": [
+      "because",
+      "but",
+      "or",
+      "so"
+     ],
+     "answer": "because",
+     "hints": [
+      "המילה מסבירה את הסיבה",
+      "b _ _ _ _ _ e"
+     ],
+     "say": "I'm hungry blank I didn't eat breakfast."
+    },
+    {
+     "type": "choice",
+     "q": "___ is your name?",
+     "options": [
+      "What",
+      "Where",
+      "When",
+      "Who"
+     ],
+     "answer": "What",
+     "hints": [
+      "שואלים על השם"
+     ],
+     "say": "blank is your name?"
+    },
+    {
+     "type": "choice",
+     "q": "There ___ many students in the class.",
+     "options": [
+      "are",
+      "is",
+      "am",
+      "be"
+     ],
+     "answer": "are",
+     "hints": [
+      "many = הרבה, רבים"
+     ],
+     "say": "There blank many students in the class."
+    },
+    {
+     "type": "input",
+     "q": "Write the opposite: always →",
+     "say": "always, the opposite",
+     "answer": "never",
+     "hints": [
+      "n _ _ _ r"
+     ]
+    },
+    {
+     "type": "tf",
+     "q": "'Yesterday' is a word for the future.",
+     "answer": false,
+     "hints": [
+      "yesterday = אתמול"
+     ],
+     "explain": "Yesterday is the past."
+    }
+   ]
+  }
+ ]
+}
